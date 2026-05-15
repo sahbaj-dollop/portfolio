@@ -45,7 +45,7 @@ const Footer = () => {
               ${darkMode ? 'text-gray-400' : 'text-gray-600'}
             `}
           >
-            © 2024 All rights reserved.
+            © 2025 All rights reserved.
           </p>
         </div>
 

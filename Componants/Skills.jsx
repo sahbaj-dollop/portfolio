@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md"
 import { FaTools } from "react-icons/fa"
 import { GrStorage } from "react-icons/gr"
@@ -27,6 +28,7 @@ const Skills = () => {
 
   const tools = [
     { name: 'VS Code', level: 100 },
+    {name:'Antigravity, Curser, Claude',level:100},
     { name: 'Git & GitHub', level: 70 },
     { name: 'Postman', level: 95 },
     { name: 'Thunder Client', level: 75 },
@@ -40,6 +42,33 @@ const Skills = () => {
   const textMuted = darkMode ? 'text-gray-400' : 'text-gray-600'
   const barBg = darkMode ? 'bg-gray-700' : 'bg-gray-200'
 
+  const SkillBar = ({ skill, index }) => (
+    <motion.li
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      <div className="flex justify-between mb-1">
+        <span className="font-medium text-sm md:text-base">
+          {skill.name}
+        </span>
+        <span className={`${textMuted} text-sm`}>
+          {skill.level}%
+        </span>
+      </div>
+      <div className={`w-full rounded-full h-2 ${barBg} overflow-hidden`}>
+        <motion.div
+          className="bg-blue-600 h-2 rounded-full"
+          initial={{ width: 0 }}
+          whileInView={{ width: `${skill.level}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: index * 0.1, ease: "easeOut" }}
+        />
+      </div>
+    </motion.li>
+  )
+
   return (
     <div
       id="skills"
@@ -50,20 +79,33 @@ const Skills = () => {
       `}
     >
       {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className={`font-bold text-2xl text-white md:text-3xl mb-3 ${textMuted}`}>
+      <motion.div 
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <h1 className={`font-bold text-2xl md:text-3xl mb-3 ${textMuted}`}>
           Skills & Expertise
         </h1>
         <p className={`text-base md:text-xl ${textMuted}`}>
           Here are the technologies and tools I work with to bring ideas to life
         </p>
-      </div>
+      </motion.div>
 
       {/* Skill Cards */}
       <div className="flex flex-col lg:flex-row gap-8 justify-center items-stretch">
 
         {/* Frontend */}
-        <div className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto ${cardStyle}`}>
+        <motion.div 
+          className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto ${cardStyle}`}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          whileHover={{ y: -5, transition: { duration: 0.3 } }}
+        >
           <h1 className="flex items-center gap-2 mb-6">
             <span className="flex items-center text-blue-600">
               <MdArrowBackIosNew size={18} />
@@ -74,28 +116,20 @@ const Skills = () => {
 
           <ul className="space-y-4">
             {frontend.map((skill, index) => (
-              <li key={index}>
-                <div className="flex justify-between mb-1">
-                  <span className="font-medium text-sm md:text-base">
-                    {skill.name}
-                  </span>
-                  <span className={`${textMuted} text-sm`}>
-                    {skill.level}%
-                  </span>
-                </div>
-                <div className={`w-full rounded-full h-2 ${barBg}`}>
-                  <div
-                    className="bg-blue-600 h-2 rounded-full"
-                    style={{ width: `${skill.level}%` }}
-                  />
-                </div>
-              </li>
+              <SkillBar key={index} skill={skill} index={index} />
             ))}
           </ul>
-        </div>
+        </motion.div>
 
         {/* Backend */}
-        <div className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto ${cardStyle}`}>
+        <motion.div 
+          className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto ${cardStyle}`}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          whileHover={{ y: -5, transition: { duration: 0.3 } }}
+        >
           <h1 className="flex items-center gap-2 mb-6">
             <GrStorage className="text-blue-600" size={20} />
             <span className="text-lg md:text-xl font-bold">Backend</span>
@@ -103,28 +137,20 @@ const Skills = () => {
 
           <ul className="space-y-4">
             {backend.map((skill, index) => (
-              <li key={index}>
-                <div className="flex justify-between mb-1">
-                  <span className="font-medium text-sm md:text-base">
-                    {skill.name}
-                  </span>
-                  <span className={`${textMuted} text-sm`}>
-                    {skill.level}%
-                  </span>
-                </div>
-                <div className={`w-full rounded-full h-2 ${barBg}`}>
-                  <div
-                    className="bg-blue-600 h-2 rounded-full"
-                    style={{ width: `${skill.level}%` }}
-                  />
-                </div>
-              </li>
+              <SkillBar key={index} skill={skill} index={index} />
             ))}
           </ul>
-        </div>
+        </motion.div>
 
         {/* Tools */}
-        <div className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto ${cardStyle}`}>
+        <motion.div 
+          className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto ${cardStyle}`}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          whileHover={{ y: -5, transition: { duration: 0.3 } }}
+        >
           <h1 className="flex items-center gap-2 mb-6">
             <FaTools className="text-blue-600" size={20} />
             <span className="text-lg md:text-xl font-bold">Tools & Others</span>
@@ -132,25 +158,10 @@ const Skills = () => {
 
           <ul className="space-y-4">
             {tools.map((skill, index) => (
-              <li key={index}>
-                <div className="flex justify-between mb-1">
-                  <span className="font-medium text-sm md:text-base">
-                    {skill.name}
-                  </span>
-                  <span className={`${textMuted} text-sm`}>
-                    {skill.level}%
-                  </span>
-                </div>
-                <div className={`w-full rounded-full h-2 ${barBg}`}>
-                  <div
-                    className="bg-blue-600 h-2 rounded-full"
-                    style={{ width: `${skill.level}%` }}
-                  />
-                </div>
-              </li>
+              <SkillBar key={index} skill={skill} index={index} />
             ))}
           </ul>
-        </div>
+        </motion.div>
 
       </div>
     </div>
