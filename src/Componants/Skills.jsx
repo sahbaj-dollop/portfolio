@@ -94,15 +94,17 @@ const Skills = () => {
 
         {/* Frontend */}
         <motion.div 
-          className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto ${cardStyle}`}
+          className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto transition-all duration-300 ${
+            darkMode ? 'bg-black border border-neutral-800 text-white hover:border-[#F54900]/60 hover:shadow-[0_0_25px_rgba(245,73,0,0.25)]' : 'bg-white border border-orange-100 text-black hover:border-orange-300 hover:shadow-[0_0_25px_rgba(245,73,0,0.15)] shadow-md'
+          }`}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          whileHover={{ y: -5, transition: { duration: 0.3 } }}
+          whileHover={{ y: -6 }}
         >
           <h1 className="flex items-center gap-2.5 mb-6">
-            <Code2 className="text-orange-500 w-6 h-6" />
+            <Code2 className="text-[#F54900] w-6 h-6" />
             <span className="text-lg md:text-xl font-bold">Frontend</span>
           </h1>
 
@@ -115,16 +117,18 @@ const Skills = () => {
 
         {/* Backend */}
         <motion.div 
-          className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto ${cardStyle}`}
+          className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto transition-all duration-300 ${
+            darkMode ? 'bg-black border border-neutral-800 text-white hover:border-[#F54900]/60 hover:shadow-[0_0_25px_rgba(245,73,0,0.25)]' : 'bg-white border border-orange-100 text-black hover:border-orange-300 hover:shadow-[0_0_25px_rgba(245,73,0,0.15)] shadow-md'
+          }`}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          whileHover={{ y: -5, transition: { duration: 0.3 } }}
+          whileHover={{ y: -6 }}
         >
           <h1 className="flex items-center gap-2.5 mb-6">
-            <Database className="text-orange-500 w-6 h-6" />
-            <span className="text-lg md:text-xl font-bold">Backend</span>
+            <Database className="text-[#F54900] w-6 h-6" />
+            <span className="text-lg md:text-xl font-bold">Backend & DB</span>
           </h1>
 
           <ul className="space-y-4">
@@ -136,16 +140,18 @@ const Skills = () => {
 
         {/* Tools */}
         <motion.div 
-          className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto ${cardStyle}`}
+          className={`p-6 rounded-xl shadow-lg w-full max-w-md mx-auto transition-all duration-300 ${
+            darkMode ? 'bg-black border border-neutral-800 text-white hover:border-[#F54900]/60 hover:shadow-[0_0_25px_rgba(245,73,0,0.25)]' : 'bg-white border border-orange-100 text-black hover:border-orange-300 hover:shadow-[0_0_25px_rgba(245,73,0,0.15)] shadow-md'
+          }`}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          whileHover={{ y: -5, transition: { duration: 0.3 } }}
+          whileHover={{ y: -6 }}
         >
           <h1 className="flex items-center gap-2.5 mb-6">
-            <Wrench className="text-orange-500 w-6 h-6" />
-            <span className="text-lg md:text-xl font-bold">Tools & Others</span>
+            <Wrench className="text-[#F54900] w-6 h-6" />
+            <span className="text-lg md:text-xl font-bold">Tools & Practices</span>
           </h1>
 
           <ul className="space-y-4">

@@ -6,7 +6,8 @@ import {
   ArrowRight, 
   FileDown, 
   Eye, 
-  X, 
+  X,
+  ChevronDown, 
   Code2, 
   Terminal, 
   Cpu, 
@@ -99,11 +100,11 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              Hi, I'm <span className="gradient-text">Sahbaj Khan</span> 👋
+              Hi, I'm <span className="gradient-text">Sahbaj Khan</span> 
             </motion.h1>
 
             <motion.p
-              className="text-xl md:text-2xl font-semibold text-orange-500 mb-6"
+              className="text-xl md:text-2xl font-semibold text-[#F54900] mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
@@ -120,9 +121,9 @@ const Home = () => {
               I architect high-performance, full-stack web applications combining sleek modern UI design, scalable backend REST APIs, and intuitive user experiences built on React, Next.js, Node.js, and MongoDB.
             </motion.p>
 
-            {/* Buttons */}
+            {/* Action Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row flex-wrap gap-3 mb-10 justify-center md:justify-start w-full"
+              className="flex flex-col sm:flex-row items-center gap-4 mb-10 justify-center md:justify-start w-full"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
@@ -130,12 +131,12 @@ const Home = () => {
               {/* Primary Hire Me Button */}
               <motion.button
                 onClick={scrollToContact}
-                className="group relative px-6 py-3.5 bg-orange-600 text-white font-semibold rounded-xl flex items-center justify-center gap-2 overflow-hidden glow-orange text-sm md:text-base w-full sm:w-auto"
+                className="group relative px-7 py-3.5 bg-orange-600 text-white font-semibold rounded-xl flex items-center justify-center gap-2 overflow-hidden glow-orange text-sm md:text-base w-full sm:w-auto whitespace-nowrap"
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.96 }}
               >
                 <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-600"
+                  className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500"
                   initial={{ x: "-100%" }}
                   whileHover={{ x: 0 }}
                   transition={{ duration: 0.3 }}
@@ -145,33 +146,19 @@ const Home = () => {
                 <ArrowRight className="w-4 h-4 md:w-5 md:h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
               </motion.button>
 
-              {/* Secondary Buttons Row on Mobile */}
-              <div className="flex gap-2.5 w-full sm:w-auto">
-                <motion.button
-                  onClick={() => setShowResumeModal(true)}
-                  className={`flex-1 sm:flex-none px-4 md:px-5 py-3 md:py-3.5 border-2 border-orange-500 font-semibold rounded-xl flex items-center justify-center gap-2 text-xs md:text-sm transition-all duration-300 ${
-                    darkMode ? "text-orange-400 hover:bg-orange-500/10" : "text-orange-600 hover:bg-orange-50"
-                  }`}
-                  whileHover={{ scale: 1.04, y: -2 }}
-                  whileTap={{ scale: 0.96 }}
-                >
-                  <Eye className="w-4 h-4" />
-                  <span>Preview Resume</span>
-                </motion.button>
-
-                <motion.a
-                  href="/sahbajkhan.pdf"
-                  download
-                  className="flex-1 sm:flex-none"
-                  whileHover={{ scale: 1.04, y: -2 }}
-                  whileTap={{ scale: 0.96 }}
-                >
-                  <button className="w-full px-4 md:px-5 py-3 md:py-3.5 bg-neutral-900 border border-neutral-700 text-white font-semibold rounded-xl flex items-center justify-center gap-2 text-xs md:text-sm transition-all duration-300 hover:border-orange-500">
-                    <FileDown className="w-4 h-4 text-orange-400" />
-                    <span>Download</span>
-                  </button>
-                </motion.a>
-              </div>
+              {/* Download Resume Button */}
+              <motion.a
+                href="/sahbajkhan.pdf"
+                download
+                className="w-full sm:w-auto"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+              >
+                <button className="w-full px-7 py-3.5 bg-neutral-900 border border-neutral-700 text-white font-semibold rounded-xl flex items-center justify-center gap-2 text-sm whitespace-nowrap transition-all duration-300 hover:border-[#F54900]">
+                  <FileDown className="w-4 h-4 text-[#F54900]" />
+                  <span>Download Resume</span>
+                </button>
+              </motion.a>
             </motion.div>
 
             {/* Social Icons */}
@@ -242,7 +229,6 @@ const Home = () => {
                   onLoad={() => setImgLoaded(true)}
                   loading="eager"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </motion.div>
             </div>
           </motion.div>
@@ -250,60 +236,16 @@ const Home = () => {
         </div>
       </div>
 
-      {/* ── Resume Modal Overlay ── */}
-      <AnimatePresence>
-        {showResumeModal && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setShowResumeModal(false)}
-          >
-            <motion.div
-              className={`relative w-full max-w-4xl h-[85vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col ${
-                darkMode ? "bg-neutral-900 border border-neutral-800" : "bg-white border border-orange-200"
-              }`}
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between p-4 px-6 border-b border-orange-500/20 bg-black/40">
-                <div className="flex items-center gap-3">
-                  <FileDown className="text-orange-500 w-6 h-6" />
-                  <h2 className="font-bold text-lg text-white">Sahbaj Khan — Official Resume</h2>
-                </div>
-                <div className="flex items-center gap-3">
-                  <a
-                    href="/sahbajkhan.pdf"
-                    download
-                    className="px-4 py-1.5 text-xs font-semibold bg-orange-600 hover:bg-orange-500 text-white rounded-lg transition"
-                  >
-                    Download PDF
-                  </a>
-                  <button
-                    onClick={() => setShowResumeModal(false)}
-                    className="p-1.5 rounded-full hover:bg-neutral-800 text-gray-300 hover:text-white transition"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-              </div>
-
-              {/* PDF View */}
-              <div className="flex-1 w-full h-full bg-neutral-950">
-                <iframe
-                  src="/sahbajkhan.pdf"
-                  title="Sahbaj Khan Resume"
-                  className="w-full h-full border-none"
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* ── Bouncing Scroll Indicator ── */}
+      <motion.button
+        onClick={() => document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" })}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 p-2 rounded-full text-orange-400 hover:text-orange-300 transition-colors hidden sm:flex items-center justify-center cursor-pointer"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        aria-label="Scroll down to About section"
+      >
+        <ChevronDown className="w-7 h-7 text-[#F54900]" />
+      </motion.button>
     </div>
   );
 };

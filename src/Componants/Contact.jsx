@@ -3,19 +3,13 @@ import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import toast from 'react-hot-toast'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
-import { Mail, Phone, MapPin, Send } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, Copy, Check } from 'lucide-react'
 import { useTheme } from '../Context/ThemeContext'
 
 // ─── EmailJS Config ───────────────────────────────────────────────
-// 1. Go to https://www.emailjs.com and sign up (free)
-// 2. Add an Email Service (Gmail) → copy the Service ID
-// 3. Create an Email Template → copy the Template ID
-//    Template variables to use: {{from_name}}, {{from_email}}, {{subject}}, {{message}}
-// 4. Go to Account → API Keys → copy the Public Key
-// Then replace the three values below:
-const EMAILJS_SERVICE_ID  = 'service_pqys3l4'   // e.g. 'service_abc123'
-const EMAILJS_TEMPLATE_ID = 'template_ivqfebh'  // e.g. 'template_xyz456'
-const EMAILJS_PUBLIC_KEY  = 'TFhG4n1krSdGa7qJS'   // e.g. 'abcDEFghiJKL'
+const EMAILJS_SERVICE_ID  = 'service_pqys3l4'
+const EMAILJS_TEMPLATE_ID = 'template_ivqfebh'
+const EMAILJS_PUBLIC_KEY  = 'TFhG4n1krSdGa7qJS'
 // ─────────────────────────────────────────────────────────────────
 
 const Contact = () => {
@@ -28,6 +22,21 @@ const Contact = () => {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [copiedEmail, setCopiedEmail] = useState(false)
+  const [copiedPhone, setCopiedPhone] = useState(false)
+
+  const copyToClipboard = (text, type) => {
+    navigator.clipboard.writeText(text)
+    if (type === 'email') {
+      setCopiedEmail(true)
+      toast.success('Email copied to clipboard! 📋')
+      setTimeout(() => setCopiedEmail(false), 2000)
+    } else {
+      setCopiedPhone(true)
+      toast.success('Phone number copied to clipboard! 📋')
+      setTimeout(() => setCopiedPhone(false), 2000)
+    }
+  }
 
    const socialLinks = [
       {
@@ -136,48 +145,66 @@ const Contact = () => {
               <div className="space-y-4 mb-8">
                 {/* Email */}
                 <motion.div 
-                  className={`flex items-start gap-4 p-4 rounded-xl ${cardBg}`}
+                  className={`flex items-center justify-between gap-4 p-4 rounded-xl ${cardBg}`}
                   whileHover={{ scale: 1.02, x: 5 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="p-3 bg-orange-100 rounded-lg">
-                    <Mail className="text-orange-600 w-5 h-5" />
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-orange-500/10 rounded-lg text-orange-500">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Email</h3>
+                      <a
+                        href="mailto:sahbajkhan6593@gmail.com"
+                        className={`${mutedText} hover:text-orange-500 text-sm`}
+                      >
+                        sahbajkhan6593@gmail.com
+                      </a>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Typically replies within 24 hours
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Email</h3>
-                    <a
-                      href="mailto:sahbajkhan6593@gmail.com"
-                      className={`${mutedText} hover:text-orange-500`}
-                    >
-                      sahbajkhan6593@gmail.com
-                    </a>
-                    <p className="text-xs text-gray-500 mt-1">
-                      Typically replies within 24 hours
-                    </p>
-                  </div>
+                  <button
+                    onClick={() => copyToClipboard('sahbajkhan6593@gmail.com', 'email')}
+                    className="p-2 rounded-lg bg-neutral-800/60 hover:bg-orange-500/20 text-gray-400 hover:text-orange-400 transition"
+                    title="Copy Email"
+                  >
+                    {copiedEmail ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                  </button>
                 </motion.div>
 
                 {/* Phone */}
                 <motion.div 
-                  className={`flex items-start gap-4 p-4 rounded-xl ${cardBg}`}
+                  className={`flex items-center justify-between gap-4 p-4 rounded-xl ${cardBg}`}
                   whileHover={{ scale: 1.02, x: 5 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="p-3 bg-amber-100 rounded-lg">
-                    <Phone className="text-amber-600 w-5 h-5" />
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-amber-500/10 rounded-lg text-amber-500">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Phone</h3>
+                      <a
+                        href="tel:+916265666859"
+                        className={`${mutedText} hover:text-amber-500 text-sm`}
+                      >
+                        +91 6265666859
+                      </a>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Mon–Fri, 9am–6pm
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Phone</h3>
-                    <a
-                      href="tel:+916265666859"
-                      className={`${mutedText} hover:text-amber-500`}
-                    >
-                      +91 6265666859
-                    </a>
-                    <p className="text-xs text-gray-500 mt-1">
-                      Mon–Fri, 9am–6pm
-                    </p>
-                  </div>
+                  <button
+                    onClick={() => copyToClipboard('+916265666859', 'phone')}
+                    className="p-2 rounded-lg bg-neutral-800/60 hover:bg-amber-500/20 text-gray-400 hover:text-amber-400 transition"
+                    title="Copy Phone Number"
+                  >
+                    {copiedPhone ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                  </button>
                 </motion.div>
 
                 {/* Location */}
