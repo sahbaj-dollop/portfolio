@@ -9,7 +9,7 @@ export const ThemeProvider = ({ children }) => {
     if (savedTheme !== null) {
       return JSON.parse(savedTheme);
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return false; // Default theme is Light Mode
   });
 
   useEffect(() => {
