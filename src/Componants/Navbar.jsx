@@ -66,7 +66,7 @@ const Navbar = () => {
 
           {/* Logo */}
           <motion.div
-            className="text-xl md:text-2xl font-bold gradient-text cursor-default flex items-center gap-2"
+            className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-[#3B4371] via-[#8c5667] to-[#F3904F] dark:from-[#7d8adb] dark:via-[#f6a772] dark:to-[#F3904F] bg-clip-text text-transparent cursor-default flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
             onMouseEnter={() => playHoverSound(soundEnabled)}
           >

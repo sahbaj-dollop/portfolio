@@ -10,7 +10,7 @@ export const ThemeProvider = ({ children }) => {
     if (savedTheme !== null) {
       return JSON.parse(savedTheme);
     }
-    return false; // Default theme is Light Mode
+    return true; // Default theme is Dark Mode
   });
 
   const [recruiterMode, setRecruiterMode] = useState(() => {

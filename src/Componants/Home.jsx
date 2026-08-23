@@ -46,13 +46,60 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
 
-  const [showResumeModal, setShowResumeModal] = useState(false);
+  const [showDirectContactModal, setShowDirectContactModal] = useState(false);
 
   useEffect(() => { setLoaded(true); }, []);
 
   const scrollToContact = () => {
     playClickSound(soundEnabled);
-    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setShowDirectContactModal(false);
+    const el = document.querySelector("#contact");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        const nameInput = document.getElementById("contact-form-name");
+        if (nameInput) {
+          nameInput.focus();
+        }
+      }, 700);
+    }
+  };
+
+  const handleDirectContactClick = () => {
+    playClickSound(soundEnabled);
+    setShowDirectContactModal(true);
+  };
+
+  const titleWords = [
+    { text: "Hi,", gradient: false },
+    { text: "I'm", gradient: false },
+    { text: "Sahbaj", gradient: true },
+    { text: "Khan", gradient: true },
+  ];
+
+  const wordContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.18,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const wordVariants = {
+    hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        type: "spring",
+        damping: 14,
+        stiffness: 110,
+      },
+    },
   };
 
   const socialLinks = [
@@ -125,13 +172,16 @@ const Home = () => {
                     <FileDown className="w-4 h-4" />
                     Download Resume PDF
                   </a>
-                  <button
-                    onClick={scrollToContact}
-                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer"
+                  <a
+                    href="https://wa.me/916265666859?text=Hi%20Sahbaj,%20I%20reviewed%20your%20portfolio%20and%20would%20like%20to%20connect%20with%20you%20regarding%20an%20opportunity!"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playClickSound(soundEnabled)}
+                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md"
                   >
                     <Mail className="w-4 h-4 text-[#F3904F]" />
                     Direct Contact
-                  </button>
+                  </a>
                 </div>
               </div>
             </motion.div>
@@ -150,12 +200,26 @@ const Home = () => {
             <AvailableBadge darkMode={darkMode} />
 
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight flex flex-wrap items-center gap-x-3 justify-center md:justify-start"
+              variants={wordContainerVariants}
+              initial="hidden"
+              animate="visible"
             >
-              Hi, I'm <span className="gradient-text">Sahbaj Khan</span> 
+              {titleWords.map((word, idx) => (
+                <motion.span
+                  key={idx}
+                  variants={wordVariants}
+                  className={
+                    word.gradient
+                      ? "bg-gradient-to-r from-[#3B4371] via-[#8c5667] to-[#F3904F] dark:from-[#7d8adb] dark:via-[#f6a772] dark:to-[#F3904F] bg-clip-text text-transparent font-extrabold inline-block"
+                      : darkMode
+                      ? "text-white font-extrabold inline-block"
+                      : "text-gray-900 font-extrabold inline-block"
+                  }
+                >
+                  {word.text}
+                </motion.span>
+              ))}
             </motion.h1>
 
             <motion.p
@@ -293,6 +357,93 @@ const Home = () => {
 
         </div>
       </div>
+
+      {/* ── Direct Contact Quick Action Modal ── */}
+      <AnimatePresence>
+        {showDirectContactModal && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowDirectContactModal(false)}
+          >
+            <motion.div
+              className={`relative w-full max-w-md p-6 rounded-3xl shadow-2xl border ${
+                darkMode ? "bg-[#0b0e1b] border-[#3B4371] text-white" : "bg-white border-[#F3904F]/30 text-gray-900"
+              }`}
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#F3904F]/20">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-xl bg-[#F3904F]/20 text-[#F3904F]">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-lg">Direct Executive Contact</h3>
+                    <p className="text-xs text-gray-400">Get in touch with Sahbaj Khan instantly</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowDirectContactModal(false)}
+                  className="p-1.5 rounded-full hover:bg-gray-800 text-gray-400 hover:text-white transition cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="space-y-3 my-4">
+                <a
+                  href="mailto:sahbajkhan6593@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded-2xl bg-[#3B4371]/20 hover:bg-[#F3904F]/20 border border-[#F3904F]/30 flex items-center justify-between gap-3 text-sm font-bold text-[#F3904F] transition group cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Mail className="w-4 h-4 text-[#F3904F]" />
+                    <span>Email: sahbajkhan6593@gmail.com</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+
+                <a
+                  href="tel:+916265666859"
+                  className="p-3.5 rounded-2xl bg-[#3B4371]/20 hover:bg-[#F3904F]/20 border border-[#F3904F]/30 flex items-center justify-between gap-3 text-sm font-bold text-[#F3904F] transition group cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Globe className="w-4 h-4 text-[#F3904F]" />
+                    <span>Call: +91 6265666859</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+
+                <a
+                  href="https://wa.me/916265666859?text=Hi%20Sahbaj,%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20connect!"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3.5 rounded-2xl bg-green-500/15 hover:bg-green-500/25 border border-green-500/40 flex items-center justify-between gap-3 text-sm font-bold text-green-400 transition group cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse" />
+                    <span>WhatsApp Direct Chat</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+
+              <button
+                onClick={scrollToContact}
+                className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#3B4371] to-[#F3904F] text-white font-extrabold text-sm hover:opacity-95 transition shadow-lg shadow-[#F3904F]/20 cursor-pointer"
+              >
+                Or Fill Full Contact Form
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Bouncing Scroll Indicator ── */}
       <motion.button

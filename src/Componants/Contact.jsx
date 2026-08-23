@@ -273,12 +273,13 @@ const Contact = () => {
                       Your Name *
                     </label>
                     <input
+                      id="contact-form-name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
                       className={`w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#F3904F] outline-none ${inputBg}`}
-                      placeholder="Sahbaj Khan"
+                      placeholder="Your Name"
                     />
                   </div>
 
