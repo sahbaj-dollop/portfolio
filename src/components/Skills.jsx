@@ -82,9 +82,9 @@ const Skills = () => {
     { name: 'Vercel & Netlify', level: 85 },
   ]
 
-  const glassCard = darkMode ? 'glass-3d-dark border-slate-800/80 text-white' : 'glass-3d border-white/20 text-black'
+  const glassCard = darkMode ? 'glass-3d-dark border-[#3B4371]/60 text-white' : 'glass-3d border-[#F3904F]/20 text-black'
   const textMuted = darkMode ? 'text-gray-400' : 'text-gray-600'
-  const barBg = darkMode ? 'bg-slate-950/40 border border-slate-900/30' : 'bg-gray-150 border border-gray-200/50'
+  const barBg = darkMode ? 'bg-[#0f1226] border border-[#3B4371]/40' : 'bg-[#F3904F]/10 border border-[#F3904F]/20'
 
   const SkillBar = ({ skill, index, barColor }) => (
     <motion.li
@@ -98,7 +98,7 @@ const Skills = () => {
         <span className="font-bold text-sm md:text-base tracking-wide">
           {skill.name}
         </span>
-        <span className="text-orange-400 text-xs md:text-sm font-bold">
+        <span className="text-[#F3904F] text-xs md:text-sm font-bold">
           {skill.level}%
         </span>
       </div>
@@ -119,27 +119,27 @@ const Skills = () => {
       id="skills"
       className={`py-20 px-4 md:px-8 lg:px-16 transition-colors duration-300 section-blob-bg relative overflow-hidden
         ${darkMode
-          ? 'bg-black text-white'
-          : 'bg-gradient-to-r from-orange-50/50 via-white to-amber-50/50 text-black'}
+          ? 'bg-[#0b0e1b] text-white'
+          : 'bg-gradient-to-r from-[#3B4371]/10 via-white to-[#F3904F]/10 text-black'}
       `}
     >
       {/* Background Blobs */}
-      <div className="absolute top-1/4 right-10 w-[320px] h-[320px] rounded-full bg-orange-500/5 dark:bg-orange-600/5 blob-float" />
-      <div className="absolute bottom-1/4 left-10 w-[320px] h-[320px] rounded-full bg-amber-500/5 dark:bg-amber-600/5 blob-float-slow" />
+      <div className="absolute top-1/4 right-10 w-[320px] h-[320px] rounded-full bg-[#F3904F]/10 dark:bg-[#3B4371]/20 blob-float" />
+      <div className="absolute bottom-1/4 left-10 w-[320px] h-[320px] rounded-full bg-[#3B4371]/15 dark:bg-[#F3904F]/10 blob-float-slow" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center max-w-3xl mx-auto mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="font-extrabold text-3xl md:text-5xl mb-4 tracking-tight">
+          <h2 className={`font-extrabold text-3xl md:text-5xl mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Skills & <span className="gradient-text">Expertise</span>
-          </h1>
-          <span className="block h-1 w-24 mx-auto rounded-full bg-orange-500 mb-6"></span>
+          </h2>
+          <span className="block h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-[#3B4371] to-[#F3904F] mb-6"></span>
           <p className={`text-base md:text-xl max-w-2xl mx-auto ${textMuted}`}>
             Here are the technologies and tools I work with to bring ideas to life
           </p>
@@ -152,7 +152,7 @@ const Skills = () => {
           <TiltCard3D className={`p-8 rounded-3xl shadow-xl border h-full flex flex-col justify-between ${glassCard}`}>
             <div>
               <h2 className="flex items-center gap-2.5 mb-8">
-                <Code2 className="text-orange-500 w-6 h-6" />
+                <Code2 className="text-[#F3904F] w-6 h-6" />
                 <span className="text-xl md:text-2xl font-extrabold tracking-tight">Frontend</span>
               </h2>
 
@@ -162,7 +162,7 @@ const Skills = () => {
                     key={index}
                     skill={skill}
                     index={index}
-                    barColor="bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 shadow-[0_0_8px_rgba(249,115,22,0.5)]"
+                    barColor="bg-gradient-to-r from-[#3B4371] via-[#8c5667] to-[#F3904F] shadow-[0_0_8px_rgba(243,144,79,0.5)]"
                   />
                 ))}
               </ul>
@@ -173,7 +173,7 @@ const Skills = () => {
           <TiltCard3D className={`p-8 rounded-3xl shadow-xl border h-full flex flex-col justify-between ${glassCard}`}>
             <div>
               <h2 className="flex items-center gap-2.5 mb-8">
-                <Database className="text-orange-500 w-6 h-6" />
+                <Database className="text-[#F3904F] w-6 h-6" />
                 <span className="text-xl md:text-2xl font-extrabold tracking-tight">Backend</span>
               </h2>
 
@@ -183,7 +183,7 @@ const Skills = () => {
                     key={index}
                     skill={skill}
                     index={index}
-                    barColor="bg-gradient-to-r from-orange-600 via-amber-500 to-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.5)]"
+                    barColor="bg-gradient-to-r from-[#F3904F] via-[#8c5667] to-[#3B4371] shadow-[0_0_8px_rgba(243,144,79,0.5)]"
                   />
                 ))}
               </ul>
@@ -194,7 +194,7 @@ const Skills = () => {
           <TiltCard3D className={`p-8 rounded-3xl shadow-xl border h-full flex flex-col justify-between ${glassCard}`}>
             <div>
               <h2 className="flex items-center gap-2.5 mb-8">
-                <Wrench className="text-orange-500 w-6 h-6" />
+                <Wrench className="text-[#F3904F] w-6 h-6" />
                 <span className="text-xl md:text-2xl font-extrabold tracking-tight">Tools & Others</span>
               </h2>
 
@@ -204,7 +204,7 @@ const Skills = () => {
                     key={index}
                     skill={skill}
                     index={index}
-                    barColor="bg-gradient-to-r from-amber-600 via-orange-500 to-orange-600 shadow-[0_0_8px_rgba(249,115,22,0.5)]"
+                    barColor="bg-gradient-to-r from-[#3B4371] to-[#F3904F] shadow-[0_0_8px_rgba(243,144,79,0.5)]"
                   />
                 ))}
               </ul>

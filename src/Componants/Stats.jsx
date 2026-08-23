@@ -38,12 +38,12 @@ const Stats = () => {
   ]
 
   const containerBg = darkMode
-    ? 'bg-black border-y border-orange-500/10 text-white'
-    : 'bg-gradient-to-r from-orange-50/50 via-white to-amber-50/50 border-y border-orange-200 text-black'
+    ? 'bg-[#0b0e1b] border-y border-[#3B4371]/30 text-white'
+    : 'bg-gradient-to-r from-[#3B4371]/10 via-white to-[#F3904F]/10 border-y border-[#F3904F]/20 text-black'
 
   const cardStyle = darkMode
-    ? 'glass-dark border border-orange-500/20 hover:border-orange-500/50 text-white shadow-lg shadow-orange-500/5'
-    : 'glass-card border border-orange-300/40 hover:border-orange-400 text-gray-900 shadow-md'
+    ? 'glass-dark border border-[#3B4371]/40 hover:border-[#F3904F]/50 text-white shadow-lg shadow-[#F3904F]/5'
+    : 'glass-card border border-[#F3904F]/30 hover:border-[#F3904F] text-gray-900 shadow-md'
 
   return (
     <div className={`py-12 px-4 md:px-8 lg:px-16 transition-colors duration-500 ${containerBg}`}>
@@ -60,7 +60,7 @@ const Stats = () => {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               whileHover={{ y: -6, scale: 1.03 }}
             >
-              <div className="p-3 rounded-xl bg-orange-500/15 text-orange-400 border border-orange-500/20 mb-3">
+              <div className="p-3 rounded-xl bg-[#F3904F]/15 text-[#F3904F] border border-[#F3904F]/30 mb-3">
                 <Icon className="w-6 h-6" />
               </div>
               <h3 className="text-3xl md:text-4xl font-extrabold gradient-text tracking-tight mb-1">

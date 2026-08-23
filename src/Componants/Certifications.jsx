@@ -44,10 +44,10 @@ const Certifications = () => {
   ]
 
   const cardStyle = darkMode
-    ? 'bg-neutral-900 border border-neutral-800 text-white'
-    : 'bg-white border border-orange-100 text-gray-800'
+    ? 'bg-[#0f1226] border border-[#3B4371]/40 text-white hover:border-[#F3904F]/50'
+    : 'bg-white border border-[#F3904F]/20 text-gray-800 hover:border-[#F3904F]/50 shadow-md'
 
-  const sectionBg = darkMode ? 'bg-black text-white' : 'bg-white text-black'
+  const sectionBg = darkMode ? 'bg-[#0b0e1b] text-white' : 'bg-gradient-to-b from-[#3B4371]/5 via-white to-transparent text-black'
 
   return (
     <section id="certifications" className={`py-16 px-4 md:px-8 lg:px-16 transition-colors duration-300 ${sectionBg}`}>
@@ -56,16 +56,16 @@ const Certifications = () => {
         {/* Header */}
         <motion.div
           className="text-center max-w-3xl mx-auto mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="font-bold text-3xl md:text-4xl mb-4">
-            Certifications & Highlights
-            <span className="block h-1 w-24 mx-auto mt-3 rounded-full bg-orange-500"></span>
-          </h1>
-          <p className={`mt-4 text-base md:text-xl ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <h2 className={`font-extrabold text-3xl md:text-5xl mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            Certifications & <span className="gradient-text">Highlights</span>
+          </h2>
+          <span className="block h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-[#3B4371] to-[#F3904F] mb-6" />
+          <p className={`text-base md:text-xl max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             Professional credentials and key milestones in my software engineering career
           </p>
         </motion.div>
@@ -77,7 +77,7 @@ const Certifications = () => {
             return (
               <motion.div
                 key={item.id}
-                className={`p-6 md:p-8 rounded-2xl shadow-lg relative flex flex-col justify-between hover:border-orange-500/50 transition-all duration-300 ${cardStyle}`}
+                className={`p-6 md:p-8 rounded-2xl shadow-lg relative flex flex-col justify-between transition-all duration-300 ${cardStyle}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -86,16 +86,16 @@ const Certifications = () => {
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-3 rounded-xl bg-orange-500/10 text-orange-500">
+                    <div className="p-3 rounded-xl bg-[#F3904F]/15 text-[#F3904F]">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">
+                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#F3904F]/15 text-[#F3904F] border border-[#F3904F]/30">
                       {item.badge}
                     </span>
                   </div>
 
                   <h3 className="font-bold text-xl mb-2">{item.title}</h3>
-                  <p className="text-orange-500 font-semibold text-sm mb-1">{item.issuer}</p>
+                  <p className="text-[#F3904F] font-semibold text-sm mb-1">{item.issuer}</p>
                   <p className="text-xs text-gray-400 mb-4">{item.date}</p>
                   <p className={`text-sm leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                     {item.description}
@@ -108,8 +108,8 @@ const Certifications = () => {
 
         {/* Highlights Banner */}
         <motion.div
-          className={`p-8 md:p-10 rounded-3xl border border-orange-500/20 ${
-            darkMode ? 'glass-dark' : 'bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50'
+          className={`p-8 md:p-10 rounded-3xl border border-[#F3904F]/30 ${
+            darkMode ? 'glass-dark' : 'bg-gradient-to-r from-[#3B4371]/10 via-[#F3904F]/10 to-[#3B4371]/10'
           }`}
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -117,14 +117,14 @@ const Certifications = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="flex items-center gap-3 mb-6">
-            <Sparkles className="text-orange-500 w-7 h-7" />
+            <Sparkles className="text-[#F3904F] w-7 h-7" />
             <h2 className="text-2xl font-bold">Why Hire Sahbaj Khan?</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {highlights.map((h, i) => (
               <div key={i} className="flex items-start gap-3">
-                <CheckCircle2 className="text-orange-500 w-5 h-5 shrink-0 mt-0.5" />
+                <CheckCircle2 className="text-[#F3904F] w-5 h-5 shrink-0 mt-0.5" />
                 <p className={`text-sm md:text-base font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {h}
                 </p>

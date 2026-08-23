@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Code, ExternalLink, Search } from 'lucide-react'
+import { Code, ExternalLink, Search, Workflow, Sparkles } from 'lucide-react'
 import student from '../../public/download.webp'
 import Ecommerce from '../../public/image.png'
 import Quizz from '../../public/quiz-app-design.png'
@@ -10,11 +10,14 @@ import blockly from '../../public/image copy 4.png'
 import pschool from '../../public/p-school.jpg'
 import zoho from '../../public/school-management-software-zoho.png'
 import { useTheme } from '../Context/ThemeContext'
+import ArchitectureModal from './ArchitectureModal'
+import { playClickSound, playHoverSound, playModalSound } from '../utils/soundEffects'
 
 const Project = () => {
-  const { darkMode } = useTheme()
+  const { darkMode, recruiterMode, soundEnabled } = useTheme()
   const [activeCategory, setActiveCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedArchitectureProject, setSelectedArchitectureProject] = useState(null)
 
   const projects = [
     {
@@ -25,7 +28,8 @@ const Project = () => {
       technologies: ['React', 'Next.js', 'TypeScript', 'Monaco Editor', 'Tree-sitter', 'Tailwind CSS'],
       codeLink: 'https://github.com/sahbaj-dollop',
       demoLink: '#',
-      image: blockly
+      image: blockly,
+      isTopRecruiterProject: true
     },
     {
       id: 2,
@@ -35,7 +39,8 @@ const Project = () => {
       technologies: ['React', 'Tailwind CSS', 'REST APIs', 'JavaScript'],
       codeLink: 'https://github.com/sahbaj-dollop',
       demoLink: '#',
-      image: pschool
+      image: pschool,
+      isTopRecruiterProject: false
     },
     {
       id: 3,
@@ -45,7 +50,8 @@ const Project = () => {
       technologies: ['React', 'Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'Authentication'],
       codeLink: 'https://github.com/sahbaj-dollop/ecommerce',
       demoLink: 'https://ecommerce-62.vercel.app/',
-      image: Ecommerce
+      image: Ecommerce,
+      isTopRecruiterProject: true
     },
     {
       id: 4,
@@ -55,7 +61,8 @@ const Project = () => {
       technologies: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Vercel', 'Atlas'],
       codeLink: 'https://github.com/sahbaj-dollop/Blog-App',
       demoLink: 'https://blog-app-2fvi.vercel.app/',
-      image: blog
+      image: blog,
+      isTopRecruiterProject: false
     },
     {
       id: 5,
@@ -65,7 +72,8 @@ const Project = () => {
       technologies: ["JavaScript", "OpenWeather API", "HTML & CSS"],
       codeLink: "https://github.com/sahbaj-dollop",
       demoLink: "https://weathernow-62.netlify.app/",
-      image: weather
+      image: weather,
+      isTopRecruiterProject: false
     },
     {
       id: 6,
@@ -75,7 +83,8 @@ const Project = () => {
       technologies: ["Node.js", "Express.js", "MongoDB"],
       codeLink: "https://github.com/sahbaj-dollop",
       demoLink: "https://studentapp-six-kappa.vercel.app/",
-      image: zoho
+      image: zoho,
+      isTopRecruiterProject: false
     },
   ]
 
@@ -91,9 +100,9 @@ const Project = () => {
     return matchesCategory && matchesSearch
   })
 
-  const cardBg = darkMode ? 'bg-neutral-900 border border-neutral-800 text-white' : 'bg-white border border-orange-100 text-gray-800'
+  const cardBg = darkMode ? 'bg-[#0f1226] border border-[#3B4371]/40 text-white' : 'bg-white border border-[#F3904F]/20 text-gray-800'
   const mutedText = darkMode ? 'text-gray-400' : 'text-gray-600'
-  const sectionBg = darkMode ? 'bg-black' : 'bg-orange-50/40'
+  const sectionBg = darkMode ? 'bg-[#0b0e1b]' : 'bg-gradient-to-b from-[#F3904F]/5 via-white to-transparent'
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -124,16 +133,17 @@ const Project = () => {
     >
       {/* Header */}
       <motion.div 
-        className="text-center max-w-3xl mx-auto mb-10"
+        className="text-center max-w-3xl mx-auto mb-12"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h1 className={`font-bold text-3xl md:text-4xl mb-4 ${mutedText}`}>
-          Featured Projects
-        </h1>
-        <p className={`text-base md:text-xl ${mutedText}`}>
+        <h2 className={`font-extrabold text-3xl md:text-5xl mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          Featured <span className="gradient-text">Projects</span>
+        </h2>
+        <span className="block h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-[#3B4371] to-[#F3904F] mb-6" />
+        <p className={`text-base md:text-xl max-w-2xl mx-auto ${mutedText}`}>
           Here are some of my recent projects that showcase my skills and expertise
         </p>
 
@@ -147,8 +157,8 @@ const Project = () => {
             placeholder="Search by tech, keyword (e.g. React, MongoDB)..."
             className={`w-full pl-12 pr-4 py-3 rounded-full text-xs md:text-sm outline-none transition-all ${
               darkMode
-                ? 'bg-neutral-900 border border-neutral-800 text-white focus:border-orange-500'
-                : 'bg-white border border-gray-200 text-gray-800 focus:border-orange-500 shadow-sm'
+                ? 'bg-[#0f1226] border border-[#3B4371]/50 text-white focus:border-[#F3904F]'
+                : 'bg-white border border-gray-200 text-gray-800 focus:border-[#F3904F] shadow-sm'
             }`}
           />
         </div>
@@ -158,13 +168,17 @@ const Project = () => {
           {categories.map((cat, idx) => (
             <button
               key={idx}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300 ${
+              onClick={() => {
+                playClickSound(soundEnabled)
+                setActiveCategory(cat)
+              }}
+              onMouseEnter={() => playHoverSound(soundEnabled)}
+              className={`px-5 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300 cursor-pointer ${
                 activeCategory === cat
-                  ? 'bg-orange-600 text-white shadow-lg shadow-orange-500/30 glow-orange'
+                  ? 'bg-gradient-to-r from-[#3B4371] to-[#F3904F] text-white shadow-lg shadow-[#F3904F]/30 glow-orange'
                   : darkMode
-                  ? 'bg-neutral-900 border border-neutral-800 text-gray-400 hover:text-white hover:border-orange-500/50'
-                  : 'bg-white border border-gray-200 text-gray-600 hover:text-orange-600 hover:border-orange-300'
+                  ? 'bg-[#0f1226] border border-[#3B4371]/40 text-gray-400 hover:text-white hover:border-[#F3904F]/50'
+                  : 'bg-white border border-gray-200 text-gray-600 hover:text-[#F3904F] hover:border-[#F3904F]/40'
               }`}
             >
               {cat}
@@ -185,12 +199,25 @@ const Project = () => {
           {filteredProjects.map(project => (
             <motion.div
               key={project.id}
-              className={`rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 ${cardBg}`}
+              className={`rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 relative ${cardBg} ${
+                recruiterMode && project.isTopRecruiterProject
+                  ? 'ring-2 ring-[#F3904F] shadow-2xl shadow-[#F3904F]/20'
+                  : ''
+              }`}
               variants={itemVariants}
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              onMouseEnter={() => playHoverSound(soundEnabled)}
             >
+              {/* Recruiter Spotlight Badge */}
+              {recruiterMode && project.isTopRecruiterProject && (
+                <div className="absolute top-3 left-3 z-20 px-3 py-1 rounded-full bg-[#F3904F] text-white font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-[#F3904F]/40 animate-pulse">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Recruiter Spotlight ⚡</span>
+                </div>
+              )}
+
               {/* Image */}
-              <div className="h-48 md:h-56 overflow-hidden">
+              <div className="h-48 md:h-56 overflow-hidden relative">
                 <motion.img
                   src={project.image}
                   alt={project.title}
@@ -202,11 +229,16 @@ const Project = () => {
 
               {/* Content */}
               <div className="p-6">
-                <h2 className="text-xl md:text-2xl font-bold mb-3">
-                  {project.title}
-                </h2>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h2 className="text-xl md:text-2xl font-bold">
+                    {project.title}
+                  </h2>
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#3B4371]/20 text-[#F3904F] border border-[#F3904F]/30">
+                    {project.category}
+                  </span>
+                </div>
 
-                <p className={`${mutedText} mb-4`}>
+                <p className={`${mutedText} mb-4 text-sm md:text-base leading-relaxed`}>
                   {project.description}
                 </p>
 
@@ -215,38 +247,54 @@ const Project = () => {
                   {project.technologies.map((tech, index) => (
                     <motion.span
                       key={index}
-                      className="px-3 py-1 bg-orange-500/10 text-orange-500 border border-orange-500/20 text-sm font-medium rounded-full"
+                      className="px-3 py-1 bg-[#3B4371]/15 text-[#F3904F] border border-[#F3904F]/30 text-xs md:text-sm font-medium rounded-full"
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      whileHover={{ scale: 1.1 }}
+                      transition={{ delay: index * 0.08 }}
+                      whileHover={{ scale: 1.08 }}
                     >
                       {tech}
                     </motion.span>
                   ))}
                 </div>
 
-                {/* Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3">
+                {/* Buttons Action Bar */}
+                <div className="flex flex-col sm:flex-row gap-2.5">
+                  <motion.button
+                    onClick={() => {
+                      playModalSound(soundEnabled)
+                      setSelectedArchitectureProject(project.title)
+                    }}
+                    className="flex-1 flex items-center justify-center gap-1.5 text-center px-3.5 py-2.5 bg-[#3B4371]/20 border border-[#F3904F]/40 text-[#F3904F] rounded-lg hover:bg-[#F3904F] hover:text-white transition font-bold text-xs md:text-sm cursor-pointer"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    <Workflow className="w-4 h-4" />
+                    Architecture Flow 🏗️
+                  </motion.button>
+
                   <motion.a
                     href={project.codeLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 text-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-500 transition font-medium glow-orange"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    onClick={() => playClickSound(soundEnabled)}
+                    className="flex-1 flex items-center justify-center gap-1.5 text-center px-3.5 py-2.5 bg-gradient-to-r from-[#3B4371] to-[#F3904F] text-white rounded-lg hover:opacity-95 transition font-bold text-xs md:text-sm shadow-md shadow-[#F3904F]/20"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                   >
                     <Code className="w-4 h-4" />
                     View Code
                   </motion.a>
+
                   <motion.a
                     href={project.demoLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 text-center px-4 py-2 border-2 border-orange-500 text-orange-500 rounded-lg hover:bg-orange-500 hover:text-white transition font-medium"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    onClick={() => playClickSound(soundEnabled)}
+                    className="flex-1 flex items-center justify-center gap-1.5 text-center px-3.5 py-2.5 border border-[#F3904F] text-[#F3904F] rounded-lg hover:bg-[#F3904F] hover:text-white transition font-bold text-xs md:text-sm"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                   >
                     <ExternalLink className="w-4 h-4" />
                     Live Demo
@@ -266,19 +314,29 @@ const Project = () => {
           transition={{ delay: 0.5 }}
         >
           <motion.button
-            onClick={() =>
+            onClick={() => {
+              playClickSound(soundEnabled)
               window.open("https://github.com/sahbaj-dollop", "_blank")
-            }
-            className="px-6 py-3 border-2 border-orange-500 text-orange-500 rounded-lg hover:bg-orange-500 hover:text-white transition font-medium"
+            }}
+            onMouseEnter={() => playHoverSound(soundEnabled)}
+            className="px-6 py-3 border-2 border-[#F3904F] text-[#F3904F] rounded-lg hover:bg-[#F3904F] hover:text-white transition font-semibold cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            View All Projects
+            View All Projects on GitHub
           </motion.button>
         </motion.div>
       </div>
+
+      {/* Architecture Flow Modal */}
+      <ArchitectureModal
+        isOpen={Boolean(selectedArchitectureProject)}
+        onClose={() => setSelectedArchitectureProject(null)}
+        projectTitle={selectedArchitectureProject}
+      />
     </section>
   )
 }
 
 export default Project
+

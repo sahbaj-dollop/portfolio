@@ -114,14 +114,14 @@ const TerminalDrawer = () => {
       {/* Floating Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-34 md:bottom-36 right-6 md:right-8 z-40 p-3.5 md:p-4 rounded-full bg-neutral-900 border border-orange-500/40 text-orange-400 shadow-xl flex items-center justify-center gap-2 group hover:border-orange-500 transition-all duration-300"
+        className="fixed bottom-34 md:bottom-36 right-6 md:right-8 z-40 p-3.5 md:p-4 rounded-full bg-[#0b0e1b] border border-[#F3904F]/40 text-[#F3904F] shadow-xl flex items-center justify-center gap-2 group hover:border-[#F3904F] transition-all duration-300"
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Open CLI Terminal"
       >
-        <Terminal className="w-5 h-5 text-orange-400" />
+        <Terminal className="w-5 h-5 text-[#F3904F]" />
         <span className="hidden md:inline text-xs font-mono font-bold text-white pr-1">
           CLI Terminal
         </span>
@@ -138,20 +138,20 @@ const TerminalDrawer = () => {
             onClick={() => setIsOpen(false)}
           >
             <motion.div
-              className="w-full max-w-2xl h-[420px] rounded-2xl bg-neutral-950 border border-orange-500/30 shadow-2xl flex flex-col overflow-hidden font-mono text-sm"
+              className="w-full max-w-2xl h-[420px] rounded-2xl bg-[#0b0e1b] border border-[#3B4371]/60 shadow-2xl flex flex-col overflow-hidden font-mono text-sm"
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Terminal Window Bar */}
-              <div className="flex items-center justify-between px-4 py-3 bg-neutral-900 border-b border-neutral-800">
+              <div className="flex items-center justify-between px-4 py-3 bg-[#0f1226] border-b border-[#3B4371]/40">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
-                  <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
+                  <span className="w-3 h-3 rounded-full bg-[#F3904F]/80 inline-block" />
                   <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
                   <span className="text-xs text-gray-400 font-semibold ml-2 flex items-center gap-1.5">
-                    <Terminal className="w-3.5 h-3.5 text-orange-400" /> sahbaj@portfolio:~
+                    <Terminal className="w-3.5 h-3.5 text-[#F3904F]" /> sahbaj@portfolio:~
                   </span>
                 </div>
 
@@ -170,7 +170,7 @@ const TerminalDrawer = () => {
                     key={index}
                     className={
                       item.type === 'user'
-                        ? 'text-orange-400 font-bold'
+                        ? 'text-[#F3904F] font-bold'
                         : item.type === 'error'
                         ? 'text-red-400'
                         : item.type === 'system'
@@ -187,9 +187,9 @@ const TerminalDrawer = () => {
               {/* Terminal Command Input Form */}
               <form
                 onSubmit={handleCommand}
-                className="flex items-center gap-2 px-4 py-3 bg-neutral-900/90 border-t border-neutral-800"
+                className="flex items-center gap-2 px-4 py-3 bg-[#0f1226]/90 border-t border-[#3B4371]/40"
               >
-                <span className="text-orange-400 font-bold">&gt;</span>
+                <span className="text-[#F3904F] font-bold">&gt;</span>
                 <input
                   type="text"
                   value={inputVal}

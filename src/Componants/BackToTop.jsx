@@ -35,7 +35,7 @@ const BackToTop = () => {
       {isVisible && (
         <motion.button
           onClick={scrollToTop}
-          className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 md:right-8 z-40 p-3 sm:p-3.5 md:p-4 rounded-full shadow-lg transition-colors duration-300 bg-orange-600 hover:bg-orange-500 text-white glow-orange"
+          className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 md:right-8 z-40 p-3 sm:p-3.5 md:p-4 rounded-full shadow-lg transition-colors duration-300 bg-gradient-to-r from-[#3B4371] to-[#F3904F] hover:opacity-95 text-white glow-orange shadow-[#F3904F]/30"
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}

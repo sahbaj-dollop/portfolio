@@ -13,23 +13,23 @@ const Loader = ({ isLoading }) => {
           {/* Outer ring */}
           <div className="relative flex items-center justify-center mb-8">
             <motion.div
-              className="absolute w-24 h-24 rounded-full border-2 border-orange-500/30"
+              className="absolute w-24 h-24 rounded-full border-2 border-[#3B4371]/50"
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             />
             <motion.div
-              className="absolute w-16 h-16 rounded-full border-2 border-t-orange-500 border-r-amber-500 border-b-transparent border-l-transparent"
+              className="absolute w-16 h-16 rounded-full border-2 border-t-[#F3904F] border-r-[#3B4371] border-b-transparent border-l-transparent"
               animate={{ rotate: -360 }}
               transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
             />
             <motion.div
-              className="absolute w-8 h-8 rounded-full border-2 border-t-orange-400 border-transparent"
+              className="absolute w-8 h-8 rounded-full border-2 border-t-[#F3904F] border-transparent"
               animate={{ rotate: 360 }}
               transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             />
             {/* Center dot */}
             <motion.div
-              className="w-3 h-3 rounded-full bg-orange-500"
+              className="w-3 h-3 rounded-full bg-[#F3904F]"
               animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
             />
@@ -56,7 +56,7 @@ const Loader = ({ isLoading }) => {
             {[0, 1, 2].map(i => (
               <motion.span
                 key={i}
-                className="w-1 h-1 rounded-full bg-orange-400"
+                className="w-1 h-1 rounded-full bg-[#F3904F]"
                 animate={{ opacity: [0, 1, 0], y: [0, -4, 0] }}
                 transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.2 }}
               />
@@ -67,7 +67,7 @@ const Loader = ({ isLoading }) => {
           <motion.div className="mt-8 w-48 h-0.5 bg-neutral-800 rounded-full overflow-hidden">
             <motion.div
               className="h-full rounded-full"
-              style={{ background: 'linear-gradient(90deg, #ff6b00, #f97316, #fb923c)' }}
+              style={{ background: 'linear-gradient(90deg, #3B4371, #8c5667, #F3904F)' }}
               initial={{ width: '0%' }}
               animate={{ width: '100%' }}
               transition={{ duration: 1.8, ease: 'easeInOut' }}
