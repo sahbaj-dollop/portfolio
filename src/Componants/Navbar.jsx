@@ -5,7 +5,7 @@ import { useTheme } from "../Context/ThemeContext";
 import { playClickSound, playHoverSound } from "../utils/soundEffects";
 
 const Navbar = () => {
-  const { darkMode, toggleTheme, recruiterMode, toggleRecruiterMode, soundEnabled, toggleSound } = useTheme();
+  const { darkMode, recruiterMode, toggleRecruiterMode, soundEnabled, toggleSound } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -53,9 +53,9 @@ const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
           ? darkMode
-            ? "glass-dark shadow-lg shadow-[#3B4371]/20 border-b border-[#3B4371]/30"
-            : "glass shadow-lg shadow-[#F3904F]/10 border-b border-[#F3904F]/20"
-          : darkMode ? "bg-[#0b0e1b]/90 backdrop-blur-md" : "bg-white/90 backdrop-blur-md"
+            ? "glass-dark shadow-lg shadow-[#191970]/20 border-b border-[#191970]/30"
+            : "glass shadow-lg shadow-[#2b3154]/10 border-b border-[#2b3154]/20"
+          : darkMode ? "bg-[#0b0e1b]/90 backdrop-blur-md" : "bg-[#F5F5DC]/90 backdrop-blur-md"
       }`}
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -66,7 +66,7 @@ const Navbar = () => {
 
           {/* Logo */}
           <motion.div
-            className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-[#3B4371] via-[#8c5667] to-[#F3904F] dark:from-[#7d8adb] dark:via-[#f6a772] dark:to-[#F3904F] bg-clip-text text-transparent cursor-default flex items-center gap-2"
+            className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-[#191970] via-[#4f5994] to-[#2b3154] dark:from-[#4f5994] dark:via-[#f0e6dd] dark:to-[#2b3154] bg-clip-text text-transparent cursor-default flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
             onMouseEnter={() => playHoverSound(soundEnabled)}
           >
@@ -84,8 +84,8 @@ const Navbar = () => {
                   onMouseEnter={() => playHoverSound(soundEnabled)}
                   className={`relative px-3.5 py-2 rounded-lg font-medium text-sm transition-colors duration-300 ${
                     isActive
-                      ? "text-[#F3904F]"
-                      : darkMode ? "text-gray-300 hover:text-[#F3904F]" : "text-gray-700 hover:text-[#F3904F]"
+                      ? "text-[#2b3154]"
+                      : darkMode ? "text-gray-300 hover:text-[#2b3154]" : "text-[#191970] hover:text-[#2b3154]"
                   }`}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ const Navbar = () => {
                   {isActive && (
                     <motion.span
                       layoutId="activeNav"
-                      className="absolute inset-0 rounded-lg bg-[#F3904F]/15 border border-[#F3904F]/35"
+                      className="absolute inset-0 rounded-lg bg-[#2b3154]/15 border border-[#2b3154]/35"
                       transition={{ type: "spring", bounce: 0.3, duration: 0.5 }}
                     />
                   )}
@@ -117,10 +117,10 @@ const Navbar = () => {
               onMouseEnter={() => playHoverSound(soundEnabled)}
               className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 border cursor-pointer ${
                 recruiterMode
-                  ? "bg-gradient-to-r from-[#3B4371] to-[#F3904F] text-white border-[#F3904F] shadow-lg shadow-[#F3904F]/25 animate-pulse"
+                  ? "bg-gradient-to-r from-[#191970] to-[#2b3154] text-white border-[#2b3154] shadow-lg shadow-[#2b3154]/25 animate-pulse"
                   : darkMode
-                  ? "bg-[#3B4371]/20 text-[#F3904F] border-[#3B4371]/50 hover:bg-[#3B4371]/40"
-                  : "bg-[#F3904F]/10 text-[#F3904F] border-[#F3904F]/30 hover:bg-[#F3904F]/20"
+                  ? "bg-[#191970]/20 text-[#2b3154] border-[#191970]/50 hover:bg-[#191970]/40"
+                  : "bg-[#2b3154]/10 text-[#2b3154] border-[#2b3154]/30 hover:bg-[#2b3154]/20"
               }`}
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
@@ -137,7 +137,7 @@ const Navbar = () => {
               onClick={toggleSound}
               onMouseEnter={() => playHoverSound(soundEnabled)}
               className={`p-2.5 rounded-full transition-all duration-300 ${
-                darkMode ? "glass-dark hover:bg-[#3B4371]/30" : "glass hover:bg-[#F3904F]/10"
+                darkMode ? "glass-dark hover:bg-[#191970]/30" : "glass hover:bg-[#2b3154]/10"
               }`}
               whileHover={{ scale: 1.1, rotate: 10 }}
               whileTap={{ scale: 0.9 }}
@@ -145,34 +145,10 @@ const Navbar = () => {
               title={soundEnabled ? "Mute sound effects" : "Unmute sound effects"}
             >
               {soundEnabled ? (
-                <Volume2 className="w-4 h-4 text-[#F3904F]" />
+                <Volume2 className="w-4 h-4 text-[#2b3154]" />
               ) : (
                 <VolumeX className="w-4 h-4 text-gray-400" />
               )}
-            </motion.button>
-
-            {/* Dark Mode Toggle */}
-            <motion.button
-              onClick={toggleTheme}
-              onMouseEnter={() => playHoverSound(soundEnabled)}
-              className={`p-2.5 rounded-full transition-all duration-300 ${
-                darkMode ? "glass-dark hover:bg-[#3B4371]/30" : "glass hover:bg-[#F3904F]/10"
-              }`}
-              whileHover={{ scale: 1.1, rotate: 15 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Toggle theme"
-            >
-              <AnimatePresence mode="wait">
-                {darkMode ? (
-                  <motion.div key="light" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                    <Sun className="w-4 h-4 text-[#F3904F]" />
-                  </motion.div>
-                ) : (
-                  <motion.div key="dark" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                    <Moon className="w-4 h-4 text-[#3B4371]" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </motion.button>
 
             {/* Hamburger */}
@@ -207,7 +183,7 @@ const Navbar = () => {
           {isOpen && (
             <motion.div
               className={`md:hidden fixed inset-x-0 top-[60px] h-[calc(100vh-60px)] w-full z-50 shadow-2xl ${
-                darkMode ? "bg-[#0b0e1b] text-white border-t border-[#3B4371]/40" : "bg-white text-black border-t border-[#F3904F]/30"
+                darkMode ? "bg-[#0b0e1b] text-white border-t border-[#191970]/40" : "bg-[#F5F5DC] text-[#191970] border-t border-[#2b3154]/30"
               }`}
               style={{ backgroundColor: darkMode ? "#0b0e1b" : "#ffffff" }}
               initial={{ opacity: 0, x: "100%" }}
@@ -221,7 +197,7 @@ const Navbar = () => {
                     key={item.name}
                     onClick={() => scrollToSection(item.href)}
                     className={`text-left py-4 px-6 rounded-xl text-lg font-semibold transition-all ${
-                      darkMode ? "text-gray-200 hover:bg-[#3B4371]/30 hover:text-[#F3904F]" : "text-gray-700 hover:bg-[#F3904F]/10 hover:text-[#F3904F]"
+                      darkMode ? "text-gray-200 hover:bg-[#191970]/30 hover:text-[#2b3154]" : "text-[#191970] hover:bg-[#2b3154]/10 hover:text-[#2b3154]"
                     }`}
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}

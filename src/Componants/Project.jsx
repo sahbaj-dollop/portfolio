@@ -100,9 +100,9 @@ const Project = () => {
     return matchesCategory && matchesSearch
   })
 
-  const cardBg = darkMode ? 'bg-[#0f1226] border border-[#3B4371]/40 text-white' : 'bg-white border border-[#F3904F]/20 text-gray-800'
-  const mutedText = darkMode ? 'text-gray-400' : 'text-gray-600'
-  const sectionBg = darkMode ? 'bg-[#0b0e1b]' : 'bg-gradient-to-b from-[#F3904F]/5 via-white to-transparent'
+  const cardBg = darkMode ? 'bg-[#0f1226] border border-[#191970]/40 text-white' : 'bg-[#F5F5DC] border border-[#2b3154]/20 text-[#191970]'
+  const mutedText = darkMode ? 'text-gray-400' : 'text-[#191970]'
+  const sectionBg = darkMode ? 'bg-[#0b0e1b]' : 'bg-gradient-to-b from-[#2b3154]/5 via-[#F5F5DC] to-transparent'
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -139,10 +139,10 @@ const Project = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className={`font-extrabold text-3xl md:text-5xl mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        <h2 className={`font-extrabold text-3xl md:text-5xl mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-[#191970]'}`}>
           Featured <span className="gradient-text">Projects</span>
         </h2>
-        <span className="block h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-[#3B4371] to-[#F3904F] mb-6" />
+        <span className="block h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-[#191970] to-[#2b3154] mb-6" />
         <p className={`text-base md:text-xl max-w-2xl mx-auto ${mutedText}`}>
           Here are some of my recent projects that showcase my skills and expertise
         </p>
@@ -157,8 +157,8 @@ const Project = () => {
             placeholder="Search by tech, keyword (e.g. React, MongoDB)..."
             className={`w-full pl-12 pr-4 py-3 rounded-full text-xs md:text-sm outline-none transition-all ${
               darkMode
-                ? 'bg-[#0f1226] border border-[#3B4371]/50 text-white focus:border-[#F3904F]'
-                : 'bg-white border border-gray-200 text-gray-800 focus:border-[#F3904F] shadow-sm'
+                ? 'bg-[#0f1226] border border-[#191970]/50 text-white focus:border-[#2b3154]'
+                : 'bg-[#F5F5DC] border border-gray-200 text-[#191970] focus:border-[#2b3154] shadow-sm'
             }`}
           />
         </div>
@@ -175,10 +175,10 @@ const Project = () => {
               onMouseEnter={() => playHoverSound(soundEnabled)}
               className={`px-5 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300 cursor-pointer ${
                 activeCategory === cat
-                  ? 'bg-gradient-to-r from-[#3B4371] to-[#F3904F] text-white shadow-lg shadow-[#F3904F]/30 glow-orange'
+                  ? 'bg-gradient-to-r from-[#191970] to-[#2b3154] text-white shadow-lg shadow-[#2b3154]/30 glow-cream'
                   : darkMode
-                  ? 'bg-[#0f1226] border border-[#3B4371]/40 text-gray-400 hover:text-white hover:border-[#F3904F]/50'
-                  : 'bg-white border border-gray-200 text-gray-600 hover:text-[#F3904F] hover:border-[#F3904F]/40'
+                  ? 'bg-[#0f1226] border border-[#191970]/40 text-gray-400 hover:text-white hover:border-[#2b3154]/50'
+                  : 'bg-[#F5F5DC] border border-gray-200 text-[#191970] hover:text-[#2b3154] hover:border-[#2b3154]/40'
               }`}
             >
               {cat}
@@ -201,7 +201,7 @@ const Project = () => {
               key={project.id}
               className={`rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 relative ${cardBg} ${
                 recruiterMode && project.isTopRecruiterProject
-                  ? 'ring-2 ring-[#F3904F] shadow-2xl shadow-[#F3904F]/20'
+                  ? 'ring-2 ring-[#2b3154] shadow-2xl shadow-[#2b3154]/20'
                   : ''
               }`}
               variants={itemVariants}
@@ -210,7 +210,7 @@ const Project = () => {
             >
               {/* Recruiter Spotlight Badge */}
               {recruiterMode && project.isTopRecruiterProject && (
-                <div className="absolute top-3 left-3 z-20 px-3 py-1 rounded-full bg-[#F3904F] text-white font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-[#F3904F]/40 animate-pulse">
+                <div className="absolute top-3 left-3 z-20 px-3 py-1 rounded-full bg-[#2b3154] text-white font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-[#2b3154]/40 animate-pulse">
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Recruiter Spotlight ⚡</span>
                 </div>
@@ -233,7 +233,7 @@ const Project = () => {
                   <h2 className="text-xl md:text-2xl font-bold">
                     {project.title}
                   </h2>
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#3B4371]/20 text-[#F3904F] border border-[#F3904F]/30">
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#191970]/20 text-[#2b3154] border border-[#2b3154]/30">
                     {project.category}
                   </span>
                 </div>
@@ -247,7 +247,7 @@ const Project = () => {
                   {project.technologies.map((tech, index) => (
                     <motion.span
                       key={index}
-                      className="px-3 py-1 bg-[#3B4371]/15 text-[#F3904F] border border-[#F3904F]/30 text-xs md:text-sm font-medium rounded-full"
+                      className="px-3 py-1 bg-[#191970]/15 text-[#2b3154] border border-[#2b3154]/30 text-xs md:text-sm font-medium rounded-full"
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
@@ -266,7 +266,7 @@ const Project = () => {
                       playModalSound(soundEnabled)
                       setSelectedArchitectureProject(project.title)
                     }}
-                    className="flex-1 flex items-center justify-center gap-1.5 text-center px-3.5 py-2.5 bg-[#3B4371]/20 border border-[#F3904F]/40 text-[#F3904F] rounded-lg hover:bg-[#F3904F] hover:text-white transition font-bold text-xs md:text-sm cursor-pointer"
+                    className="flex-1 flex items-center justify-center gap-1.5 text-center px-3.5 py-2.5 bg-[#191970]/20 border border-[#2b3154]/40 text-[#2b3154] rounded-lg hover:bg-[#2b3154] hover:text-white transition font-bold text-xs md:text-sm cursor-pointer"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                   >
@@ -279,7 +279,7 @@ const Project = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => playClickSound(soundEnabled)}
-                    className="flex-1 flex items-center justify-center gap-1.5 text-center px-3.5 py-2.5 bg-gradient-to-r from-[#3B4371] to-[#F3904F] text-white rounded-lg hover:opacity-95 transition font-bold text-xs md:text-sm shadow-md shadow-[#F3904F]/20"
+                    className="flex-1 flex items-center justify-center gap-1.5 text-center px-3.5 py-2.5 bg-gradient-to-r from-[#191970] to-[#2b3154] text-white rounded-lg hover:opacity-95 transition font-bold text-xs md:text-sm shadow-md shadow-[#2b3154]/20"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                   >
@@ -292,7 +292,7 @@ const Project = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => playClickSound(soundEnabled)}
-                    className="flex-1 flex items-center justify-center gap-1.5 text-center px-3.5 py-2.5 border border-[#F3904F] text-[#F3904F] rounded-lg hover:bg-[#F3904F] hover:text-white transition font-bold text-xs md:text-sm"
+                    className="flex-1 flex items-center justify-center gap-1.5 text-center px-3.5 py-2.5 border border-[#2b3154] text-[#2b3154] rounded-lg hover:bg-[#2b3154] hover:text-white transition font-bold text-xs md:text-sm"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                   >
@@ -319,7 +319,7 @@ const Project = () => {
               window.open("https://github.com/sahbaj-dollop", "_blank")
             }}
             onMouseEnter={() => playHoverSound(soundEnabled)}
-            className="px-6 py-3 border-2 border-[#F3904F] text-[#F3904F] rounded-lg hover:bg-[#F3904F] hover:text-white transition font-semibold cursor-pointer"
+            className="px-6 py-3 border-2 border-[#2b3154] text-[#2b3154] rounded-lg hover:bg-[#2b3154] hover:text-white transition font-semibold cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

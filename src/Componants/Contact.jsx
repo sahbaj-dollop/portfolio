@@ -43,19 +43,19 @@ const Contact = () => {
         icon: <FaGithub />,
         label: 'GitHub',
         href: 'https://github.com/sahbaj-dollop',
-        hover: 'hover:bg-[#3B4371] hover:text-[#F3904F]',
+        hover: 'hover:bg-[#191970] hover:text-[#2b3154]',
       },
       {
         icon: <FaLinkedinIn />,
         label: 'LinkedIn',
         href: 'https://www.linkedin.com/in/sahbaj-khan-24138a338/',
-        hover: 'hover:bg-[#F3904F] hover:text-white',
+        hover: 'hover:bg-[#2b3154] hover:text-white',
       },
       {
         icon: <Mail className="w-5 h-5" />,
         label: 'Email',
         href: 'mailto:sahbajkhan6593@gmail.com',
-        hover: 'hover:bg-gradient-to-r hover:from-[#3B4371] hover:to-[#F3904F] hover:text-white',
+        hover: 'hover:bg-gradient-to-r hover:from-[#191970] hover:to-[#2b3154] hover:text-white',
       },
     ]
 
@@ -101,13 +101,13 @@ const Contact = () => {
     })
   }
 
-  const sectionBg = darkMode ? 'bg-[#0b0e1b] text-white' : 'bg-gradient-to-b from-[#F3904F]/5 via-white to-transparent text-black'
-  const cardBg = darkMode ? 'bg-[#0f1226] border border-[#3B4371]/40' : 'bg-white border border-[#F3904F]/20'
-  const mutedText = darkMode ? 'text-gray-400' : 'text-gray-600'
-  const labelText = darkMode ? 'text-gray-300' : 'text-gray-700'
+  const sectionBg = darkMode ? 'bg-[#0b0e1b] text-white' : 'bg-gradient-to-b from-[#2b3154]/5 via-[#F5F5DC] to-transparent text-[#191970]'
+  const cardBg = darkMode ? 'bg-[#0f1226] border border-[#191970]/40' : 'bg-[#F5F5DC] border border-[#2b3154]/20'
+  const mutedText = darkMode ? 'text-gray-400' : 'text-[#191970]'
+  const labelText = darkMode ? 'text-gray-300' : 'text-[#191970]'
   const inputBg = darkMode
-    ? 'bg-[#0b0e1b] border-[#3B4371]/50 text-white focus:border-[#F3904F]'
-    : 'bg-white border-gray-300 text-black focus:border-[#F3904F]'
+    ? 'bg-[#0b0e1b] border-[#191970]/50 text-white focus:border-[#2b3154]'
+    : 'bg-[#F5F5DC] border-gray-300 text-[#191970] focus:border-[#2b3154]'
 
   return (
     <section
@@ -123,10 +123,10 @@ const Contact = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className={`font-extrabold text-3xl md:text-5xl mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h2 className={`font-extrabold text-3xl md:text-5xl mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-[#191970]'}`}>
             Get In <span className="gradient-text">Touch</span>
           </h2>
-          <span className="block h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-[#3B4371] to-[#F3904F] mb-6" />
+          <span className="block h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-[#191970] to-[#2b3154] mb-6" />
           <p className={`text-base md:text-xl max-w-2xl mx-auto ${mutedText}`}>
             Have a project in mind or want to collaborate? Feel free to reach out!
           </p>
@@ -151,28 +151,28 @@ const Contact = () => {
                   transition={{ duration: 0.2 }}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="p-3 bg-[#F3904F]/15 rounded-lg text-[#F3904F]">
+                    <div className="p-3 bg-[#2b3154]/15 rounded-lg text-[#2b3154]">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Email</h3>
                       <a
                         href="mailto:sahbajkhan6593@gmail.com"
-                        className={`${mutedText} hover:text-[#F3904F] text-sm`}
+                        className={`${mutedText} hover:text-[#2b3154] text-sm`}
                       >
                         sahbajkhan6593@gmail.com
                       </a>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-[#191970]/80 mt-1">
                         Typically replies within 24 hours
                       </p>
                     </div>
                   </div>
                   <button
                     onClick={() => copyToClipboard('sahbajkhan6593@gmail.com', 'email')}
-                    className="p-2 rounded-lg bg-[#3B4371]/20 hover:bg-[#F3904F]/20 text-gray-400 hover:text-[#F3904F] transition"
+                    className="p-2 rounded-lg bg-[#191970]/20 hover:bg-[#2b3154]/20 text-gray-400 hover:text-[#2b3154] transition"
                     title="Copy Email"
                   >
-                    {copiedEmail ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                    {copiedEmail ? <Check className="w-4 h-4 text-brand-cream" /> : <Copy className="w-4 h-4" />}
                   </button>
                 </motion.div>
 
@@ -183,28 +183,28 @@ const Contact = () => {
                   transition={{ duration: 0.2 }}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="p-3 bg-[#3B4371]/20 rounded-lg text-[#3B4371] dark:text-[#F3904F]">
+                    <div className="p-3 bg-[#191970]/20 rounded-lg text-[#191970] dark:text-[#2b3154]">
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Phone</h3>
                       <a
                         href="tel:+916265666859"
-                        className={`${mutedText} hover:text-[#F3904F] text-sm`}
+                        className={`${mutedText} hover:text-[#2b3154] text-sm`}
                       >
                         +91 6265666859
                       </a>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-[#191970]/80 mt-1">
                         Mon–Fri, 9am–6pm
                       </p>
                     </div>
                   </div>
                   <button
                     onClick={() => copyToClipboard('+916265666859', 'phone')}
-                    className="p-2 rounded-lg bg-[#3B4371]/20 hover:bg-[#F3904F]/20 text-gray-400 hover:text-[#F3904F] transition"
+                    className="p-2 rounded-lg bg-[#191970]/20 hover:bg-[#2b3154]/20 text-gray-400 hover:text-[#2b3154] transition"
                     title="Copy Phone Number"
                   >
-                    {copiedPhone ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                    {copiedPhone ? <Check className="w-4 h-4 text-brand-cream" /> : <Copy className="w-4 h-4" />}
                   </button>
                 </motion.div>
 
@@ -214,13 +214,13 @@ const Contact = () => {
                   whileHover={{ scale: 1.02, x: 5 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="p-3 bg-[#F3904F]/15 rounded-lg">
-                    <MapPin className="text-[#F3904F] w-5 h-5" />
+                  <div className="p-3 bg-[#2b3154]/15 rounded-lg">
+                    <MapPin className="text-[#2b3154] w-5 h-5" />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Location</h3>
                     <p className={mutedText}>Indore, MP, India</p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-[#191970]/80 mt-1">
                       Open to remote work worldwide
                     </p>
                   </div>
@@ -237,7 +237,7 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     aria-label={link.label}
                     className={`h-10 w-10 md:h-12 md:w-12 rounded-full flex justify-center items-center text-lg md:text-xl transition-all duration-300 shadow-md hover:shadow-lg
-                      ${darkMode ? 'bg-[#3B4371]/20 text-gray-200' : 'bg-gray-100 text-gray-700'}
+                      ${darkMode ? 'bg-[#191970]/20 text-gray-200' : 'bg-gray-100 text-[#191970]'}
                       ${link.hover}
                     `}
                     whileHover={{ scale: 1.1, rotate: 5 }}
@@ -278,7 +278,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className={`w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#F3904F] outline-none ${inputBg}`}
+                      className={`w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#2b3154] outline-none ${inputBg}`}
                       placeholder="Your Name"
                     />
                   </div>
@@ -293,7 +293,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className={`w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#F3904F] outline-none ${inputBg}`}
+                      className={`w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#2b3154] outline-none ${inputBg}`}
                       placeholder="example@gmail.com"
                     />
                   </div>
@@ -307,7 +307,7 @@ const Contact = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className={`w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#F3904F] outline-none ${inputBg}`}
+                    className={`w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#2b3154] outline-none ${inputBg}`}
                     placeholder="Project Inquiry"
                   />
                 </div>
@@ -322,7 +322,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className={`w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#F3904F] outline-none resize-none ${inputBg}`}
+                    className={`w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#2b3154] outline-none resize-none ${inputBg}`}
                     placeholder="Tell me about your project..."
                   />
                 </div>
@@ -330,7 +330,7 @@ const Contact = () => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#3B4371] to-[#F3904F] hover:opacity-95 text-white py-3 rounded-lg transition font-semibold glow-orange shadow-lg shadow-[#F3904F]/25 ${
+                  className={`w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#191970] to-[#2b3154] hover:opacity-95 text-white py-3 rounded-lg transition font-semibold glow-cream shadow-lg shadow-[#2b3154]/25 ${
                     isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
                   whileHover={!isSubmitting ? { scale: 1.02 } : {}}

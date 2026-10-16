@@ -142,7 +142,7 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
       >
         <motion.div
           className={`relative w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col border ${
-            darkMode ? "bg-[#0b0e1b] border-[#3B4371]/50 text-white" : "bg-white border-[#F3904F]/30 text-gray-900"
+            darkMode ? "bg-[#0b0e1b] border-[#191970]/50 text-white" : "bg-[#F5F5DC] border-[#2b3154]/30 text-[#191970]"
           }`}
           initial={{ scale: 0.9, y: 20 }}
           animate={{ scale: 1, y: 0 }}
@@ -150,10 +150,10 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-5 md:px-8 border-b border-[#F3904F]/20 bg-[#3B4371]/10">
+          <div className="flex items-center justify-between p-5 md:px-8 border-b border-[#2b3154]/20 bg-[#191970]/10">
             <div>
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#F3904F]/20 text-[#F3904F] border border-[#F3904F]/30">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#2b3154]/20 text-[#2b3154] border border-[#2b3154]/30">
                   Full Stack Architecture Flow
                 </span>
               </div>
@@ -169,7 +169,7 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
                 playClickSound(soundEnabled)
                 onClose()
               }}
-              className="p-2 rounded-full hover:bg-[#3B4371]/30 text-gray-400 hover:text-white transition cursor-pointer"
+              className="p-2 rounded-full hover:bg-[#191970]/30 text-gray-400 hover:text-white transition cursor-pointer"
             >
               <X className="w-6 h-6" />
             </button>
@@ -189,26 +189,26 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
                     onClick={() => handleNodeClick(idx)}
                     className={`p-4 rounded-2xl border cursor-pointer transition-all relative ${
                       isActive
-                        ? "bg-gradient-to-br from-[#3B4371]/30 to-[#F3904F]/20 border-[#F3904F] shadow-lg shadow-[#F3904F]/20"
+                        ? "bg-gradient-to-br from-[#191970]/30 to-[#2b3154]/20 border-[#2b3154] shadow-lg shadow-[#2b3154]/20"
                         : darkMode
-                        ? "bg-[#0f1226] border-[#3B4371]/40 hover:border-[#F3904F]/50"
-                        : "bg-gray-50 border-gray-200 hover:border-[#F3904F]/50"
+                        ? "bg-[#0f1226] border-[#191970]/40 hover:border-[#2b3154]/50"
+                        : "bg-gray-50 border-gray-200 hover:border-[#2b3154]/50"
                     }`}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <div className={`p-2.5 rounded-xl ${isActive ? 'bg-[#F3904F] text-white' : 'bg-[#F3904F]/15 text-[#F3904F]'}`}>
+                      <div className={`p-2.5 rounded-xl ${isActive ? 'bg-[#2b3154] text-white' : 'bg-[#2b3154]/15 text-[#2b3154]'}`}>
                         <Icon className="w-5 h-5" />
                       </div>
                       <span className="text-xs font-mono text-gray-400">0{idx + 1}</span>
                     </div>
                     <h3 className="font-bold text-sm md:text-base mb-1">{node.title}</h3>
-                    <p className="text-xs text-[#F3904F] font-semibold truncate">{node.tech}</p>
+                    <p className="text-xs text-[#2b3154] font-semibold truncate">{node.tech}</p>
 
                     {idx < projectData.nodes.length - 1 && (
                       <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                        <ArrowRight className="w-4 h-4 text-[#F3904F]" />
+                        <ArrowRight className="w-4 h-4 text-[#2b3154]" />
                       </div>
                     )}
                   </motion.div>
@@ -223,12 +223,12 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
               className={`p-6 rounded-2xl border ${
-                darkMode ? "bg-[#0f1226] border-[#3B4371]/50" : "bg-[#F3904F]/5 border-[#F3904F]/20"
+                darkMode ? "bg-[#0f1226] border-[#191970]/50" : "bg-[#2b3154]/5 border-[#2b3154]/20"
               }`}
             >
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-[#3B4371]/30">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-[#191970]/30">
                 <div>
-                  <h4 className="text-lg font-bold text-[#F3904F] flex items-center gap-2">
+                  <h4 className="text-lg font-bold text-[#2b3154] flex items-center gap-2">
                     <ShieldCheck className="w-5 h-5" />
                     {projectData.nodes[activeNode].title} Specification
                   </h4>
@@ -236,13 +236,13 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
                     {projectData.nodes[activeNode].tech}
                   </p>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#3B4371]/20 border border-[#F3904F]/30 text-xs font-mono font-bold text-[#F3904F]">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191970]/20 border border-[#2b3154]/30 text-xs font-mono font-bold text-[#2b3154]">
                   <Zap className="w-3.5 h-3.5" />
                   {projectData.nodes[activeNode].metrics}
                 </div>
               </div>
 
-              <p className={`text-sm md:text-base leading-relaxed ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+              <p className={`text-sm md:text-base leading-relaxed ${darkMode ? "text-gray-300" : "text-[#191970]"}`}>
                 {projectData.nodes[activeNode].details}
               </p>
             </motion.div>
@@ -250,14 +250,14 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
           </div>
 
           {/* Footer */}
-          <div className="p-4 px-6 border-t border-[#3B4371]/30 bg-[#3B4371]/10 flex justify-between items-center text-xs text-gray-400">
+          <div className="p-4 px-6 border-t border-[#191970]/30 bg-[#191970]/10 flex justify-between items-center text-xs text-gray-400">
             <span>Click any node to inspect data flow details</span>
             <button
               onClick={() => {
                 playClickSound(soundEnabled)
                 onClose()
               }}
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#3B4371] to-[#F3904F] text-white font-semibold text-xs hover:opacity-95 transition"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#191970] to-[#2b3154] text-white font-semibold text-xs hover:opacity-95 transition"
             >
               Close Visualizer
             </button>

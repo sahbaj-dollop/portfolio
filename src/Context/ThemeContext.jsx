@@ -5,13 +5,7 @@ import { playToggleSound } from "../utils/soundEffects";
 export const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('darkMode');
-    if (savedTheme !== null) {
-      return JSON.parse(savedTheme);
-    }
-    return true; // Default theme is Dark Mode
-  });
+  const [darkMode] = useState(false);
 
   const [recruiterMode, setRecruiterMode] = useState(() => {
     const saved = localStorage.getItem('recruiterMode');
@@ -24,13 +18,9 @@ export const ThemeProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
+    localStorage.setItem('darkMode', 'false');
+    document.documentElement.classList.remove('dark');
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('recruiterMode', JSON.stringify(recruiterMode));
@@ -40,12 +30,7 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem('soundEnabled', JSON.stringify(soundEnabled));
   }, [soundEnabled]);
 
-  const toggleTheme = () => {
-    setDarkMode(prev => {
-      playToggleSound(!prev, soundEnabled);
-      return !prev;
-    });
-  };
+
 
   const toggleRecruiterMode = () => {
     setRecruiterMode(prev => {
@@ -64,8 +49,7 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ 
-      darkMode, 
-      toggleTheme, 
+      darkMode,  
       recruiterMode, 
       toggleRecruiterMode,
       soundEnabled,

@@ -29,24 +29,24 @@ const FloatingWhatsApp = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.9 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-full left-0 mb-3 px-3.5 py-1.5 rounded-xl bg-[#0b0e1b]/95 border border-[#25D366]/60 text-white text-xs font-extrabold shadow-xl shadow-black/50 whitespace-nowrap backdrop-blur-md flex items-center gap-1.5 pointer-events-none"
+            className="absolute bottom-full left-0 mb-3 px-3.5 py-1.5 rounded-xl bg-[#0b0e1b]/95 border border-[#191970]/60 text-white text-xs font-extrabold shadow-xl shadow-black/50 whitespace-nowrap backdrop-blur-md flex items-center gap-1.5 pointer-events-none"
           >
-            <span className="w-2 h-2 rounded-full bg-[#25D366] inline-block" />
+            <span className="w-2 h-2 rounded-full bg-[#191970] inline-block" />
             Chat on WhatsApp
             {/* Tooltip Arrow */}
-            <span className="absolute left-5 -bottom-1.5 w-3 h-3 bg-[#0b0e1b] border-b border-r border-[#25D366]/60 rotate-45" />
+            <span className="absolute left-5 -bottom-1.5 w-3 h-3 bg-[#0b0e1b] border-b border-r border-[#191970]/60 rotate-45" />
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Smooth Continuous 360 Radial Wave Rings */}
       <motion.span
-        className="absolute inset-0 rounded-full bg-[#25D366]/40 pointer-events-none"
+        className="absolute inset-0 rounded-full bg-[#191970]/40 pointer-events-none"
         animate={{ scale: [1, 2.2], opacity: [0.5, 0] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
       />
       <motion.span
-        className="absolute inset-0 rounded-full bg-[#25D366]/30 pointer-events-none"
+        className="absolute inset-0 rounded-full bg-[#191970]/30 pointer-events-none"
         animate={{ scale: [1, 1.8], opacity: [0.4, 0] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut", delay: 0.8 }}
       />
@@ -55,7 +55,7 @@ const FloatingWhatsApp = () => {
       <AnimatePresence>
         {isClicked && (
           <motion.span
-            className="absolute inset-0 rounded-full bg-[#25D366] border-2 border-white pointer-events-none z-10"
+            className="absolute inset-0 rounded-full bg-[#191970] border-2 border-white pointer-events-none z-10"
             initial={{ scale: 1, opacity: 0.9 }}
             animate={{ scale: 3.5, opacity: 0 }}
             exit={{ opacity: 0 }}
@@ -76,7 +76,7 @@ const FloatingWhatsApp = () => {
         }}
         onMouseLeave={() => setIsHovered(false)}
         aria-label="Chat on WhatsApp"
-        className="relative z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-center transition-colors duration-300 shadow-[0_4px_20px_rgba(37,211,102,0.4)] border-2 border-white/40 cursor-pointer"
+        className="relative z-20 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#191970] hover:bg-[#2b3154] text-white flex items-center justify-center transition-colors duration-300 shadow-[0_4px_20px_rgba(37,211,102,0.4)] border-2 border-white/40 cursor-pointer"
         initial={{ opacity: 0, scale: 0 }}
         animate={
           isClicked

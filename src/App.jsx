@@ -40,15 +40,15 @@ const App = () => {
             fontSize: '14px',
           },
           success: {
-            style: { background: '#22c55e', color: '#fff' },
-            iconTheme: { primary: '#fff', secondary: '#22c55e' },
+            style: { background: '#f0e6dd', color: '#191970' },
+            iconTheme: { primary: '#191970', secondary: '#f0e6dd' },
           },
           error: {
-            style: { background: '#ef4444', color: '#fff' },
-            iconTheme: { primary: '#fff', secondary: '#ef4444' },
+            style: { background: '#f0e6dd', color: '#191970' },
+            iconTheme: { primary: '#191970', secondary: '#f0e6dd' },
           },
           loading: {
-            style: { background: '#f97316', color: '#fff' },
+            style: { background: '#191970', color: '#191970' },
           },
         }}
       />
