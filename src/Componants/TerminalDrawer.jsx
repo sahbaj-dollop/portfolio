@@ -1,17 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Terminal, X, Minimize2, Maximize2 } from 'lucide-react'
-import { useTheme } from '../Context/ThemeContext'
+import { Terminal, X } from 'lucide-react'
 
 const TerminalDrawer = () => {
-  const { darkMode } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
   const [inputVal, setInputVal] = useState('')
   const [history, setHistory] = useState([
-    { type: 'system', text: 'Sahbaj Khan Developer CLI v1.0.0 [Type "help" for commands]' },
-    { type: 'system', text: 'Type "skills", "experience", "projects", "contact", or "clear".' },
+    { type: 'system', text: 'Sahbaj Khan Developer Shell [Type "help" for available commands]' },
+    { type: 'system', text: 'Full Stack Developer — React, Next.js & Node.js' },
   ])
   const bottomRef = useRef(null)
+
+  // Global hotkey listener for `~` (backquote)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === '`' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+        e.preventDefault()
+        setIsOpen(prev => !prev)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   useEffect(() => {
     if (isOpen) {
@@ -21,78 +31,88 @@ const TerminalDrawer = () => {
 
   const handleCommand = (e) => {
     e.preventDefault()
-    const cmd = inputVal.trim().toLowerCase()
+    const rawCmd = inputVal.trim()
+    const cmd = rawCmd.toLowerCase()
     if (!cmd) return
 
-    const newHistory = [...history, { type: 'user', text: `> ${inputVal}` }]
+    const newHistory = [...history, { type: 'user', text: `$ ${rawCmd}` }]
 
     switch (cmd) {
       case 'help':
         newHistory.push({
           type: 'output',
-          text: `Available Commands:
-- help       : Show list of commands
-- skills     : List core technologies & tools
-- experience : View work experience
-- projects   : View key projects
-- contact    : View email & phone
-- whoami     : Display developer profile summary
-- clear      : Clear terminal screen`,
-        })
-        break
-
-      case 'skills':
-        newHistory.push({
-          type: 'output',
-          text: `⚡ Tech Stack:
-- Frontend: React.js, Next.js, TypeScript, Tailwind CSS, Redux Toolkit
-- Backend:  Node.js, Express.js, REST APIs, Authentication
-- Database: MongoDB, Mongoose, Basics of SQL
-- Tools:    Git, GitHub, VS Code, Cursor, Antigravity, Postman`,
-        })
-        break
-
-      case 'experience':
-        newHistory.push({
-          type: 'output',
-          text: `💼 Work Experience:
-1. Full Stack Developer @ Dollop Infotech (20 Oct 2025 - Present)
-2. Full Stack Trainee @ Placement Adda (Feb 2025 - Oct 2025)`,
-        })
-        break
-
-      case 'projects':
-        newHistory.push({
-          type: 'output',
-          text: `🚀 Featured Projects:
-1. Kids Code Editor (React, Next.js, Monaco, Tree-sitter)
-2. P-School Web App (React, Tailwind CSS, REST APIs)
-3. MERN E-Commerce Platform (React, Node, Express, MongoDB)
-4. Blog-Space (MERN Stack, Vercel)`,
-        })
-        break
-
-      case 'contact':
-        newHistory.push({
-          type: 'output',
-          text: `📫 Contact Sahbaj:
-- Email:    sahbajkhan6593@gmail.com
-- Phone:    +91 6265666859
-- GitHub:   https://github.com/sahbaj-dollop
-- LinkedIn: https://www.linkedin.com/in/sahbaj-khan-24138a338/`,
+          text: `Available commands:
+  • whoami     : About Sahbaj Khan
+  • skills     : Technical skills & languages
+  • experience : Professional experience summary
+  • projects   : Key web applications
+  • resume     : Open resume PDF in new tab
+  • contact    : Email & social links
+  • clear      : Clear console`,
         })
         break
 
       case 'whoami':
         newHistory.push({
           type: 'output',
-          text: `👨‍💻 Sahbaj Khan: Full Stack Developer (MERN / Next.js) based in Indore, India. Dedicated to clean code, high performance, and scalable web solutions.`,
+          text: `Sahbaj Khan — Full Stack Developer based in Indore, India.
+2+ years of experience building web apps with React, Next.js, and Node.js.
+Currently at Dollop Infotech.`,
+        })
+        break
+
+      case 'skills':
+        newHistory.push({
+          type: 'output',
+          text: `Frontend: React.js, Next.js, TypeScript, Tailwind CSS, Redux Toolkit
+Backend : Node.js, Express.js, REST APIs, JWT Auth
+Database: MongoDB, Mongoose, MySQL
+Tools   : Git, GitHub, Postman, VS Code, Vercel`,
+        })
+        break
+
+      case 'experience':
+        newHistory.push({
+          type: 'output',
+          text: `1. Full Stack Developer @ Dollop Infotech (Oct 2024 - Present)
+   Building visual code editors and web apps with Next.js & Node.js.
+2. Full Stack Trainee @ Placement Adda (Feb 2024 - Oct 2024)
+   Hands-on training in full stack MERN development.`,
+        })
+        break
+
+      case 'projects':
+        newHistory.push({
+          type: 'output',
+          text: `1. Kids Code Editor (Blockly IDE): Next.js, Monaco Editor, Blockly
+2. MERN E-Commerce Platform: React, Node.js, Express, MongoDB, Redux
+3. School Management System: React, REST APIs, Tailwind CSS
+4. Blog-Space CMS: React, Node.js, Express, MongoDB`,
+        })
+        break
+
+      case 'resume':
+        window.open('/sahbajkhan.pdf', '_blank')
+        newHistory.push({
+          type: 'output',
+          text: `Opening resume: /sahbajkhan.pdf`,
+        })
+        break
+
+      case 'contact':
+        newHistory.push({
+          type: 'output',
+          text: `Email   : sahbajkhan6593@gmail.com
+Phone   : +91 6265666859
+WhatsApp: https://wa.me/916265666859
+GitHub  : https://github.com/sahbaj-dollop
+LinkedIn: https://www.linkedin.com/in/sahbaj-khan-24138a338/`,
         })
         break
 
       case 'clear':
         setHistory([
-          { type: 'system', text: 'Sahbaj Khan Developer CLI v1.0.0' },
+          { type: 'system', text: 'Sahbaj Khan Developer Shell [Type "help" for commands]' },
         ])
         setInputVal('')
         return
@@ -100,7 +120,7 @@ const TerminalDrawer = () => {
       default:
         newHistory.push({
           type: 'error',
-          text: `Command not found: "${cmd}". Type "help" for available commands.`,
+          text: `Command not found: "${rawCmd}". Type "help" for a list of commands.`,
         })
         break
     }
@@ -111,71 +131,61 @@ const TerminalDrawer = () => {
 
   return (
     <>
-      {/* Floating Toggle Button */}
-      <motion.button
+      {/* Floating CLI Toggle Button */}
+      <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-34 md:bottom-36 right-6 md:right-8 z-40 p-3.5 md:p-4 rounded-full bg-[#0b0e1b] border border-[#F3904F]/40 text-[#F3904F] shadow-xl flex items-center justify-center gap-2 group hover:border-[#F3904F] transition-all duration-300"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
+        className="fixed bottom-20 right-5 z-40 p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 shadow-lg hover:text-white hover:border-slate-500 transition-colors cursor-pointer hidden sm:flex items-center gap-2"
         aria-label="Open CLI Terminal"
+        title="Open Terminal (Hotkey: `)"
       >
-        <Terminal className="w-5 h-5 text-[#F3904F]" />
-        <span className="hidden md:inline text-xs font-mono font-bold text-white pr-1">
-          CLI Terminal
-        </span>
-      </motion.button>
+        <Terminal className="w-4 h-4 text-blue-400" />
+        <span className="text-xs font-mono font-medium">Terminal</span>
+      </button>
 
-      {/* Terminal Drawer Overlay */}
+      {/* Terminal Modal */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
           >
             <motion.div
-              className="w-full max-w-2xl h-[420px] rounded-2xl bg-[#0b0e1b] border border-[#3B4371]/60 shadow-2xl flex flex-col overflow-hidden font-mono text-sm"
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
+              className="w-full max-w-2xl h-[420px] rounded-xl bg-[#0d1117] border border-slate-700 shadow-2xl flex flex-col overflow-hidden font-mono text-xs sm:text-sm text-slate-200"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.15 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Terminal Window Bar */}
-              <div className="flex items-center justify-between px-4 py-3 bg-[#0f1226] border-b border-[#3B4371]/40">
+              {/* Window Header */}
+              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-slate-800">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
-                  <span className="w-3 h-3 rounded-full bg-[#F3904F]/80 inline-block" />
-                  <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
-                  <span className="text-xs text-gray-400 font-semibold ml-2 flex items-center gap-1.5">
-                    <Terminal className="w-3.5 h-3.5 text-[#F3904F]" /> sahbaj@portfolio:~
-                  </span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-500/80 inline-block" />
+                  <span className="text-xs text-slate-400 ml-2">sahbaj@portfolio:~</span>
                 </div>
-
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 rounded hover:bg-neutral-800 text-gray-400 hover:text-white transition"
+                  className="p-1 rounded text-slate-400 hover:text-white"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* Terminal Output */}
-              <div className="flex-1 p-4 overflow-y-auto space-y-2 text-xs md:text-sm">
+              {/* Log Output */}
+              <div className="flex-1 p-4 overflow-y-auto space-y-1.5 leading-relaxed">
                 {history.map((item, index) => (
                   <div
                     key={index}
                     className={
                       item.type === 'user'
-                        ? 'text-[#F3904F] font-bold'
+                        ? 'text-blue-400 font-semibold'
                         : item.type === 'error'
                         ? 'text-red-400'
                         : item.type === 'system'
-                        ? 'text-gray-400 italic'
-                        : 'text-gray-200 whitespace-pre-wrap leading-relaxed'
+                        ? 'text-slate-400'
+                        : 'text-slate-200 whitespace-pre-wrap'
                     }
                   >
                     {item.text}
@@ -184,23 +194,23 @@ const TerminalDrawer = () => {
                 <div ref={bottomRef} />
               </div>
 
-              {/* Terminal Command Input Form */}
+              {/* Input */}
               <form
                 onSubmit={handleCommand}
-                className="flex items-center gap-2 px-4 py-3 bg-[#0f1226]/90 border-t border-[#3B4371]/40"
+                className="flex items-center gap-2 px-4 py-3 bg-slate-900/90 border-t border-slate-800"
               >
-                <span className="text-[#F3904F] font-bold">&gt;</span>
+                <span className="text-blue-400 font-bold">&gt;</span>
                 <input
                   type="text"
                   value={inputVal}
                   onChange={(e) => setInputVal(e.target.value)}
                   placeholder='Type a command ("help", "skills", "projects", "clear")...'
-                  className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder:text-neutral-600 text-xs md:text-sm"
+                  className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder:text-slate-600 text-xs sm:text-sm"
                   autoFocus
                 />
               </form>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>

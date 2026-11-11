@@ -1,30 +1,18 @@
-// ThemeContext.js
-import { createContext, useContext, useState, useEffect } from "react";
-import { playToggleSound } from "../utils/soundEffects";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 export const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('darkMode');
-    if (savedTheme !== null) {
-      return JSON.parse(savedTheme);
+    const saved = localStorage.getItem('portfolioDarkMode');
+    if (saved !== null) {
+      return JSON.parse(saved);
     }
-    return true; // Default theme is Dark Mode
-  });
-
-  const [recruiterMode, setRecruiterMode] = useState(() => {
-    const saved = localStorage.getItem('recruiterMode');
-    return saved !== null ? JSON.parse(saved) : false;
-  });
-
-  const [soundEnabled, setSoundEnabled] = useState(() => {
-    const saved = localStorage.getItem('soundEnabled');
-    return saved !== null ? JSON.parse(saved) : true;
+    return true; // Default to sleek dark mode
   });
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    localStorage.setItem('portfolioDarkMode', JSON.stringify(darkMode));
     if (darkMode) {
       document.documentElement.classList.add('dark');
     } else {
@@ -32,44 +20,14 @@ export const ThemeProvider = ({ children }) => {
     }
   }, [darkMode]);
 
-  useEffect(() => {
-    localStorage.setItem('recruiterMode', JSON.stringify(recruiterMode));
-  }, [recruiterMode]);
-
-  useEffect(() => {
-    localStorage.setItem('soundEnabled', JSON.stringify(soundEnabled));
-  }, [soundEnabled]);
-
-  const toggleTheme = () => {
-    setDarkMode(prev => {
-      playToggleSound(!prev, soundEnabled);
-      return !prev;
-    });
-  };
-
-  const toggleRecruiterMode = () => {
-    setRecruiterMode(prev => {
-      playToggleSound(!prev, soundEnabled);
-      return !prev;
-    });
-  };
-
-  const toggleSound = () => {
-    setSoundEnabled(prev => {
-      const next = !prev;
-      if (next) playToggleSound(true, true);
-      return next;
-    });
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev);
   };
 
   return (
     <ThemeContext.Provider value={{ 
-      darkMode, 
-      toggleTheme, 
-      recruiterMode, 
-      toggleRecruiterMode,
-      soundEnabled,
-      toggleSound 
+      darkMode,
+      toggleDarkMode
     }}>
       {children}
     </ThemeContext.Provider>

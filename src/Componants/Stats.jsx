@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Briefcase, Code2, Cpu, CheckCircle2 } from 'lucide-react'
+import { Briefcase, FolderGit2, Code2, MapPin } from 'lucide-react'
 import { useTheme } from '../Context/ThemeContext'
 
 const Stats = () => {
@@ -9,69 +9,65 @@ const Stats = () => {
   const statsData = [
     {
       id: 1,
-      value: "1+",
-      label: "Years Experience",
+      value: "2+ Years",
+      label: "Experience",
       subtext: "Full Stack Development",
       icon: Briefcase,
     },
     {
       id: 2,
-      value: "6+",
-      label: "Featured Projects",
-      subtext: "Live & Deployed Apps",
-      icon: Code2,
+      value: "6+ Apps",
+      label: "Core Projects",
+      subtext: "Live & Open Source",
+      icon: FolderGit2,
     },
     {
       id: 3,
-      value: "15+",
-      label: "Technologies",
-      subtext: "MERN, Next.js & Tools",
-      icon: Cpu,
+      value: "MERN & Next",
+      label: "Specialization",
+      subtext: "React 19 & Node.js",
+      icon: Code2,
     },
     {
       id: 4,
-      value: "100%",
-      label: "Clean Code",
-      subtext: "Responsive & Scalable",
-      icon: CheckCircle2,
+      value: "Indore, MP",
+      label: "Location",
+      subtext: "Open to Remote",
+      icon: MapPin,
     },
   ]
 
-  const containerBg = darkMode
-    ? 'bg-[#0b0e1b] border-y border-[#3B4371]/30 text-white'
-    : 'bg-gradient-to-r from-[#3B4371]/10 via-white to-[#F3904F]/10 border-y border-[#F3904F]/20 text-black'
-
-  const cardStyle = darkMode
-    ? 'glass-dark border border-[#3B4371]/40 hover:border-[#F3904F]/50 text-white shadow-lg shadow-[#F3904F]/5'
-    : 'glass-card border border-[#F3904F]/30 hover:border-[#F3904F] text-gray-900 shadow-md'
-
   return (
-    <div className={`py-12 px-4 md:px-8 lg:px-16 transition-colors duration-500 ${containerBg}`}>
-      <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+    <div className={`py-10 px-5 md:px-10 border-y transition-colors duration-300 ${
+      darkMode ? 'bg-[#0b0e17] border-slate-800 text-white' : 'bg-slate-100/60 border-slate-200 text-slate-900'
+    }`}>
+      <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {statsData.map((stat, idx) => {
           const Icon = stat.icon
           return (
             <motion.div
               key={stat.id}
-              className={`p-6 rounded-2xl flex flex-col items-center text-center transition-all duration-300 ${cardStyle}`}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              whileHover={{ y: -6, scale: 1.03 }}
+              transition={{ duration: 0.35, delay: idx * 0.08 }}
+              whileHover={{ y: -4 }}
+              className={`p-4 sm:p-5 rounded-2xl border flex flex-col items-center text-center transition-all ${
+                darkMode ? 'bg-slate-900/70 border-slate-800 hover:border-slate-700 hover:shadow-lg hover:shadow-black/20' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'
+              }`}
             >
-              <div className="p-3 rounded-xl bg-[#F3904F]/15 text-[#F3904F] border border-[#F3904F]/30 mb-3">
-                <Icon className="w-6 h-6" />
+              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500 mb-2.5">
+                <Icon className="w-5 h-5" />
               </div>
-              <h3 className="text-3xl md:text-4xl font-extrabold gradient-text tracking-tight mb-1">
+              <span className="text-xl sm:text-2xl font-bold tracking-tight mb-0.5">
                 {stat.value}
-              </h3>
-              <p className={`font-bold text-sm md:text-base ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              </span>
+              <span className={`text-xs sm:text-sm font-semibold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
                 {stat.label}
-              </p>
-              <p className={`text-xs mt-1 font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              </span>
+              <span className={`text-[11px] mt-0.5 ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                 {stat.subtext}
-              </p>
+              </span>
             </motion.div>
           )
         })}

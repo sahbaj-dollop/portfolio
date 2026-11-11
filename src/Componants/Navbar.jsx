@@ -1,32 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Volume2, VolumeX, Zap } from "lucide-react";
+import { Sun, Moon, FileText } from "lucide-react";
 import { useTheme } from "../Context/ThemeContext";
-import { playClickSound, playHoverSound } from "../utils/soundEffects";
 
 const Navbar = () => {
-  const { darkMode, toggleTheme, recruiterMode, toggleRecruiterMode, soundEnabled, toggleSound } = useTheme();
+  const { darkMode, toggleDarkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  const navItems = [
-    { name: "Home",         href: "#home"          },
-    { name: "About",        href: "#about"         },
-    { name: "Skills",       href: "#skills"        },
-    { name: "Experience",   href: "#experience"    },
-    { name: "Projects",     href: "#projects"      },
-    { name: "Certificates", href: "#certifications" },
-    { name: "Contact",      href: "#contact"       },
-  ];
+  const navItems = useMemo(() => [
+    { name: "Home",       href: "#home"       },
+    { name: "About",      href: "#about"      },
+    { name: "Skills",     href: "#skills"     },
+    { name: "Experience", href: "#experience" },
+    { name: "Projects",   href: "#projects"   },
+    { name: "Contact",    href: "#contact"    },
+  ], []);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 20);
       const sections = navItems.map(i => i.href.replace("#", ""));
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
-        if (el && window.scrollY >= el.offsetTop - 120) {
+        if (el && window.scrollY >= el.offsetTop - 140) {
           setActiveSection(sections[i]);
           break;
         }
@@ -34,7 +32,7 @@ const Navbar = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [navItems]);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
@@ -42,202 +40,160 @@ const Navbar = () => {
   }, [isOpen]);
 
   const scrollToSection = (href) => {
-    playClickSound(soundEnabled);
     const el = document.querySelector(href);
-    if (el) { el.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    if (el) { 
+      el.scrollIntoView({ behavior: "smooth", block: "start" }); 
+    }
     setIsOpen(false);
   };
 
   return (
-    <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? darkMode
-            ? "glass-dark shadow-lg shadow-[#3B4371]/20 border-b border-[#3B4371]/30"
-            : "glass shadow-lg shadow-[#F3904F]/10 border-b border-[#F3904F]/20"
-          : darkMode ? "bg-[#0b0e1b]/90 backdrop-blur-md" : "bg-white/90 backdrop-blur-md"
+            ? "bg-[#090b11]/90 backdrop-blur-md border-b border-slate-800/80 shadow-md shadow-black/20"
+            : "bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm"
+          : darkMode 
+          ? "bg-transparent" 
+          : "bg-transparent"
       }`}
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <nav className="px-4 md:px-6 py-3 md:py-4 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between">
-
-          {/* Logo */}
-          <motion.div
-            className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-[#3B4371] via-[#8c5667] to-[#F3904F] dark:from-[#7d8adb] dark:via-[#f6a772] dark:to-[#F3904F] bg-clip-text text-transparent cursor-default flex items-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            onMouseEnter={() => playHoverSound(soundEnabled)}
-          >
+      <nav className="px-5 md:px-10 py-4 max-w-6xl mx-auto flex items-center justify-between">
+        
+        {/* Brand Name */}
+        <button
+          onClick={() => scrollToSection("#home")}
+          className="text-left cursor-pointer group"
+        >
+          <span className={`text-lg font-bold tracking-tight transition-colors ${
+            darkMode ? 'text-white group-hover:text-blue-400' : 'text-slate-900 group-hover:text-blue-600'
+          }`}>
             Sahbaj Khan
-          </motion.div>
+          </span>
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            Full Stack Developer
+          </span>
+        </button>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
-            {navItems.map((item, i) => {
-              const isActive = activeSection === item.href.replace("#", "");
-              return (
-                <motion.button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  onMouseEnter={() => playHoverSound(soundEnabled)}
-                  className={`relative px-3.5 py-2 rounded-lg font-medium text-sm transition-colors duration-300 ${
-                    isActive
-                      ? "text-[#F3904F]"
-                      : darkMode ? "text-gray-300 hover:text-[#F3904F]" : "text-gray-700 hover:text-[#F3904F]"
-                  }`}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {isActive && (
-                    <motion.span
-                      layoutId="activeNav"
-                      className="absolute inset-0 rounded-lg bg-[#F3904F]/15 border border-[#F3904F]/35"
-                      transition={{ type: "spring", bounce: 0.3, duration: 0.5 }}
-                    />
-                  )}
-                  {item.name}
-                </motion.button>
-              );
-            })}
-          </div>
-
-          {/* Right Action Icons */}
-          <div className="flex items-center space-x-2 sm:space-x-3">
-
-            {/* Recruiter Mode Toggle */}
-            <motion.button
-              onClick={() => {
-                toggleRecruiterMode();
-              }}
-              onMouseEnter={() => playHoverSound(soundEnabled)}
-              className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 border cursor-pointer ${
-                recruiterMode
-                  ? "bg-gradient-to-r from-[#3B4371] to-[#F3904F] text-white border-[#F3904F] shadow-lg shadow-[#F3904F]/25 animate-pulse"
-                  : darkMode
-                  ? "bg-[#3B4371]/20 text-[#F3904F] border-[#3B4371]/50 hover:bg-[#3B4371]/40"
-                  : "bg-[#F3904F]/10 text-[#F3904F] border-[#F3904F]/30 hover:bg-[#F3904F]/20"
-              }`}
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.94 }}
-              title="Toggle Recruiter Executive 30s View"
-            >
-              <Zap className={`w-3.5 h-3.5 ${recruiterMode ? "fill-white" : "fill-current"}`} />
-              <span className="hidden sm:inline">
-                {recruiterMode ? "Recruiter Mode ON" : "Recruiter View ⚡"}
-              </span>
-            </motion.button>
-
-            {/* Sound Toggle */}
-            <motion.button
-              onClick={toggleSound}
-              onMouseEnter={() => playHoverSound(soundEnabled)}
-              className={`p-2.5 rounded-full transition-all duration-300 ${
-                darkMode ? "glass-dark hover:bg-[#3B4371]/30" : "glass hover:bg-[#F3904F]/10"
-              }`}
-              whileHover={{ scale: 1.1, rotate: 10 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Toggle Sound Effects"
-              title={soundEnabled ? "Mute sound effects" : "Unmute sound effects"}
-            >
-              {soundEnabled ? (
-                <Volume2 className="w-4 h-4 text-[#F3904F]" />
-              ) : (
-                <VolumeX className="w-4 h-4 text-gray-400" />
-              )}
-            </motion.button>
-
-            {/* Dark Mode Toggle */}
-            <motion.button
-              onClick={toggleTheme}
-              onMouseEnter={() => playHoverSound(soundEnabled)}
-              className={`p-2.5 rounded-full transition-all duration-300 ${
-                darkMode ? "glass-dark hover:bg-[#3B4371]/30" : "glass hover:bg-[#F3904F]/10"
-              }`}
-              whileHover={{ scale: 1.1, rotate: 15 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Toggle theme"
-            >
-              <AnimatePresence mode="wait">
-                {darkMode ? (
-                  <motion.div key="light" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                    <Sun className="w-4 h-4 text-[#F3904F]" />
-                  </motion.div>
-                ) : (
-                  <motion.div key="dark" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                    <Moon className="w-4 h-4 text-[#3B4371]" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-
-            {/* Hamburger */}
-            <motion.button
-              className="md:hidden p-2 rounded-lg"
-              onClick={() => setIsOpen(!isOpen)}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Toggle menu"
-            >
-              <div className="w-6 h-5 flex flex-col justify-between">
-                {[0, 1, 2].map((i) => (
-                  <motion.span
-                    key={i}
-                    className={`w-full h-0.5 rounded-full ${darkMode ? "bg-gray-200" : "bg-gray-800"}`}
-                    animate={
-                      isOpen
-                        ? i === 0 ? { rotate: 45, y: 9 }
-                        : i === 1 ? { opacity: 0 }
-                        : { rotate: -45, y: -9 }
-                        : { rotate: 0, y: 0, opacity: 1 }
-                    }
-                    transition={{ duration: 0.3 }}
-                  />
-                ))}
-              </div>
-            </motion.button>
-          </div>
+        {/* Desktop Nav Links */}
+        <div className="hidden md:flex items-center space-x-1">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.href.replace("#", "");
+            return (
+              <button
+                key={item.name}
+                onClick={() => scrollToSection(item.href)}
+                className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+                  isActive
+                    ? darkMode
+                      ? "text-blue-400 font-semibold bg-slate-800/60"
+                      : "text-blue-600 font-semibold bg-slate-100"
+                    : darkMode 
+                    ? "text-slate-400 hover:text-white hover:bg-slate-850" 
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                }`}
+              >
+                {item.name}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              className={`md:hidden fixed inset-x-0 top-[60px] h-[calc(100vh-60px)] w-full z-50 shadow-2xl ${
-                darkMode ? "bg-[#0b0e1b] text-white border-t border-[#3B4371]/40" : "bg-white text-black border-t border-[#F3904F]/30"
-              }`}
-              style={{ backgroundColor: darkMode ? "#0b0e1b" : "#ffffff" }}
-              initial={{ opacity: 0, x: "100%" }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            >
-              <div className="flex flex-col p-8 space-y-4 pt-12">
-                {navItems.map((item, i) => (
-                  <motion.button
-                    key={item.name}
-                    onClick={() => scrollToSection(item.href)}
-                    className={`text-left py-4 px-6 rounded-xl text-lg font-semibold transition-all ${
-                      darkMode ? "text-gray-200 hover:bg-[#3B4371]/30 hover:text-[#F3904F]" : "text-gray-700 hover:bg-[#F3904F]/10 hover:text-[#F3904F]"
-                    }`}
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.07 }}
-                    whileHover={{ x: 8 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    {item.name}
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Right Actions: Resume & Dark/Light Toggle */}
+        <div className="flex items-center space-x-2.5">
+          <a
+            href="/sahbajkhan.pdf"
+            download
+            className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+              darkMode 
+                ? "bg-slate-800/80 hover:bg-slate-800 text-slate-200 border-slate-700 hover:border-slate-600" 
+                : "bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 shadow-sm"
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5 text-blue-500" />
+            <span>Resume</span>
+          </a>
+
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={toggleDarkMode}
+            className={`p-2 rounded-xl border transition-colors cursor-pointer ${
+              darkMode 
+                ? "bg-slate-850 border-slate-800 text-amber-300 hover:bg-slate-800" 
+                : "bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200"
+            }`}
+            aria-label="Toggle theme"
+            title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={darkMode ? "dark" : "light"}
+                initial={{ y: -6, opacity: 0, rotate: -30 }}
+                animate={{ y: 0, opacity: 1, rotate: 0 }}
+                exit={{ y: 6, opacity: 0, rotate: 30 }}
+                transition={{ duration: 0.16 }}
+              >
+                {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </motion.div>
+            </AnimatePresence>
+          </motion.button>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 rounded-lg border border-slate-700 dark:border-slate-800 text-slate-400"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            <div className="w-4 h-3.5 flex flex-col justify-between">
+              <span className={`w-full h-0.5 rounded-full transition-transform ${darkMode ? 'bg-white' : 'bg-slate-900'} ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+              <span className={`w-full h-0.5 rounded-full transition-opacity ${darkMode ? 'bg-white' : 'bg-slate-900'} ${isOpen ? 'opacity-0' : ''}`} />
+              <span className={`w-full h-0.5 rounded-full transition-transform ${darkMode ? 'bg-white' : 'bg-slate-900'} ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
+            </div>
+          </button>
+        </div>
       </nav>
-    </motion.header>
+
+      {/* Mobile Menu Dropdown */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className={`md:hidden px-5 py-4 border-b ${
+              darkMode ? "bg-[#090b11] border-slate-800 text-white" : "bg-white border-slate-200 text-slate-900"
+            }`}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="flex flex-col space-y-2 pb-2">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className={`text-left py-2 px-3 rounded-md text-sm font-medium ${
+                    activeSection === item.href.replace("#", "")
+                      ? darkMode ? "bg-slate-800 text-blue-400" : "bg-slate-100 text-blue-600"
+                      : darkMode ? "text-slate-300" : "text-slate-700"
+                  }`}
+                >
+                  {item.name}
+                </button>
+              ))}
+              <a
+                href="/sahbajkhan.pdf"
+                download
+                className="inline-flex items-center gap-2 py-2 px-3 rounded-md text-sm font-semibold text-blue-500"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Download Resume</span>
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 };
 
