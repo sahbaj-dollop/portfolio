@@ -4,18 +4,26 @@ import { ArrowUp } from 'lucide-react'
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const [isNearFooter, setIsNearFooter] = useState(false)
 
   useEffect(() => {
-    const toggleVisibility = () => {
+    const handleScroll = () => {
       if (window.scrollY > 300) {
         setIsVisible(true)
       } else {
         setIsVisible(false)
       }
+
+      const footer = document.querySelector('#footer')
+      if (footer) {
+        const rect = footer.getBoundingClientRect()
+        // Hide floating button when footer is visible in the viewport to avoid duplicate buttons
+        setIsNearFooter(rect.top < window.innerHeight - 20)
+      }
     }
 
-    window.addEventListener('scroll', toggleVisibility)
-    return () => window.removeEventListener('scroll', toggleVisibility)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const scrollToTop = () => {
@@ -24,6 +32,8 @@ const BackToTop = () => {
       behavior: 'smooth'
     })
   }
+
+  if (isNearFooter) return null
 
   return (
     <AnimatePresence>

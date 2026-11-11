@@ -1,10 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaWhatsapp } from 'react-icons/fa'
 
 const FloatingWhatsApp = () => {
   const [isHovered, setIsHovered] = useState(false)
+  const [isNearFooter, setIsNearFooter] = useState(false)
   const whatsappUrl = "https://wa.me/916265666859?text=Hi%20Sahbaj,%20I%20reviewed%20your%20portfolio%20and%20would%20like%20to%20connect%20regarding%20a%20Full%20Stack%20opportunity!"
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const footer = document.querySelector('#footer')
+      if (footer) {
+        const rect = footer.getBoundingClientRect()
+        // Hide floating button when footer is visible in the viewport to prevent duplication
+        setIsNearFooter(rect.top < window.innerHeight - 20)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  if (isNearFooter) return null
 
   return (
     <div className="fixed bottom-6 left-6 z-40 flex items-center justify-center group">
@@ -45,4 +61,3 @@ const FloatingWhatsApp = () => {
 }
 
 export default FloatingWhatsApp
-

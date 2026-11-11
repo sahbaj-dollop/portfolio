@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast'
 import { useTheme } from './Context/ThemeContext'
 import { WeatherProvider } from './Context/WeatherContext'
 import WeatherCanvas from './Componants/WeatherCanvas'
+import LocationPermissionModal from './Componants/LocationPermissionModal'
 import Home from './Componants/Home'
 import Stats from './Componants/Stats'
 import TechMarquee from './Componants/TechMarquee'
@@ -36,6 +37,9 @@ const AppContent = () => {
 
       {/* Page Loader */}
       <Loader isLoading={isLoading} />
+
+      {/* Location Permission & Custom Weather Experience Modal */}
+      <LocationPermissionModal />
 
       {/* Toast notifications */}
       <Toaster

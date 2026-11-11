@@ -27,7 +27,8 @@ const WeatherWidget = () => {
     activeEffect,
     activePreset,
     selectPreset,
-    refreshLocation,
+    openLocationModal,
+    requestLocationWithConsent,
     presets
   } = useWeather()
   const { darkMode } = useTheme()
@@ -144,20 +145,38 @@ const WeatherWidget = () => {
                   </span>
                 </div>
                 <p className="text-[10px] text-slate-400 mt-0.5">
-                  Powered by Open-Meteo Real-time API
+                  Powered by Open-Meteo & OpenStreetMap (OSM)
                 </p>
               </div>
 
-              <motion.button
-                whileHover={{ rotate: 180 }}
-                transition={{ duration: 0.4 }}
-                onClick={refreshLocation}
-                className="p-2 rounded-xl bg-[#f45b0b]/10 text-[#f45b0b] hover:bg-[#f45b0b] hover:text-white transition cursor-pointer"
-                title="Refresh location weather"
-              >
-                <RefreshCw className="w-4 h-4" />
-              </motion.button>
+              <div className="flex items-center gap-1">
+                <motion.button
+                  whileHover={{ rotate: 180 }}
+                  transition={{ duration: 0.4 }}
+                  onClick={requestLocationWithConsent}
+                  className="p-2 rounded-xl bg-[#f45b0b]/10 text-[#f45b0b] hover:bg-[#f45b0b] hover:text-white transition cursor-pointer"
+                  title="Refresh GPS location via OSM"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                </motion.button>
+              </div>
             </div>
+
+            {/* Custom Location Modal Trigger */}
+            <button
+              onClick={() => {
+                setIsOpen(false)
+                openLocationModal()
+              }}
+              className={`w-full mb-3.5 py-2 px-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold transition cursor-pointer ${
+                darkMode
+                  ? 'bg-[#0f171e] hover:bg-[#152028] border-[rgba(171,201,203,0.3)] text-white hover:border-[#f45b0b]'
+                  : 'bg-[#edf5f6] hover:bg-white border-[#abc9cb] text-slate-800 hover:border-[#f45b0b]'
+              }`}
+            >
+              <MapPin className="w-3.5 h-3.5 text-[#f45b0b]" />
+              <span>Change Location / OSM Permissions</span>
+            </button>
 
             {/* Atmosphere / Snow Effect Modes */}
             <div className="mb-4">
