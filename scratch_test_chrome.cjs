@@ -41,7 +41,6 @@ async function run() {
   process.on('exit', cleanup);
 
   try {
-    // Wait for Chrome to start
     let version = null;
     for (let i = 0; i < 20; i++) {
       try {
@@ -55,7 +54,6 @@ async function run() {
 
     const targets = await fetchJson('http://127.0.0.1:9222/json/list');
     const page = targets.find(t => t.type === 'page') || targets[0];
-    console.log('Connecting to ws:', page.webSocketDebuggerUrl);
 
     const ws = new WebSocket(page.webSocketDebuggerUrl);
     let id = 1;
@@ -66,12 +64,6 @@ async function run() {
       if (data.id && callbacks.has(data.id)) {
         callbacks.get(data.id)(data);
         callbacks.delete(data.id);
-      }
-      if (data.method === 'Runtime.consoleAPICalled') {
-        console.log('[BROWSER CONSOLE]', data.params.type, data.params.args.map(a => a.value || a.description).join(' '));
-      }
-      if (data.method === 'Runtime.exceptionThrown') {
-        console.error('[BROWSER ERROR]', data.params.exceptionDetails);
       }
     };
 
@@ -94,60 +86,24 @@ async function run() {
     await send('Page.enable');
     await send('Runtime.enable');
     await send('Emulation.setDeviceMetricsOverride', {
-      width: 1280,
-      height: 800,
+      width: 1400,
+      height: 900,
       deviceScaleFactor: 1,
       mobile: false
     });
 
-    console.log('Navigating to http://localhost:5173/');
     await send('Page.navigate', { url: 'http://localhost:5173/' });
-    await wait(3000);
-
-    // Evaluate experience & project info
-    const evalResult = await send('Runtime.evaluate', {
-      expression: `(() => {
-        const exp = document.getElementById('experience');
-        const proj = document.getElementById('projects');
-        const expStack = exp ? exp.querySelector('.scroll-stack') : null;
-        const projStack = proj ? proj.querySelector('.scroll-stack') : null;
-        
-        return {
-          expExists: !!exp,
-          projExists: !!proj,
-          expScrollHeight: expStack ? expStack.scrollHeight : 0,
-          expClientHeight: expStack ? expStack.clientHeight : 0,
-          projScrollHeight: projStack ? projStack.scrollHeight : 0,
-          projClientHeight: projStack ? projStack.clientHeight : 0,
-          expSlots: expStack ? expStack.querySelectorAll('[data-stack-slot]').length : 0,
-          projSlots: projStack ? projStack.querySelectorAll('[data-stack-slot]').length : 0,
-        };
-      })()`,
-      returnByValue: true
-    });
-    console.log('Section info:', evalResult.result.value);
+    await wait(2000);
 
     // Scroll to experience
     await send('Runtime.evaluate', {
-      expression: `document.getElementById('experience')?.scrollIntoView();`
+      expression: `document.getElementById('experience')?.scrollIntoView({ behavior: 'instant' });`
     });
     await wait(1000);
 
-    // Screenshot of experience
-    const shot1 = await send('Page.captureScreenshot', { format: 'png' });
-    fs.writeFileSync(path.join(__dirname, 'experience_shot.png'), Buffer.from(shot1.data, 'base64'));
-    console.log('Saved experience_shot.png');
-
-    // Scroll to projects
-    await send('Runtime.evaluate', {
-      expression: `document.getElementById('projects')?.scrollIntoView();`
-    });
-    await wait(1000);
-
-    // Screenshot of projects
-    const shot2 = await send('Page.captureScreenshot', { format: 'png' });
-    fs.writeFileSync(path.join(__dirname, 'projects_shot.png'), Buffer.from(shot2.data, 'base64'));
-    console.log('Saved projects_shot.png');
+    const shot = await send('Page.captureScreenshot', { format: 'png' });
+    fs.writeFileSync(path.join(__dirname, 'experience_rendered.png'), Buffer.from(shot.data, 'base64'));
+    console.log('Saved experience_rendered.png successfully!');
 
     ws.close();
   } catch (err) {

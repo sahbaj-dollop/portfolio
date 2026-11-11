@@ -27,18 +27,18 @@ const Footer = () => {
   return (
     <footer
       className={`py-8 px-5 md:px-10 lg:px-16 border-t transition-colors duration-300 ${
-        darkMode ? 'bg-[#06080e] border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-800'
+        darkMode ? 'bg-[#05070b] border-[rgba(171,201,203,0.18)] text-white' : 'bg-white border-[#abc9cb]/60 text-[#081014]'
       }`}
     >
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
         {/* Left: Branding & Status */}
         <div className="text-center sm:text-left">
-          <p className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">
-            © {new Date().getFullYear()} Sahbaj Khan. Built with React & Tailwind CSS.
+          <p className="text-xs sm:text-sm font-semibold text-[#abc9cb]">
+            © {new Date().getFullYear()} Sahbaj Khan. Designed & built with React & Tailwind CSS.
           </p>
           <div className="flex items-center justify-center sm:justify-start gap-1.5 mt-1 text-xs text-slate-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
-            <span>Open to full-time roles & engineering projects</span>
+            <span className="w-2 h-2 rounded-full bg-[#f45b0b] inline-block" />
+            <span>Open to full-time engineering roles & freelance projects</span>
           </div>
         </div>
 
@@ -51,10 +51,10 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.label}
-              className={`h-9 w-9 rounded-lg flex justify-center items-center text-sm transition-colors border ${
+              className={`h-9 w-9 rounded-xl flex justify-center items-center text-sm transition-all border ${
                 darkMode 
-                  ? 'bg-slate-850 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700' 
-                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900 shadow-sm'
+                  ? 'bg-[#0e161c] border-[rgba(171,201,203,0.22)] text-slate-400 hover:text-white hover:border-[#f45b0b]' 
+                  : 'bg-[#edf5f6] border-[#abc9cb] text-slate-700 hover:text-[#f45b0b] hover:border-[#f45b0b] shadow-sm'
               }`}
             >
               {link.icon}

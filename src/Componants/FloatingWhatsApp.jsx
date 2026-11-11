@@ -17,9 +17,9 @@ const FloatingWhatsApp = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute bottom-full left-0 mb-3 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs font-medium shadow-lg whitespace-nowrap backdrop-blur-md flex items-center gap-2 pointer-events-none"
+            className="absolute bottom-full left-0 mb-3 px-3 py-1.5 rounded-xl bg-[#0e161c] border border-[rgba(171,201,203,0.3)] text-white text-xs font-semibold shadow-xl whitespace-nowrap backdrop-blur-md flex items-center gap-2 pointer-events-none"
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
+            <span className="w-2 h-2 rounded-full bg-[#f45b0b] inline-block animate-pulse" />
             <span>Chat on WhatsApp</span>
           </motion.div>
         )}

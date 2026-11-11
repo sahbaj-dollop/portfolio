@@ -3,8 +3,9 @@ import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import toast from 'react-hot-toast'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
-import { Mail, Phone, MapPin, Send, Copy, Check } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, Copy, Check, Globe } from 'lucide-react'
 import { useTheme } from '../Context/ThemeContext'
+import { playClickSound } from '../utils/soundEffects'
 
 // ─── EmailJS Config ───────────────────────────────────────────────
 const EMAILJS_SERVICE_ID  = 'service_pqys3l4'
@@ -25,6 +26,7 @@ const Contact = () => {
   const [copiedPhone, setCopiedPhone] = useState(false)
 
   const copyToClipboard = (text, type) => {
+    playClickSound(true)
     navigator.clipboard.writeText(text)
     if (type === 'email') {
       setCopiedEmail(true)
@@ -39,17 +41,17 @@ const Contact = () => {
 
   const socialLinks = [
     {
-      icon: <FaGithub />,
+      icon: <FaGithub className="w-4 h-4" />,
       label: 'GitHub',
       href: 'https://github.com/sahbaj-dollop',
     },
     {
-      icon: <FaLinkedinIn />,
+      icon: <FaLinkedinIn className="w-4 h-4" />,
       label: 'LinkedIn',
       href: 'https://www.linkedin.com/in/sahbaj-khan-24138a338/',
     },
     {
-      icon: <Mail className="w-5 h-5" />,
+      icon: <Mail className="w-4 h-4" />,
       label: 'Email',
       href: 'mailto:sahbajkhan6593@gmail.com',
     },
@@ -57,6 +59,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    playClickSound(true)
     setIsSubmitting(true)
 
     const toastId = toast.loading('Sending message...')
@@ -94,227 +97,290 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className={`py-16 md:py-24 px-5 md:px-10 border-t transition-colors duration-300 ${
-        darkMode ? 'bg-[#090b11] border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
+      className={`py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-t transition-colors duration-300 relative overflow-hidden ${
+        darkMode ? 'bg-[#070a0e] border-[rgba(171,201,203,0.18)] text-white' : 'bg-[#eef5f6] border-[#abc9cb]/60 text-[#081014]'
       }`}
     >
-      <div className="max-w-5xl mx-auto">
+      {/* Ambient background lighting */}
+      <div 
+        className="absolute top-1/2 left-[-10%] -translate-y-1/2 w-[550px] h-[550px] rounded-full pointer-events-none blur-[140px] opacity-40"
+        style={{
+          background: 'radial-gradient(circle, rgba(244,91,11,0.45) 0%, transparent 70%)'
+        }}
+      />
+      <div 
+        className="absolute top-1/2 right-[-10%] -translate-y-1/2 w-[550px] h-[550px] rounded-full pointer-events-none blur-[140px] opacity-40"
+        style={{
+          background: 'radial-gradient(circle, rgba(56,189,248,0.4) 0%, transparent 70%)'
+        }}
+      />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         
-        {/* Header */}
-        <div className="mb-12 text-center md:text-left">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+        {/* Section Header (Exact match of Skills & Technologies style) */}
+        <div className="text-center mb-12 sm:mb-14">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
             Get In Touch
           </h2>
-          <p className={`text-sm sm:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+          <p className="text-xs sm:text-sm font-semibold text-[#abc9cb]">
             Have a project in mind, an opportunity, or just want to say hi? Send me a message.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          
-          {/* Left Column: Direct Info */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-30px" }}
-            transition={{ duration: 0.4 }}
-            className={`p-6 sm:p-8 rounded-2xl border flex flex-col justify-between ${
-              darkMode ? 'bg-slate-850 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-sm'
-            }`}
-          >
-            <div>
-              <h3 className="text-lg font-bold mb-2">Contact Details</h3>
-              <p className={`text-xs sm:text-sm mb-6 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                Feel free to contact me directly via email or WhatsApp.
-              </p>
+        {/* Big Glass Container Frame matching reference */}
+        <div >
 
-              <div className="space-y-4 mb-8">
-                {/* Email */}
-                <div className={`p-4 rounded-xl border flex items-center justify-between gap-3 ${
-                  darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'
-                }`}>
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500">
-                      <Mail className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-slate-400 font-medium">Email</p>
-                      <a href="mailto:sahbajkhan6593@gmail.com" className="text-xs sm:text-sm font-semibold hover:underline">
-                        sahbajkhan6593@gmail.com
-                      </a>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => copyToClipboard('sahbajkhan6593@gmail.com', 'email')}
-                    className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
-                    title="Copy Email"
+          {/* Two Distinct Frosted Glass Cards with Cyan Glowing Rim */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
+            
+            {/* ── Left Card: Contact Details ── */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.4 }}
+              className={`rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
+                darkMode
+                  ? 'bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-2xl text-white'
+                  : 'bg-white border-[#abc9cb] shadow-sm text-[#081014]'
+              }`}
+              style={{
+                border: darkMode ? '1.5px solid rgba(56, 189, 248, 0.45)' : '1px solid rgba(171, 201, 203, 0.8)',
+                boxShadow: darkMode 
+                  ? '0 0 25px rgba(56, 189, 248, 0.16), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25)' 
+                  : '0 10px 30px rgba(171, 201, 203, 0.25)'
+              }}
+            >
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold mb-1.5 text-white">Contact Details</h3>
+                <p className="text-xs sm:text-sm text-slate-300 mb-6">
+                  Feel free to contact me directly via email or WhatsApp.
+                </p>
+
+                {/* Contact Tiles with Orange Accent Borders */}
+                <div className="space-y-3.5 mb-8">
+                  
+                  {/* Email Tile */}
+                  <div 
+                    className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 transition-colors ${
+                      darkMode ? 'bg-[#090f16]/90 border-[#f45b0b]/40 hover:border-[#f45b0b]' : 'bg-slate-50 border-[#abc9cb]'
+                    }`}
                   >
-                    {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-
-                {/* Phone */}
-                <div className={`p-4 rounded-xl border flex items-center justify-between gap-3 ${
-                  darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'
-                }`}>
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500">
-                      <Phone className="w-4 h-4" />
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="p-2.5 rounded-lg bg-[#f45b0b]/15 text-[#f45b0b] shrink-0">
+                        <Mail className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[11px] text-slate-400 font-medium">Email</p>
+                        <a 
+                          href="mailto:sahbajkhan6593@gmail.com" 
+                          className="text-xs sm:text-sm font-bold text-white hover:text-[#f45b0b] transition truncate block"
+                        >
+                          sahbajkhan6593@gmail.com
+                        </a>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-xs text-slate-400 font-medium">Phone / WhatsApp</p>
-                      <a href="tel:+916265666859" className="text-xs sm:text-sm font-semibold hover:underline">
-                        +91 6265666859
-                      </a>
-                    </div>
+                    <button
+                      onClick={() => copyToClipboard('sahbajkhan6593@gmail.com', 'email')}
+                      className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+                      title="Copy Email"
+                    >
+                      {copiedEmail ? <Check className="w-4 h-4 text-[#f45b0b]" /> : <Copy className="w-4 h-4" />}
+                    </button>
                   </div>
-                  <button
-                    onClick={() => copyToClipboard('+916265666859', 'phone')}
-                    className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
-                    title="Copy Phone"
+
+                  {/* Phone / WhatsApp Tile */}
+                  <div 
+                    className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 transition-colors ${
+                      darkMode ? 'bg-[#090f16]/90 border-[#f45b0b]/40 hover:border-[#f45b0b]' : 'bg-slate-50 border-[#abc9cb]'
+                    }`}
                   >
-                    {copiedPhone ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-
-                {/* Location */}
-                <div className={`p-4 rounded-xl border flex items-center gap-3 ${
-                  darkMode ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'
-                }`}>
-                  <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500">
-                    <MapPin className="w-4 h-4" />
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="p-2.5 rounded-lg bg-[#f45b0b]/15 text-[#f45b0b] shrink-0">
+                        <Phone className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[11px] text-slate-400 font-medium">Phone / WhatsApp</p>
+                        <a 
+                          href="tel:+916265666859" 
+                          className="text-xs sm:text-sm font-bold text-white hover:text-[#f45b0b] transition truncate block"
+                        >
+                          +91 6265666859
+                        </a>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => copyToClipboard('+916265666859', 'phone')}
+                      className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+                      title="Copy Phone"
+                    >
+                      {copiedPhone ? <Check className="w-4 h-4 text-[#f45b0b]" /> : <Copy className="w-4 h-4" />}
+                    </button>
                   </div>
+
+                  {/* Location Tile */}
+                  <div 
+                    className={`p-3.5 rounded-xl border flex items-center gap-3 ${
+                      darkMode ? 'bg-[#090f16]/90 border-[#f45b0b]/40' : 'bg-slate-50 border-[#abc9cb]'
+                    }`}
+                  >
+                    <div className="p-2.5 rounded-lg bg-[#f45b0b]/15 text-[#f45b0b] shrink-0">
+                      <MapPin className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] text-slate-400 font-medium">Location</p>
+                      <p className="text-xs sm:text-sm font-bold text-white truncate">
+                        Indore, Madhya Pradesh, India
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* Social Links Pills */}
+              <div className="flex items-center gap-2 pt-2">
+                {socialLinks.map((link, index) => (
+                  <motion.a
+                    key={index}
+                    whileHover={{ scale: 1.08 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    className={`p-2.5 rounded-xl border transition-all cursor-pointer ${
+                      darkMode 
+                        ? 'bg-[#0c141e]/90 border-white/15 text-slate-300 hover:text-white hover:border-cyan-400/50 hover:bg-cyan-500/10' 
+                        : 'bg-white border-[#abc9cb] text-slate-700 hover:text-[#f45b0b] hover:border-[#f45b0b] shadow-sm'
+                    }`}
+                  >
+                    {link.icon}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* ── Right Card: Send a Message ── */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className={`rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
+                darkMode
+                  ? 'bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-2xl text-white'
+                  : 'bg-white border-[#abc9cb] shadow-sm text-[#081014]'
+              }`}
+              style={{
+                border: darkMode ? '1.5px solid rgba(56, 189, 248, 0.45)' : '1px solid rgba(171, 201, 203, 0.8)',
+                boxShadow: darkMode 
+                  ? '0 0 25px rgba(56, 189, 248, 0.16), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25)' 
+                  : '0 10px 30px rgba(171, 201, 203, 0.25)'
+              }}
+            >
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold mb-5 text-white">Send a Message</h3>
+
+                <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
+                  
+                  {/* Two Column Name & Email */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold mb-1.5 text-slate-300">
+                        Your Name <span className="text-[#f45b0b]">*</span>
+                      </label>
+                      <input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        placeholder="Name"
+                        className={`w-full px-4 py-2.5 rounded-xl border outline-none transition-all ${
+                          darkMode 
+                            ? 'bg-[#090f16]/85 border-white/10 text-white placeholder-slate-500 focus:border-[#f45b0b] focus:ring-1 focus:ring-[#f45b0b]/30' 
+                            : 'bg-slate-50 border-[#abc9cb] text-[#081014] focus:border-[#f45b0b]'
+                        }`}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold mb-1.5 text-slate-300">
+                        Your Email <span className="text-[#f45b0b]">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        placeholder="Email address"
+                        className={`w-full px-4 py-2.5 rounded-xl border outline-none transition-all ${
+                          darkMode 
+                            ? 'bg-[#090f16]/85 border-white/10 text-white placeholder-slate-500 focus:border-[#f45b0b] focus:ring-1 focus:ring-[#f45b0b]/30' 
+                            : 'bg-slate-50 border-[#abc9cb] text-[#081014] focus:border-[#f45b0b]'
+                        }`}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Subject */}
                   <div>
-                    <p className="text-xs text-slate-400 font-medium">Location</p>
-                    <p className="text-xs sm:text-sm font-semibold">Indore, Madhya Pradesh, India</p>
+                    <label className="block text-xs font-semibold mb-1.5 text-slate-300">
+                      Subject
+                    </label>
+                    <input
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="Subject"
+                      className={`w-full px-4 py-2.5 rounded-xl border outline-none transition-all ${
+                        darkMode 
+                          ? 'bg-[#090f16]/85 border-white/10 text-white placeholder-slate-500 focus:border-[#f45b0b] focus:ring-1 focus:ring-[#f45b0b]/30' 
+                          : 'bg-slate-50 border-[#abc9cb] text-[#081014] focus:border-[#f45b0b]'
+                      }`}
+                    />
                   </div>
-                </div>
+
+                  {/* Message */}
+                  <div>
+                    <label className="block text-xs font-semibold mb-1.5 text-slate-300">
+                      Message <span className="text-[#f45b0b]">*</span>
+                    </label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={3}
+                      placeholder="How can I help you?"
+                      className={`w-full px-4 py-3 rounded-xl border outline-none transition-all resize-none ${
+                        darkMode 
+                          ? 'bg-[#090f16]/85 border-white/10 text-white placeholder-slate-500 focus:border-[#f45b0b] focus:ring-1 focus:ring-[#f45b0b]/30' 
+                          : 'bg-slate-50 border-[#abc9cb] text-[#081014] focus:border-[#f45b0b]'
+                      }`}
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="pt-2">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-3.5 px-6 rounded-full bg-[#f45b0b] hover:bg-[#e04f05] text-white font-bold text-xs sm:text-sm shadow-[0_4px_22px_rgba(244,91,11,0.5)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    >
+                      <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                      <Send className="w-4 h-4" />
+                    </motion.button>
+                  </div>
+
+                </form>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Social Links */}
-            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2.5">
-              {socialLinks.map((link, index) => (
-                <motion.a
-                  key={index}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={link.label}
-                  className={`p-2.5 rounded-lg border transition ${
-                    darkMode 
-                      ? 'bg-slate-850 border-slate-750 text-slate-300 hover:text-white hover:border-slate-600' 
-                      : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 shadow-sm'
-                  }`}
-                >
-                  {link.icon}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Right Column: Contact Form */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-30px" }}
-            transition={{ duration: 0.4 }}
-            className={`p-6 sm:p-8 rounded-2xl border ${
-              darkMode ? 'bg-slate-850 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
-            }`}
-          >
-            <h3 className="text-lg font-bold mb-4">Send a Message</h3>
-
-            <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block font-medium mb-1.5 text-slate-400">
-                    Your Name *
-                  </label>
-                  <input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="Name"
-                    className={`w-full px-3.5 py-2.5 rounded-lg border outline-none transition ${
-                      darkMode ? 'bg-slate-900 border-slate-750 focus:border-blue-500' : 'bg-slate-50 border-slate-200 focus:border-blue-500'
-                    }`}
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-medium mb-1.5 text-slate-400">
-                    Your Email *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="Email address"
-                    className={`w-full px-3.5 py-2.5 rounded-lg border outline-none transition ${
-                      darkMode ? 'bg-slate-900 border-slate-750 focus:border-blue-500' : 'bg-slate-50 border-slate-200 focus:border-blue-500'
-                    }`}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-medium mb-1.5 text-slate-400">
-                  Subject
-                </label>
-                <input
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="Subject"
-                  className={`w-full px-3.5 py-2.5 rounded-lg border outline-none transition ${
-                    darkMode ? 'bg-slate-900 border-slate-750 focus:border-blue-500' : 'bg-slate-50 border-slate-200 focus:border-blue-500'
-                  }`}
-                />
-              </div>
-
-              <div>
-                <label className="block font-medium mb-1.5 text-slate-400">
-                  Message *
-                </label>
-                <textarea
-                  rows="4"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  placeholder="How can I help you?"
-                  className={`w-full px-3.5 py-2.5 rounded-lg border outline-none resize-none transition ${
-                    darkMode ? 'bg-slate-900 border-slate-750 focus:border-blue-500' : 'bg-slate-50 border-slate-200 focus:border-blue-500'
-                  }`}
-                />
-              </div>
-
-              <motion.button
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-2.5 px-4 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold flex items-center justify-center gap-2 transition cursor-pointer shadow-sm ${
-                  isSubmitting ? 'opacity-60 cursor-not-allowed' : ''
-                }`}
-              >
-                {isSubmitting ? (
-                  <span>Sending...</span>
-                ) : (
-                  <>
-                    <span>Send Message</span>
-                    <Send className="w-4 h-4" />
-                  </>
-                )}
-              </motion.button>
-            </form>
-          </motion.div>
+          </div>
 
         </div>
 
