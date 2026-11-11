@@ -1,105 +1,20 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
-import { 
-  Mail, 
-  ArrowRight, 
-  FileDown, 
-  Eye, 
-  X,
-  ChevronDown, 
-  Code2, 
-  Terminal, 
-  Cpu, 
-  Database, 
-  Globe, 
-  Layers, 
-  Layout, 
-  Server, 
-  FolderGit2, 
-  Workflow, 
-  Sparkles 
-} from "lucide-react";
+import { Mail, ArrowRight, FileDown, MapPin, Copy, Check, Terminal } from "lucide-react";
+import toast from "react-hot-toast";
 import { useTheme } from "../Context/ThemeContext";
 
-// Inline Available for work badge
-const AvailableBadge = ({ darkMode }) => (
-  <motion.div
-    className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold mb-6 ${
-      darkMode ? "glass-dark text-[#2b3154] border border-[#2b3154]/30 shadow-lg shadow-[#2b3154]/10 bg-[#191970]/20" : "glass-card text-[#2b3154] border border-[#2b3154]/40 shadow-lg shadow-[#2b3154]/10"
-    }`}
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    <motion.span
-      className="w-2.5 h-2.5 rounded-full bg-[#2b3154] glow-cream"
-      animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
-      transition={{ duration: 1.2, repeat: Infinity }}
-    />
-    Available for work
-  </motion.div>
-)
-
 const Home = () => {
-  const { darkMode, recruiterMode, soundEnabled } = useTheme();
-  const [loaded, setLoaded] = useState(false);
-  const [imgLoaded, setImgLoaded] = useState(false);
-
-  const [showDirectContactModal, setShowDirectContactModal] = useState(false);
-
-  useEffect(() => { setLoaded(true); }, []);
+  const { darkMode } = useTheme();
+  const [copiedCode, setCopiedCode] = useState(false);
 
   const scrollToContact = () => {
-    playClickSound(soundEnabled);
-    setShowDirectContactModal(false);
     const el = document.querySelector("#contact");
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
-      setTimeout(() => {
-        const nameInput = document.getElementById("contact-form-name");
-        if (nameInput) {
-          nameInput.focus();
-        }
-      }, 700);
     }
-  };
-
-  const handleDirectContactClick = () => {
-    playClickSound(soundEnabled);
-    setShowDirectContactModal(true);
-  };
-
-  const titleWords = [
-    { text: "Hi,", gradient: false },
-    { text: "I'm", gradient: false },
-    { text: "Sahbaj", gradient: true },
-    { text: "Khan", gradient: true },
-  ];
-
-  const wordContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.18,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const wordVariants = {
-    hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: {
-        type: "spring",
-        damping: 14,
-        stiffness: 110,
-      },
-    },
   };
 
   const socialLinks = [
@@ -108,354 +23,256 @@ const Home = () => {
     { icon: <Mail className="w-5 h-5" />,         href: "mailto:sahbajkhan6593@gmail.com",                    label: "Email"    },
   ];
 
+  const coreTech = [
+    "React", "Next.js", "TypeScript", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Git"
+  ];
+
+  const codeSnippet = `const engineer = {
+  name: "Sahbaj Khan",
+  role: "Full Stack Developer",
+  experience: "2+ Years",
+  currentCompany: "Dollop Infotech",
+  stack: ["React", "Next.js", "Node.js"]
+};`
+
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText(codeSnippet);
+    setCopiedCode(true);
+    toast.success("Snippet copied to clipboard");
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.05 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] }
+    }
+  };
+
   return (
-    <div
+    <section
       id="home"
-      className={`relative min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-16 pt-28 md:pt-36 pb-16 overflow-hidden transition-colors duration-500 ${
-        darkMode ? "bg-[#0b0e1b] text-white" : "bg-gradient-to-br from-[#191970]/10 via-[#F5F5DC] to-[#2b3154]/10 text-[#191970]"
-      } ${loaded ? "opacity-100" : "opacity-0"} transition-opacity duration-1000`}
+      className={`relative min-h-[92vh] flex items-center justify-center px-5 md:px-10 lg:px-12 pt-28 pb-16 transition-colors duration-300 overflow-hidden ${
+        darkMode ? "bg-[#090b11] text-white" : "bg-slate-50 text-slate-900"
+      }`}
     >
-      {/* ── Animated background blobs ── */}
-      <motion.div
-        className="absolute top-0 left-0 w-[350px] md:w-[500px] h-[350px] md:h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(184, 115, 51,0.18) 0%, transparent 70%)" }}
-        animate={{ x: [0, 30, 0], y: [0, 30, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-0 right-0 w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(25, 25, 112,0.25) 0%, transparent 70%)" }}
-        animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-      />
+      {/* Subtle Ambient Background Mesh */}
+      {darkMode && (
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-gradient-to-tr from-blue-600/10 via-indigo-600/10 to-transparent blur-[120px] rounded-full pointer-events-none animate-pulse-glow" />
+      )}
 
-      {/* ── Main content ── */}
-      <div className="max-w-7xl mx-auto w-full relative z-20">
-        
-        {/* Recruiter Mode Executive Banner */}
-        <AnimatePresence>
-          {recruiterMode && (
-            <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.96 }}
-              transition={{ duration: 0.4 }}
-              className="mb-8 p-5 md:p-6 rounded-2xl bg-gradient-to-r from-[#191970] via-[#1d2138] to-[#191970] text-white border-2 border-[#2b3154] shadow-2xl shadow-[#2b3154]/20 relative overflow-hidden"
+      <div className="max-w-5xl mx-auto w-full relative z-10">
+        <motion.div 
+          className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-14"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+
+          {/* Left Column: Natural Human Introduction */}
+          <div className="md:w-7/12 text-center md:text-left">
+            
+            {/* Status Pill */}
+            <motion.div 
+              variants={itemVariants}
+              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6 border ${
+                darkMode 
+                  ? "bg-slate-800/80 text-emerald-400 border-slate-700" 
+                  : "bg-white text-emerald-700 border-slate-200 shadow-sm"
+              }`}
             >
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10">
-                <div className="flex items-start gap-3">
-                  <div className="p-2.5 rounded-xl bg-[#2b3154] text-white animate-bounce shrink-0 mt-0.5">
-                    <Sparkles className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-extrabold uppercase tracking-wider text-[#2b3154]">
-                        Recruiter Fast-Track (30s Executive Pitch)
-                      </span>
-                    </div>
-                    <h3 className="text-lg md:text-xl font-bold mt-0.5">
-                      Full Stack Engineer (MERN / Next.js) — 1+ Year Experience
-                    </h3>
-                    <p className="text-xs md:text-sm text-gray-300 mt-1 max-w-3xl leading-relaxed">
-                      Specialized in React 19, Next.js, Node.js REST APIs, MongoDB, and TypeScript. Hands-on experience engineering kids visual Blockly code editor and full-stack MERN e-commerce platforms at Dollop Infotech.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3 w-full md:w-auto shrink-0">
-                  <a
-                    href="/sahbajkhan.pdf"
-                    download
-                    onClick={() => playClickSound(soundEnabled)}
-                    className="px-4 py-2.5 rounded-xl bg-[#2b3154] hover:bg-[#191970] text-white font-bold text-xs flex items-center gap-1.5 transition shadow-md cursor-pointer"
-                  >
-                    <FileDown className="w-4 h-4" />
-                    Download Resume PDF
-                  </a>
-                  <a
-                    href="https://wa.me/916265666859?text=Hi%20Sahbaj,%20I%20reviewed%20your%20portfolio%20and%20would%20like%20to%20connect%20with%20you%20regarding%20an%20opportunity!"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => playClickSound(soundEnabled)}
-                    className="px-4 py-2.5 rounded-xl bg-[#F5F5DC]/10 hover:bg-[#F5F5DC]/20 border border-white/30 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md"
-                  >
-                    <Mail className="w-4 h-4 text-[#2b3154]" />
-                    Direct Contact
-                  </a>
-                </div>
-              </div>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
+              <span>Available for full-time roles & projects</span>
             </motion.div>
-          )}
-        </AnimatePresence>
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-10 lg:gap-12">
-
-          {/* Left */}
-          <motion.div
-            className="md:w-1/2 text-center md:text-left"
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-          >
-            <AvailableBadge darkMode={darkMode} />
-
-            <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight flex flex-wrap items-center gap-x-3 justify-center md:justify-start"
-              variants={wordContainerVariants}
-              initial="hidden"
-              animate="visible"
+            {/* Headline */}
+            <motion.h1 
+              variants={itemVariants}
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-3"
             >
-              {titleWords.map((word, idx) => (
-                <motion.span
-                  key={idx}
-                  variants={wordVariants}
-                  className={
-                    word.gradient
-                      ? "bg-gradient-to-r from-[#191970] via-[#4f5994] to-[#2b3154] dark:from-[#4f5994] dark:via-[#f0e6dd] dark:to-[#2b3154] bg-clip-text text-transparent font-extrabold inline-block"
-                      : darkMode
-                      ? "text-white font-extrabold inline-block"
-                      : "text-[#191970] font-extrabold inline-block"
-                  }
-                >
-                  {word.text}
-                </motion.span>
-              ))}
+              Hi, I&apos;m <span className="text-blue-500">Sahbaj Khan</span>
             </motion.h1>
 
-            <motion.p
-              className="text-xl md:text-2xl font-semibold text-[#2b3154] mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+            <motion.p 
+              variants={itemVariants}
+              className="text-lg sm:text-xl font-medium text-slate-400 dark:text-slate-300 mb-5"
             >
-              Full Stack Developer (MERN / Next.js)
+              Full Stack Developer specializing in React, Next.js & Node.js
             </motion.p>
 
-            <motion.p
-              className={`text-base md:text-lg lg:text-xl leading-relaxed mb-10 max-w-xl mx-auto md:mx-0 ${darkMode ? "text-gray-300" : "text-[#191970]"}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+            {/* Natural Bio */}
+            <motion.p 
+              variants={itemVariants}
+              className={`text-base leading-relaxed mb-6 max-w-xl ${
+                darkMode ? "text-slate-300" : "text-slate-600"
+              }`}
             >
-              I architect high-performance, full-stack web applications combining sleek modern UI design, scalable backend REST APIs, and intuitive user experiences built on React, Next.js, Node.js, and MongoDB.
+              I have 2+ years of hands-on experience building full-stack web applications. Currently working at <strong>Dollop Infotech</strong>, where I develop visual code editors, e-commerce applications, and scalable REST APIs. I enjoy writing clean, maintainable code and building interfaces that feel fast and intuitive.
             </motion.p>
+
+            {/* Location Tag */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex items-center justify-center md:justify-start gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-8"
+            >
+              <MapPin className="w-4 h-4 text-blue-500" />
+              <span>Based in Indore, MP, India • Open to remote worldwide</span>
+            </motion.div>
 
             {/* Action Buttons */}
-            <motion.div
-              className="flex flex-col sm:flex-row items-center gap-4 mb-10 justify-center md:justify-start w-full"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row items-center gap-3 mb-8 justify-center md:justify-start"
             >
-              {/* Primary Hire Me Button */}
               <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={scrollToContact}
-                onMouseEnter={() => playHoverSound(soundEnabled)}
-                className="group relative px-7 py-3.5 bg-gradient-to-r from-[#191970] to-[#2b3154] text-white font-semibold rounded-xl flex items-center justify-center gap-2 overflow-hidden glow-cream text-sm md:text-base w-full sm:w-auto whitespace-nowrap shadow-lg shadow-[#2b3154]/20 cursor-pointer"
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.96 }}
+                className="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm rounded-lg flex items-center justify-center gap-2 transition cursor-pointer shadow-sm"
               >
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-[#2b3154] to-[#191970]"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <Mail className="w-4 h-4 md:w-5 md:h-5 relative z-10" />
-                <span className="relative z-10">Hire Me</span>
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                <span>Get In Touch</span>
+                <ArrowRight className="w-4 h-4" />
               </motion.button>
 
-              {/* Download Resume Button */}
               <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href="/sahbajkhan.pdf"
                 download
-                onClick={() => playClickSound(soundEnabled)}
-                onMouseEnter={() => playHoverSound(soundEnabled)}
-                className="w-full sm:w-auto"
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.96 }}
+                className={`w-full sm:w-auto px-6 py-3 font-medium text-sm rounded-lg flex items-center justify-center gap-2 transition border ${
+                  darkMode 
+                    ? "bg-slate-800/80 hover:bg-slate-800 text-slate-200 border-slate-700" 
+                    : "bg-white hover:bg-slate-100 text-slate-800 border-slate-300 shadow-sm"
+                }`}
               >
-                <button className="w-full px-7 py-3.5 bg-[#0f1226] border border-[#191970] text-white font-semibold rounded-xl flex items-center justify-center gap-2 text-sm whitespace-nowrap transition-all duration-300 hover:border-[#2b3154] hover:shadow-lg hover:shadow-[#2b3154]/10 cursor-pointer">
-                  <FileDown className="w-4 h-4 text-[#2b3154]" />
-                  <span>Download Resume</span>
-                </button>
+                <FileDown className="w-4 h-4 text-slate-400" />
+                <span>Download Resume</span>
               </motion.a>
             </motion.div>
 
-            {/* Social Icons */}
-            <motion.div
-              className="flex gap-4 justify-center md:justify-start"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2 }}
+            {/* Social Links */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex items-center gap-3 justify-center md:justify-start"
             >
               {socialLinks.map((item, i) => (
                 <motion.a
                   key={i}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={item.label}
-                  className={`h-11 w-11 md:h-12 md:w-12 rounded-full flex items-center justify-center text-lg md:text-xl transition-colors ${
-                    darkMode ? "glass-dark text-white hover:text-[#2b3154] hover:border-[#2b3154]/50" : "glass text-[#191970] hover:text-[#2b3154] hover:border-[#2b3154]"
+                  className={`p-2.5 rounded-lg border transition-colors ${
+                    darkMode 
+                      ? "bg-slate-850 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700" 
+                      : "bg-white border-slate-200 text-slate-600 hover:text-slate-900 shadow-sm"
                   }`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.3 + i * 0.1 }}
-                  whileHover={{ scale: 1.15, y: -4, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
                 >
                   {item.icon}
                 </motion.a>
               ))}
             </motion.div>
-          </motion.div>
 
-          {/* Right — Profile image */}
-          <motion.div
-            className="md:w-1/2 flex justify-center py-4 md:py-0"
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+          </div>
+
+          {/* Right Column: Profile Image + Interactive Code Snippet */}
+          <motion.div 
+            className="md:w-5/12 flex flex-col items-center gap-4"
+            variants={itemVariants}
           >
-            <div className="relative p-4 md:p-6">
-              {/* Rotating rings */}
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-dashed border-[#2b3154]/50"
-                style={{ margin: "-8px" }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-              />
-              <motion.div
-                className="absolute inset-0 rounded-full border border-dashed border-[#191970]/60"
-                style={{ margin: "-20px" }}
-                animate={{ rotate: -360 }}
-                transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-              />
-
-              {/* Profile image */}
-              <motion.div
-                className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-[#2b3154]/40 shadow-2xl relative"
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.3 }}
-                style={{ boxShadow: "0 0 40px rgba(184, 115, 51,0.35)" }}
-              >
-                {!imgLoaded && (
-                  <div className="absolute inset-0 rounded-full shimmer bg-[#191970]/20" />
-                )}
+            <div className="relative group">
+              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 shadow-lg transition-transform duration-300 group-hover:scale-[1.02]">
                 <img
                   src="/profile.jpeg"
                   alt="Sahbaj Khan"
-                  className={`w-full h-full object-cover transition-all duration-700 ${imgLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"}`}
-                  onLoad={() => setImgLoaded(true)}
+                  className="w-full h-full object-cover"
                   loading="eager"
                 />
-              </motion.div>
+              </div>
+
+              {/* Minimal floating badge */}
+              <div className={`absolute -bottom-3 -right-3 px-3 py-1.5 rounded-xl border text-xs font-semibold shadow-md ${
+                darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-white border-slate-200 text-slate-800"
+              }`}>
+                <span>2+ Yrs Experience</span>
+              </div>
             </div>
-          </motion.div>
 
-        </div>
-      </div>
-
-      {/* ── Direct Contact Quick Action Modal ── */}
-      <AnimatePresence>
-        {showDirectContactModal && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setShowDirectContactModal(false)}
-          >
-            <motion.div
-              className={`relative w-full max-w-md p-6 rounded-3xl shadow-2xl border ${
-                darkMode ? "bg-[#0b0e1b] border-[#191970] text-white" : "bg-[#F5F5DC] border-[#2b3154]/30 text-[#191970]"
-              }`}
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#2b3154]/20">
-                <div className="flex items-center gap-2">
-                  <div className="p-2 rounded-xl bg-[#2b3154]/20 text-[#2b3154]">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-extrabold text-lg">Direct Executive Contact</h3>
-                    <p className="text-xs text-gray-400">Get in touch with Sahbaj Khan instantly</p>
-                  </div>
+            {/* Interactive Developer Code Card */}
+            <div className={`w-full max-w-sm rounded-xl border p-3.5 font-mono text-[11px] leading-relaxed shadow-sm transition-all ${
+              darkMode 
+                ? "bg-slate-900/90 border-slate-800 text-slate-300" 
+                : "bg-white border-slate-200 text-slate-700"
+            }`}>
+              <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 dark:border-slate-800 text-slate-400">
+                <div className="flex items-center gap-1.5">
+                  <Terminal className="w-3.5 h-3.5 text-blue-500" />
+                  <span className="font-semibold text-[10px]">engineer.ts</span>
                 </div>
                 <button
-                  onClick={() => setShowDirectContactModal(false)}
-                  className="p-1.5 rounded-full hover:bg-gray-800 text-gray-400 hover:text-white transition cursor-pointer"
+                  onClick={handleCopyCode}
+                  className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] hover:text-white transition cursor-pointer"
+                  title="Copy snippet"
                 >
-                  <X className="w-5 h-5" />
+                  {copiedCode ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                  <span>{copiedCode ? "Copied" : "Copy"}</span>
                 </button>
               </div>
-
-              <div className="space-y-3 my-4">
-                <a
-                  href="mailto:sahbajkhan6593@gmail.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3.5 rounded-2xl bg-[#191970]/20 hover:bg-[#2b3154]/20 border border-[#2b3154]/30 flex items-center justify-between gap-3 text-sm font-bold text-[#2b3154] transition group cursor-pointer"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Mail className="w-4 h-4 text-[#2b3154]" />
-                    <span>Email: sahbajkhan6593@gmail.com</span>
-                  </div>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-
-                <a
-                  href="tel:+916265666859"
-                  className="p-3.5 rounded-2xl bg-[#191970]/20 hover:bg-[#2b3154]/20 border border-[#2b3154]/30 flex items-center justify-between gap-3 text-sm font-bold text-[#2b3154] transition group cursor-pointer"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Globe className="w-4 h-4 text-[#2b3154]" />
-                    <span>Call: +91 6265666859</span>
-                  </div>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-
-                <a
-                  href="https://wa.me/916265666859?text=Hi%20Sahbaj,%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20connect!"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3.5 rounded-2xl bg-brand-cream/15 hover:bg-brand-cream/25 border border-brand-cream/40 flex items-center justify-between gap-3 text-sm font-bold text-brand-cream transition group cursor-pointer"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-brand-cream animate-pulse" />
-                    <span>WhatsApp Direct Chat</span>
-                  </div>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
+              <div className="space-y-0.5">
+                <p><span className="text-purple-400">const</span> engineer = &#123;</p>
+                <p className="pl-3">name: <span className="text-emerald-400">&quot;Sahbaj Khan&quot;</span>,</p>
+                <p className="pl-3">role: <span className="text-emerald-400">&quot;Full Stack Dev&quot;</span>,</p>
+                <p className="pl-3">company: <span className="text-blue-400">&quot;Dollop Infotech&quot;</span>,</p>
+                <p className="pl-3">experience: <span className="text-amber-400">&quot;2+ Years&quot;</span></p>
+                <p>&#125;;</p>
               </div>
+            </div>
 
-              <button
-                onClick={scrollToContact}
-                className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#191970] to-[#2b3154] text-white font-extrabold text-sm hover:opacity-95 transition shadow-lg shadow-[#2b3154]/20 cursor-pointer"
-              >
-                Or Fill Full Contact Form
-              </button>
-            </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* ── Bouncing Scroll Indicator ── */}
-      <motion.button
-        onClick={() => document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" })}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 p-2 rounded-full text-[#2b3154] hover:text-[#f0e6dd] transition-colors hidden sm:flex items-center justify-center cursor-pointer"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        aria-label="Scroll down to About section"
-      >
-        <ChevronDown className="w-7 h-7 text-[#2b3154]" />
-      </motion.button>
-    </div>
+        </motion.div>
+
+        {/* Tech Stack Bar */}
+        <motion.div 
+          className="mt-14 pt-8 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row items-center gap-4 text-xs"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
+          <span className="font-semibold text-slate-500 uppercase tracking-wider text-[11px]">
+            Primary Tech:
+          </span>
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            {coreTech.map((tech) => (
+              <span
+                key={tech}
+                className={`px-3 py-1 rounded-md font-medium border transition-colors ${
+                  darkMode 
+                    ? "bg-slate-850 border-slate-800 text-slate-300 hover:border-slate-700" 
+                    : "bg-white border-slate-200 text-slate-700 shadow-sm hover:border-slate-300"
+                }`}
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
   );
 };
 

@@ -1,103 +1,96 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Award, ShieldCheck, CheckCircle2, Code2, Sparkles } from 'lucide-react'
+import { Award, ShieldCheck, GraduationCap } from 'lucide-react'
 import { useTheme } from '../Context/ThemeContext'
 
 const Certifications = () => {
   const { darkMode } = useTheme()
 
-  const certifications = [
+  const credentials = [
     {
       id: 1,
-      title: "Full Stack Web Development Certification",
-      issuer: "Dollop Infotech Indore M.P.",
-      date: "2025 - Present",
-      description: "Hands-on professional experience in React, Next.js, Node.js, Express.js, MongoDB, REST API development, and production deployment.",
+      title: "Full Stack Web Development",
+      issuer: "Dollop Infotech, Indore",
+      date: "Oct 2024 – Present",
+      description: "Hands-on commercial engineering in React, Next.js, Node.js, Express, MongoDB, and production deployment.",
       icon: Award,
-      badge: "Professional Experience"
+      badge: "Commercial Role"
     },
     {
       id: 2,
       title: "MERN Stack Specialization",
-      issuer: "Placement Adda Indore M.P.",
-      date: "Feb 2025 - Oct 2025",
-      description: "Intensive training on full-stack architecture, state management (Redux Toolkit), database design, and real-world project development.",
+      issuer: "Placement Adda, Indore",
+      date: "Feb 2024 – Oct 2024",
+      description: "Comprehensive training in full stack architecture, state management with Redux Toolkit, and database integration.",
       icon: ShieldCheck,
-      badge: "Certified Specialist"
+      badge: "Certification"
     },
     {
       id: 3,
       title: "Bachelor of Computer Applications (BCA)",
-      issuer: "Holkar Science College, Indore",
-      date: "2022 - 2025",
-      description: "Graduated with 7.40 CGPA. Core focus on Computer Science fundamentals, Data Structures, Web Technologies, and Database Systems.",
-      icon: Code2,
-      badge: "Academic Degree"
+      issuer: "Govt. Holkar Science College, Indore",
+      date: "2022 – 2025",
+      description: "Graduated with 7.40 CGPA. Core focus on Data Structures, Algorithms, OOP, and Relational Database Systems.",
+      icon: GraduationCap,
+      badge: "Degree"
     }
   ]
 
-  const highlights = [
-    "Over 1 year of real-world Full Stack Web Development experience",
-    "Expertise in React 19, Next.js, TypeScript, and modern CSS (Tailwind CSS)",
-    "Backend proficiency in Node.js, Express.js, MongoDB Atlas, and SQL",
-    "Track record of building complex UI editors (Blockly) and E-Commerce platforms"
-  ]
-
-  const cardStyle = darkMode
-    ? 'bg-[#0f1226] border border-[#191970]/40 text-white hover:border-[#2b3154]/50'
-    : 'bg-[#F5F5DC] border border-[#2b3154]/20 text-[#191970] hover:border-[#2b3154]/50 shadow-md'
-
-  const sectionBg = darkMode ? 'bg-[#0b0e1b] text-white' : 'bg-gradient-to-b from-[#191970]/5 via-[#F5F5DC] to-transparent text-[#191970]'
-
   return (
-    <section id="certifications" className={`py-16 px-4 md:px-8 lg:px-16 transition-colors duration-300 ${sectionBg}`}>
-      <div className="max-w-7xl mx-auto">
+    <section 
+      id="certifications" 
+      className={`py-16 md:py-24 px-5 md:px-10 border-t transition-colors duration-300 ${
+        darkMode ? 'bg-[#090b11] border-slate-800 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
+      }`}
+    >
+      <div className="max-w-5xl mx-auto">
         
         {/* Header */}
-        <motion.div
-          className="text-center max-w-3xl mx-auto mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className={`font-extrabold text-3xl md:text-5xl mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-[#191970]'}`}>
-            Certifications & <span className="gradient-text">Highlights</span>
+        <div className="mb-12 text-center md:text-left">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+            Certifications & Education
           </h2>
-          <span className="block h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-[#191970] to-[#2b3154] mb-6" />
-          <p className={`text-base md:text-xl max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-[#191970]'}`}>
-            Professional credentials and key milestones in my software engineering career
+          <p className={`text-sm sm:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+            My academic foundation and verified technical training.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {certifications.map((item, index) => {
+        {/* Credentials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {credentials.map((item, idx) => {
             const Icon = item.icon
             return (
               <motion.div
                 key={item.id}
-                className={`p-6 md:p-8 rounded-2xl shadow-lg relative flex flex-col justify-between transition-all duration-300 ${cardStyle}`}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                whileHover={{ y: -6 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.35, delay: idx * 0.1 }}
+                whileHover={{ y: -4 }}
+                className={`p-6 rounded-2xl border flex flex-col justify-between transition-all ${
+                  darkMode ? 'bg-slate-850 border-slate-800 hover:border-slate-700 shadow-sm hover:shadow-lg hover:shadow-black/20' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'
+                }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-3 rounded-xl bg-[#2b3154]/15 text-[#2b3154]">
-                      <Icon className="w-6 h-6" />
+                    <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500">
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#2b3154]/15 text-[#2b3154] border border-[#2b3154]/30">
+                    <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
                       {item.badge}
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-xl mb-2">{item.title}</h3>
-                  <p className="text-[#2b3154] font-semibold text-sm mb-1">{item.issuer}</p>
-                  <p className="text-xs text-gray-400 mb-4">{item.date}</p>
-                  <p className={`text-sm leading-relaxed ${darkMode ? 'text-gray-400' : 'text-[#191970]'}`}>
+                  <h3 className="font-bold text-base sm:text-lg mb-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-medium text-blue-500 mb-0.5">
+                    {item.issuer}
+                  </p>
+                  <p className="text-xs font-mono text-slate-400 mb-3">
+                    {item.date}
+                  </p>
+                  <p className={`text-xs sm:text-sm leading-relaxed ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                     {item.description}
                   </p>
                 </div>
@@ -105,33 +98,6 @@ const Certifications = () => {
             )
           })}
         </div>
-
-        {/* Highlights Banner */}
-        <motion.div
-          className={`p-8 md:p-10 rounded-3xl border border-[#2b3154]/30 ${
-            darkMode ? 'glass-dark' : 'bg-gradient-to-r from-[#191970]/10 via-[#2b3154]/10 to-[#191970]/10'
-          }`}
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <Sparkles className="text-[#2b3154] w-7 h-7" />
-            <h2 className="text-2xl font-bold">Why Hire Sahbaj Khan?</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {highlights.map((h, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <CheckCircle2 className="text-[#2b3154] w-5 h-5 shrink-0 mt-0.5" />
-                <p className={`text-sm md:text-base font-medium ${darkMode ? 'text-gray-300' : 'text-[#191970]'}`}>
-                  {h}
-                </p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
 
       </div>
     </section>

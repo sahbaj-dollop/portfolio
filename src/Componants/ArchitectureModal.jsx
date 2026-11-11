@@ -1,117 +1,153 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Layers, Cpu, Database, Cloud, ArrowRight, ShieldCheck, Zap, Activity } from 'lucide-react'
+import { X, Layers, Cpu, Database, Cloud, ShieldCheck } from 'lucide-react'
 import { useTheme } from '../Context/ThemeContext'
-import { playClickSound } from '../utils/soundEffects'
 
 const ARCHITECTURE_DATA = {
-  "Kids Code Editor": {
-    subtitle: "Real-time Visual & Code Parsing Architecture",
+  "Kids Code Editor (Blockly IDE)": {
+    subtitle: "Visual AST Generation & Web Worker Execution Pipeline",
     nodes: [
       {
         id: "client",
-        title: "Frontend UI Layer",
-        tech: "Next.js 14, React 19, Monaco Editor, Tailwind CSS",
-        details: "Renders visual Blockly drag-and-drop blocks alongside VS Code Monaco Editor. Tree-sitter parses syntax in real-time.",
-        metrics: "60 FPS Render | Client-side Sandbox",
+        title: "Blockly Studio UI",
+        tech: "React 19, Next.js, Blockly Core, Monaco Editor",
+        details: "Renders the visual drag-and-drop workspace alongside Monaco Editor, providing real-time two-way synchronization.",
+        metrics: "Client-side Sandbox",
         icon: Layers
       },
       {
         id: "parser",
-        title: "AST & Syntax Parser",
-        tech: "WebAssembly, Custom AST Parser, Worker Threads",
-        details: "Converts Blockly node outputs into executable JavaScript/Python code safely inside isolated Web Workers.",
-        metrics: "< 15ms Parsing Latency",
+        title: "AST Generator",
+        tech: "Web Workers, Abstract Syntax Tree",
+        details: "Converts block configurations into executable JavaScript without freezing the browser's main UI thread.",
+        metrics: "Isolated Worker Thread",
         icon: Cpu
       },
       {
         id: "backend",
-        title: "Execution Engine & API",
-        tech: "Node.js, Express REST API",
-        details: "Validates code syntax, manages user saved projects, handles snippet sharing with secure CORS origin validation.",
-        metrics: "JWT Auth | 100% Stateless",
-        icon: Activity
+        title: "Snippet Storage API",
+        tech: "Node.js, Express REST API, MongoDB",
+        details: "Saves and retrieves student projects with user authentication, data validation, and rate limiting.",
+        metrics: "RESTful JSON API",
+        icon: Database
       },
       {
         id: "hosting",
-        title: "Edge Hosting & Cloud",
-        tech: "Vercel Edge Network, GitHub CI/CD",
-        details: "Global CDN distribution with automated previews on GitHub pull requests and instant SSL certificates.",
-        metrics: "99.9% Uptime | Edge Caching",
+        title: "Edge Deployment",
+        tech: "Vercel, Git CI/CD",
+        details: "Continuous deployment from GitHub with automated branch previews and asset compression.",
+        metrics: "Global CDN",
         icon: Cloud
       }
     ]
   },
-  "E-Commerce Platform": {
-    subtitle: "Full-Stack Production MERN Ecosystem",
+  "MERN E-Commerce Platform": {
+    subtitle: "Full-Stack Storefront & Order Processing Pipeline",
     nodes: [
       {
         id: "client",
-        title: "React SPA Frontend",
-        tech: "React.js, Redux Toolkit, Tailwind CSS, Lucide Icons",
-        details: "Dynamic catalog filtering, shopping cart state management, responsive UI, optimistic UI updates for instant feedback.",
-        metrics: "Single Page App | Redux Persist",
+        title: "Storefront UI",
+        tech: "React, Redux Toolkit, Tailwind CSS",
+        details: "Fast responsive catalog browsing, product filtering, dynamic cart state management, and user checkout workflows.",
+        metrics: "Client State Persist",
         icon: Layers
       },
       {
         id: "api",
-        title: "RESTful API Server",
-        tech: "Node.js, Express.js, Express-Validator, Bcrypt",
-        details: "Modular controller architecture handling auth (JWT HTTP-only cookies), product management, order processing, and payment webhooks.",
-        metrics: "Token Auth | Rate Limited",
+        title: "Express Backend API",
+        tech: "Node.js, Express.js, JWT, Bcrypt",
+        details: "Handles user authentication with secure HTTP-only cookies, inventory management, and order processing endpoints.",
+        metrics: "Token Auth & Validation",
         icon: Cpu
       },
       {
         id: "db",
-        title: "Database Cluster",
+        title: "MongoDB Database",
         tech: "MongoDB Atlas, Mongoose ODM",
-        details: "Normalized database schemas with indexed queries for products, users, cart sessions, and audit logging.",
-        metrics: "ACID Transactions | Schema Validation",
+        details: "Stores catalog items, user profiles, order logs, and cart sessions with normalized schemas and indexing.",
+        metrics: "Indexed Collections",
         icon: Database
       },
       {
         id: "cloud",
-        title: "Cloud Infrastructure",
-        tech: "Vercel, MongoDB Atlas Cloud, Render",
-        details: "Decoupled frontend/backend deployment with SSL, automated database backups, and environment variable secrets.",
-        metrics: "Zero-Downtime Deploys",
+        title: "Cloud Hosting",
+        tech: "Vercel, MongoDB Atlas",
+        details: "Decoupled frontend and backend hosting with SSL encryption, environment secrets, and automated backups.",
+        metrics: "Cloud Deployment",
         icon: Cloud
       }
     ]
   },
-  "Blog-Space": {
-    subtitle: "Real-time Content Publishing System",
+  "School Management System": {
+    subtitle: "Administrative Lifecycle & Record Portal",
     nodes: [
       {
         id: "client",
-        title: "Rich Text Editor Client",
-        tech: "React.js, Framer Motion, Tailwind CSS",
-        details: "Live markdown preview, dynamic tag search, theme switcher, responsive grid layout for articles.",
-        metrics: "Instant Preview | SSR Ready",
+        title: "Dashboard Views",
+        tech: "React, Tailwind CSS, Axios",
+        details: "Role-specific views for students and staff with analytics summaries and course enrollment controls.",
+        metrics: "Responsive Dashboard",
         icon: Layers
       },
       {
         id: "api",
-        title: "Content API Gateway",
-        tech: "Express.js, REST Endpoints",
-        details: "CRUD endpoints for post publication, tag analytics, user authentication, and pagination middleware.",
-        metrics: "RESTful JSON API | CORS Enabled",
+        title: "REST Gateway",
+        tech: "Express.js, JWT Authentication",
+        details: "Manages student enrollment status, course records, attendance logs, and staff authorization middleware.",
+        metrics: "Protected Routes",
         icon: Cpu
       },
       {
         id: "db",
-        title: "Document Database",
+        title: "Document Storage",
+        tech: "MongoDB Atlas, Mongoose",
+        details: "Stores courses, students, and academic records with relationships and structured schemas.",
+        metrics: "Schema Validation",
+        icon: Database
+      },
+      {
+        id: "hosting",
+        title: "Production Hosting",
+        tech: "Vercel Serverless",
+        details: "Fast global CDN delivery with automated build triggers on GitHub commit.",
+        metrics: "Automated Deployments",
+        icon: Cloud
+      }
+    ]
+  },
+  "Blog-Space Publishing Platform": {
+    subtitle: "Markdown Publishing & Database Pipeline",
+    nodes: [
+      {
+        id: "client",
+        title: "Markdown Editor UI",
+        tech: "React.js, Tailwind CSS",
+        details: "Provides real-time markdown preview, post creation, tag searches, and responsive reading views.",
+        metrics: "Live Preview",
+        icon: Layers
+      },
+      {
+        id: "api",
+        title: "Publishing API",
+        tech: "Node.js, Express.js",
+        details: "REST endpoints handling post creation, pagination, user session validation, and tag filtering.",
+        metrics: "RESTful Endpoints",
+        icon: Cpu
+      },
+      {
+        id: "db",
+        title: "MongoDB Cluster",
         tech: "MongoDB Atlas",
-        details: "Document-based storage with full-text search indexing on post titles and tags for rapid content discovery.",
-        metrics: "Text Indexing | Scalable Documents",
+        details: "Document persistence with indexing on post titles and tags for rapid content retrieval.",
+        metrics: "Text Indexing",
         icon: Database
       },
       {
         id: "deploy",
-        title: "Serverless Deployment",
-        tech: "Vercel Serverless Functions",
-        details: "Auto-scaling serverless backend execution for instant response times under heavy reader traffic.",
-        metrics: "Auto-scaling | Global CDN",
+        title: "Vercel Cloud",
+        tech: "Vercel Edge",
+        details: "Serverless execution ensuring rapid page loads and zero server maintenance overhead.",
+        metrics: "Serverless Deployment",
         icon: Cloud
       }
     ]
@@ -119,147 +155,119 @@ const ARCHITECTURE_DATA = {
 }
 
 const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
-  const { darkMode, soundEnabled } = useTheme()
+  const { darkMode } = useTheme()
   const [activeNode, setActiveNode] = useState(0)
 
   if (!isOpen) return null
 
-  const projectData = ARCHITECTURE_DATA[projectTitle] || ARCHITECTURE_DATA["E-Commerce Platform"]
-
-  const handleNodeClick = (index) => {
-    playClickSound(soundEnabled)
-    setActiveNode(index)
-  }
+  const projectData = ARCHITECTURE_DATA[projectTitle] || ARCHITECTURE_DATA["MERN E-Commerce Platform"] || ARCHITECTURE_DATA["Kids Code Editor (Blockly IDE)"]
 
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
       >
         <motion.div
-          className={`relative w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col border ${
-            darkMode ? "bg-[#0b0e1b] border-[#191970]/50 text-white" : "bg-[#F5F5DC] border-[#2b3154]/30 text-[#191970]"
+          className={`relative w-full max-w-3xl max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col border ${
+            darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-white border-slate-200 text-slate-900"
           }`}
-          initial={{ scale: 0.9, y: 20 }}
+          initial={{ scale: 0.95, y: 15 }}
           animate={{ scale: 1, y: 0 }}
-          exit={{ scale: 0.9, y: 20 }}
+          exit={{ scale: 0.95, y: 15 }}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-5 md:px-8 border-b border-[#2b3154]/20 bg-[#191970]/10">
+          <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-800">
             <div>
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#2b3154]/20 text-[#2b3154] border border-[#2b3154]/30">
-                  Full Stack Architecture Flow
-                </span>
-              </div>
-              <h2 className="font-extrabold text-xl md:text-2xl mt-1 gradient-text">
-                {projectTitle} System Design
-              </h2>
-              <p className="text-xs md:text-sm text-gray-400">
+              <span className="text-xs font-semibold text-blue-500 uppercase tracking-wider">
+                System Architecture
+              </span>
+              <h3 className="font-bold text-lg sm:text-xl mt-0.5">
+                {projectTitle}
+              </h3>
+              <p className={`text-xs ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                 {projectData.subtitle}
               </p>
             </div>
             <button
-              onClick={() => {
-                playClickSound(soundEnabled)
-                onClose()
-              }}
-              className="p-2 rounded-full hover:bg-[#191970]/30 text-gray-400 hover:text-white transition cursor-pointer"
+              onClick={onClose}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Modal Content */}
-          <div className="p-6 md:p-8 overflow-y-auto space-y-8">
+          <div className="p-5 sm:p-6 overflow-y-auto space-y-6">
             
-            {/* Architecture Node Pipeline Flow */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
+            {/* Step Pipeline Flow */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 relative">
               {projectData.nodes.map((node, idx) => {
                 const Icon = node.icon
                 const isActive = activeNode === idx
                 return (
-                  <motion.div
+                  <div
                     key={node.id}
-                    onClick={() => handleNodeClick(idx)}
-                    className={`p-4 rounded-2xl border cursor-pointer transition-all relative ${
+                    onClick={() => setActiveNode(idx)}
+                    className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
                       isActive
-                        ? "bg-gradient-to-br from-[#191970]/30 to-[#2b3154]/20 border-[#2b3154] shadow-lg shadow-[#2b3154]/20"
+                        ? "bg-blue-600/15 border-blue-500 text-blue-400"
                         : darkMode
-                        ? "bg-[#0f1226] border-[#191970]/40 hover:border-[#2b3154]/50"
-                        : "bg-gray-50 border-gray-200 hover:border-[#2b3154]/50"
+                        ? "bg-slate-850 border-slate-800 hover:border-slate-700 text-slate-300"
+                        : "bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700"
                     }`}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className={`p-2.5 rounded-xl ${isActive ? 'bg-[#2b3154] text-white' : 'bg-[#2b3154]/15 text-[#2b3154]'}`}>
-                        <Icon className="w-5 h-5" />
+                    <div className="flex items-center justify-between mb-2">
+                      <div className={`p-2 rounded-lg ${isActive ? 'bg-blue-600 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}>
+                        <Icon className="w-4 h-4" />
                       </div>
-                      <span className="text-xs font-mono text-gray-400">0{idx + 1}</span>
+                      <span className="text-[11px] font-mono text-slate-500">Step {idx + 1}</span>
                     </div>
-                    <h3 className="font-bold text-sm md:text-base mb-1">{node.title}</h3>
-                    <p className="text-xs text-[#2b3154] font-semibold truncate">{node.tech}</p>
-
-                    {idx < projectData.nodes.length - 1 && (
-                      <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                        <ArrowRight className="w-4 h-4 text-[#2b3154]" />
-                      </div>
-                    )}
-                  </motion.div>
+                    <h4 className="font-bold text-xs sm:text-sm mb-0.5">{node.title}</h4>
+                    <p className="text-[11px] text-slate-400 truncate">{node.tech}</p>
+                  </div>
                 )
               })}
             </div>
 
             {/* Active Node Detail Card */}
-            <motion.div
-              key={activeNode}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className={`p-6 rounded-2xl border ${
-                darkMode ? "bg-[#0f1226] border-[#191970]/50" : "bg-[#2b3154]/5 border-[#2b3154]/20"
-              }`}
-            >
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-[#191970]/30">
+            <div className={`p-5 rounded-xl border ${
+              darkMode ? "bg-slate-850 border-slate-850 text-slate-200" : "bg-slate-50 border-slate-200 text-slate-800"
+            }`}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-3 border-b border-slate-200 dark:border-slate-800">
                 <div>
-                  <h4 className="text-lg font-bold text-[#2b3154] flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5" />
-                    {projectData.nodes[activeNode].title} Specification
+                  <h4 className="text-base font-bold text-blue-500 flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>{projectData.nodes[activeNode].title}</span>
                   </h4>
-                  <p className="text-sm font-semibold text-gray-300 mt-0.5">
-                    {projectData.nodes[activeNode].tech}
+                  <p className={`text-xs mt-0.5 ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                    Technologies: {projectData.nodes[activeNode].tech}
                   </p>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191970]/20 border border-[#2b3154]/30 text-xs font-mono font-bold text-[#2b3154]">
-                  <Zap className="w-3.5 h-3.5" />
+                <span className="text-xs px-2.5 py-1 rounded bg-blue-500/10 text-blue-500 font-medium self-start sm:self-auto">
                   {projectData.nodes[activeNode].metrics}
-                </div>
+                </span>
               </div>
 
-              <p className={`text-sm md:text-base leading-relaxed ${darkMode ? "text-gray-300" : "text-[#191970]"}`}>
+              <p className={`text-xs sm:text-sm leading-relaxed ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
                 {projectData.nodes[activeNode].details}
               </p>
-            </motion.div>
+            </div>
 
           </div>
 
           {/* Footer */}
-          <div className="p-4 px-6 border-t border-[#191970]/30 bg-[#191970]/10 flex justify-between items-center text-xs text-gray-400">
-            <span>Click any node to inspect data flow details</span>
+          <div className="p-4 px-6 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs text-slate-400">
+            <span>Select any step above to view implementation details</span>
             <button
-              onClick={() => {
-                playClickSound(soundEnabled)
-                onClose()
-              }}
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#191970] to-[#2b3154] text-white font-semibold text-xs hover:opacity-95 transition"
+              onClick={onClose}
+              className="px-4 py-1.5 rounded-lg bg-blue-600 text-white font-medium text-xs hover:bg-blue-500 transition"
             >
-              Close Visualizer
+              Close
             </button>
           </div>
 

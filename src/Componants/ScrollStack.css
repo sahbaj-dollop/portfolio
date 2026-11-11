@@ -1,0 +1,174 @@
+.scroll-stack {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-stack--contained {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: auto !important;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scroll-stack--contained::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+  width: 0;
+  height: 0;
+}
+
+.scroll-stack__inner {
+  position: relative;
+  padding-inline: clamp(0.5rem, 3%, 2rem);
+}
+
+.scroll-stack__slot {
+  position: sticky;
+}
+
+.scroll-stack-card {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 24px;
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 -10px 30px -15px rgba(0, 0, 0, 0.12),
+    0 20px 40px -20px rgba(0, 0, 0, 0.18);
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+:root.dark .scroll-stack-card,
+.dark .scroll-stack-card {
+  background: #0f1422;
+  color: #f8fafc;
+  border: 1px solid rgba(51, 65, 85, 0.7);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 -12px 40px -16px rgba(0, 0, 0, 0.6),
+    0 24px 48px -24px rgba(0, 0, 0, 0.7);
+}
+
+.scroll-stack-card__shade {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #000;
+  opacity: var(--scroll-stack-dim, 0);
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+/* Floating Navigation Controls */
+.scroll-stack__controls {
+  position: absolute;
+  bottom: 14px;
+  right: 18px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #f8fafc;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  user-select: none;
+}
+
+:root:not(.dark) .scroll-stack__controls {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  color: #0f172a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-stack__counter {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+.scroll-stack__dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.scroll-stack__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.25;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+}
+
+.scroll-stack__dot:hover {
+  opacity: 0.6;
+  transform: scale(1.2);
+}
+
+.scroll-stack__dot.is-active {
+  width: 14px;
+  opacity: 1;
+  background: #3b82f6; /* Blue-500 */
+}
+
+.scroll-stack__arrows {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 2px;
+  padding-left: 6px;
+  border-left: 1px solid currentColor;
+  opacity: 0.85;
+}
+
+.scroll-stack__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.scroll-stack__btn:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+.scroll-stack__btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .scroll-stack__controls {
+    bottom: 8px;
+    right: 50%;
+    transform: translateX(50%);
+    width: max-content;
+    padding: 5px 10px;
+  }
+}

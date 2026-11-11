@@ -40,7 +40,7 @@ export const playClickSound = (soundEnabled = true) => {
 
     osc.start();
     osc.stop(ctx.currentTime + 0.04);
-  } catch (e) {
+  } catch {
     // Ignore audio errors on unsupported browsers
   }
 };
@@ -68,7 +68,7 @@ export const playHoverSound = (soundEnabled = true) => {
 
     osc.start();
     osc.stop(ctx.currentTime + 0.06);
-  } catch (e) {
+  } catch {
     // Ignore
   }
 };
@@ -99,7 +99,7 @@ export const playModalSound = (soundEnabled = true) => {
       osc.start(now + i * 0.05);
       osc.stop(now + i * 0.05 + 0.12);
     });
-  } catch (e) {
+  } catch {
     // Ignore
   }
 };
@@ -131,7 +131,7 @@ export const playToggleSound = (isOn = true, soundEnabled = true) => {
 
     osc.start();
     osc.stop(ctx.currentTime + 0.08);
-  } catch (e) {
+  } catch {
     // Ignore
   }
 };
