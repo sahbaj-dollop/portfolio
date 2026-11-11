@@ -11,7 +11,7 @@ const TerminalDrawer = () => {
   ])
   const bottomRef = useRef(null)
 
-  // Global hotkey listener for `~` (backquote)
+  // Global hotkey listener for `~` and custom event listener
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === '`' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
@@ -19,8 +19,17 @@ const TerminalDrawer = () => {
         setIsOpen(prev => !prev)
       }
     }
+    const handleToggle = () => setIsOpen(prev => !prev)
+    const handleOpen = () => setIsOpen(true)
+
     window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
+    window.addEventListener('toggle-terminal', handleToggle)
+    window.addEventListener('open-terminal', handleOpen)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('toggle-terminal', handleToggle)
+      window.removeEventListener('open-terminal', handleOpen)
+    }
   }, [])
 
   useEffect(() => {
@@ -131,17 +140,6 @@ LinkedIn: https://www.linkedin.com/in/sahbaj-khan-24138a338/`,
 
   return (
     <>
-      {/* Floating CLI Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-20 right-5 z-40 p-2.5 rounded-xl bg-[#0e161c] border border-[rgba(171,201,203,0.3)] text-slate-300 shadow-xl hover:text-white hover:border-[#f45b0b] transition-all cursor-pointer hidden sm:flex items-center gap-2"
-        aria-label="Open CLI Terminal"
-        title="Open Terminal (Hotkey: `)"
-      >
-        <Terminal className="w-4 h-4 text-[#f45b0b]" />
-        <span className="text-xs font-mono font-bold text-[#abc9cb]">Terminal</span>
-      </button>
-
       {/* Terminal Modal */}
       <AnimatePresence>
         {isOpen && (

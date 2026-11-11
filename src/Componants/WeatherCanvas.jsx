@@ -50,10 +50,10 @@ const WeatherCanvas = () => {
         ctx.beginPath()
         ctx.moveTo(d.x, d.y)
         ctx.lineTo(d.x - 2, d.y + d.length)
-        // Powder blue raindrops
+        // Powder blue / slate cyan raindrops with crisp contrast
         ctx.strokeStyle = darkMode
           ? `rgba(171, 201, 203, ${d.opacity})`
-          : `rgba(90, 140, 145, ${d.opacity * 0.8})`
+          : `rgba(45, 110, 125, ${d.opacity * 0.95})`
         ctx.stroke()
 
         d.y += d.speed
@@ -156,7 +156,7 @@ const WeatherCanvas = () => {
       {/* Snowfall Effect */}
       {activeEffect === 'snow' && (
         <Snowfall
-          color={darkMode ? '#ffffff' : '#abc9cb'}
+          color={darkMode ? '#ffffff' : '#4f848a'}
           snowflakeCount={snowflakeCount}
           speed={[1.2, 3.8]}
           wind={[-0.5, 1.2]}

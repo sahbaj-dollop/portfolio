@@ -66,7 +66,7 @@ const Navbar = () => {
           className="text-left cursor-pointer group shrink-0"
         >
           <span className="text-lg font-bold tracking-tight transition-colors flex items-center gap-1">
-            <span className={darkMode ? 'text-white' : 'text-[#081014]'}>Sahbaj</span>
+            <span className={!scrolled || darkMode ? 'text-white' : 'text-[#081014]'}>Sahbaj</span>
             <span className="text-[#f45b0b]">Khan</span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#f45b0b] inline-block" />
           </span>
