@@ -39,7 +39,7 @@ const Stats = () => {
 
   return (
     <div className={`py-10 px-5 md:px-10 border-y transition-colors duration-300 ${
-      darkMode ? 'bg-[#0b0e17] border-slate-800 text-white' : 'bg-slate-100/60 border-slate-200 text-slate-900'
+      darkMode ? 'bg-[#070a0e] border-[rgba(171,201,203,0.18)] text-white' : 'bg-[#e5eff1] border-[#abc9cb]/60 text-[#081014]'
     }`}>
       <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {statsData.map((stat, idx) => {
@@ -53,19 +53,21 @@ const Stats = () => {
               transition={{ duration: 0.35, delay: idx * 0.08 }}
               whileHover={{ y: -4 }}
               className={`p-4 sm:p-5 rounded-2xl border flex flex-col items-center text-center transition-all ${
-                darkMode ? 'bg-slate-900/70 border-slate-800 hover:border-slate-700 hover:shadow-lg hover:shadow-black/20' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'
+                darkMode 
+                  ? 'bg-[#0e161c] border-[rgba(171,201,203,0.22)] hover:border-[#f45b0b] hover:shadow-lg hover:shadow-black/40' 
+                  : 'bg-white border-[#abc9cb] shadow-sm hover:border-[#f45b0b] hover:shadow-md'
               }`}
             >
-              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500 mb-2.5">
+              <div className="p-2.5 rounded-xl bg-[#f45b0b]/10 text-[#f45b0b] mb-2.5">
                 <Icon className="w-5 h-5" />
               </div>
               <span className="text-xl sm:text-2xl font-bold tracking-tight mb-0.5">
                 {stat.value}
               </span>
-              <span className={`text-xs sm:text-sm font-semibold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+              <span className={`text-xs sm:text-sm font-bold ${darkMode ? 'text-white' : 'text-[#081014]'}`}>
                 {stat.label}
               </span>
-              <span className={`text-[11px] mt-0.5 ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+              <span className="text-[11px] mt-0.5 text-[#abc9cb] font-medium">
                 {stat.subtext}
               </span>
             </motion.div>

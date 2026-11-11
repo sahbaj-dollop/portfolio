@@ -1,13 +1,9 @@
-
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
-import { Mail, ArrowRight, FileDown, MapPin, Copy, Check, Terminal } from "lucide-react";
+import { ArrowRight, MapPin, Copy, Check, Terminal } from "lucide-react";
 import toast from "react-hot-toast";
-import { useTheme } from "../Context/ThemeContext";
 
 const Home = () => {
-  const { darkMode } = useTheme();
   const [copiedCode, setCopiedCode] = useState(false);
 
   const scrollToContact = () => {
@@ -17,23 +13,12 @@ const Home = () => {
     }
   };
 
-  const socialLinks = [
-    { icon: <FaGithub className="w-5 h-5" />,     href: "https://github.com/sahbaj-dollop",                   label: "GitHub"   },
-    { icon: <FaLinkedinIn className="w-5 h-5" />, href: "https://www.linkedin.com/in/sahbaj-khan-24138a338/", label: "LinkedIn" },
-    { icon: <Mail className="w-5 h-5" />,         href: "mailto:sahbajkhan6593@gmail.com",                    label: "Email"    },
-  ];
-
-  const coreTech = [
-    "React", "Next.js", "TypeScript", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Git"
-  ];
-
   const codeSnippet = `const engineer = {
   name: "Sahbaj Khan",
-  role: "Full Stack Developer",
-  experience: "2+ Years",
-  currentCompany: "Dollop Infotech",
-  stack: ["React", "Next.js", "Node.js"]
-};`
+  role: "Full Stack Dev",
+  company: "Dollop Infotech",
+  experience: "2+ Years"
+};`;
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(codeSnippet);
@@ -42,234 +27,166 @@ const Home = () => {
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.05 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 16 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] }
-    }
-  };
-
   return (
     <section
       id="home"
-      className={`relative min-h-[92vh] flex items-center justify-center px-5 md:px-10 lg:px-12 pt-28 pb-16 transition-colors duration-300 overflow-hidden ${
-        darkMode ? "bg-[#090b11] text-white" : "bg-slate-50 text-slate-900"
-      }`}
+      className="relative min-h-[92vh] flex items-center justify-center px-4 sm:px-6 md:px-10 lg:px-12 pt-24 pb-14 bg-[#abc9cb] transition-colors duration-300"
     >
-      {/* Subtle Ambient Background Mesh */}
-      {darkMode && (
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-gradient-to-tr from-blue-600/10 via-indigo-600/10 to-transparent blur-[120px] rounded-full pointer-events-none animate-pulse-glow" />
-      )}
-
-      <div className="max-w-5xl mx-auto w-full relative z-10">
-        <motion.div 
-          className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-14"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+      {/* Main Asymmetrical Card Container */}
+      <div className="max-w-6xl w-full mx-auto relative rounded-[28px] sm:rounded-[36px] overflow-hidden shadow-2xl bg-[#abc9cb] border border-white/30">
+        
+        {/* Asymmetrical Dark Background with Diagonal Angle Slice */}
+        <div 
+          className="absolute inset-0 bg-[#121820] pointer-events-none z-0 hidden lg:block"
+          style={{
+            clipPath: "polygon(0 0, 68% 0, 47% 100%, 0 100%)"
+          }}
         >
+          {/* Subtle Layered Organic Curved Wave Shapes */}
+          <svg 
+            className="absolute inset-0 w-full h-full opacity-60" 
+            viewBox="0 0 900 600" 
+            fill="none" 
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M320 -80 C480 80, 560 220, 420 400 C340 500, 240 560, 100 620 L-40 620 L-40 -80 Z"
+              fill="rgba(24, 34, 44, 0.7)"
+            />
+            <path
+              d="M480 -80 C620 120, 640 300, 480 480 C390 580, 310 600, 220 640 L-40 640 L-40 -80 Z"
+              fill="rgba(32, 45, 58, 0.45)"
+            />
+            <path
+              d="M580 -80 C740 160, 720 360, 560 540 C490 620, 410 650, 320 680 L-40 680 L-40 -80 Z"
+              fill="rgba(171, 201, 203, 0.04)"
+            />
+          </svg>
+        </div>
 
-          {/* Left Column: Natural Human Introduction */}
-          <div className="md:w-7/12 text-center md:text-left">
+        {/* Mobile / Tablet dark background fallback */}
+        <div className="absolute inset-0 bg-[#121820] pointer-events-none z-0 lg:hidden" />
+
+        {/* Card Content Grid */}
+        <div className="relative z-10 px-6 sm:px-10 md:px-14 py-12 sm:py-16 md:py-20 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
+          
+          {/* Left Column: Asymmetrical Typography & Actions */}
+          <div className="w-full lg:w-7/12 text-left">
             
-            {/* Status Pill */}
-            <motion.div 
-              variants={itemVariants}
-              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6 border ${
-                darkMode 
-                  ? "bg-slate-800/80 text-emerald-400 border-slate-700" 
-                  : "bg-white text-emerald-700 border-slate-200 shadow-sm"
-              }`}
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
-              <span>Available for full-time roles & projects</span>
-            </motion.div>
+            {/* Main Headline with Sahbaj's Real Text */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold tracking-tight leading-[1.08] text-white mb-2">
+              <span className="block">Hi, I&apos;m</span>
+              <span className="block">Full Stack Developer</span>
+              <span className="block text-[#f45b0b] mt-1">Sahbaj Khan</span>
+            </h1>
 
-            {/* Headline */}
-            <motion.h1 
-              variants={itemVariants}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-3"
-            >
-              Hi, I&apos;m <span className="text-blue-500">Sahbaj Khan</span>
-            </motion.h1>
+            {/* Subtitle / Bio Paragraph */}
+            <p className="text-xs sm:text-sm md:text-[15px] leading-relaxed text-slate-300 max-w-xl mt-5 mb-5 font-normal">
+              I have 2+ years of hands-on experience building modern full-stack web applications. Currently engineering visual code editors, e-commerce applications, and scalable REST APIs at <strong className="text-white font-semibold">Dollop Infotech</strong>.
+            </p>
 
-            <motion.p 
-              variants={itemVariants}
-              className="text-lg sm:text-xl font-medium text-slate-400 dark:text-slate-300 mb-5"
-            >
-              Full Stack Developer specializing in React, Next.js & Node.js
-            </motion.p>
-
-            {/* Natural Bio */}
-            <motion.p 
-              variants={itemVariants}
-              className={`text-base leading-relaxed mb-6 max-w-xl ${
-                darkMode ? "text-slate-300" : "text-slate-600"
-              }`}
-            >
-              I have 2+ years of hands-on experience building full-stack web applications. Currently working at <strong>Dollop Infotech</strong>, where I develop visual code editors, e-commerce applications, and scalable REST APIs. I enjoy writing clean, maintainable code and building interfaces that feel fast and intuitive.
-            </motion.p>
-
-            {/* Location Tag */}
-            <motion.div 
-              variants={itemVariants}
-              className="flex items-center justify-center md:justify-start gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-8"
-            >
-              <MapPin className="w-4 h-4 text-blue-500" />
+            {/* Location Line */}
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-300 mb-8 font-medium">
+              <span className="flex items-center justify-center w-4 h-4 rounded-full bg-[#f45b0b]/20 text-[#f45b0b]">
+                <MapPin className="w-3 h-3 text-[#f45b0b]" />
+              </span>
               <span>Based in Indore, MP, India • Open to remote worldwide</span>
-            </motion.div>
+            </div>
 
-            {/* Action Buttons */}
-            <motion.div 
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row items-center gap-3 mb-8 justify-center md:justify-start"
-            >
+            {/* Buttons Row */}
+            <div className="flex flex-wrap items-center gap-4">
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={scrollToContact}
-                className="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm rounded-lg flex items-center justify-center gap-2 transition cursor-pointer shadow-sm"
+                className="px-6 py-3 bg-[#f45b0b] hover:bg-[#e04f05] text-white font-bold text-xs sm:text-sm rounded-xl flex items-center gap-2 transition cursor-pointer shadow-lg shadow-[#f45b0b]/40"
               >
-                <span>Get In Touch</span>
+                <span>Get in Touch</span>
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
 
               <motion.a
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 href="/sahbajkhan.pdf"
                 download
-                className={`w-full sm:w-auto px-6 py-3 font-medium text-sm rounded-lg flex items-center justify-center gap-2 transition border ${
-                  darkMode 
-                    ? "bg-slate-800/80 hover:bg-slate-800 text-slate-200 border-slate-700" 
-                    : "bg-white hover:bg-slate-100 text-slate-800 border-slate-300 shadow-sm"
-                }`}
+                className="px-6 py-3 bg-[#182028] hover:bg-[#202b36] text-white font-semibold text-xs sm:text-sm rounded-xl border border-white/20 hover:border-white/40 transition flex items-center justify-center cursor-pointer shadow-md"
               >
-                <FileDown className="w-4 h-4 text-slate-400" />
                 <span>Download Resume</span>
               </motion.a>
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div 
-              variants={itemVariants}
-              className="flex items-center gap-3 justify-center md:justify-start"
-            >
-              {socialLinks.map((item, i) => (
-                <motion.a
-                  key={i}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={item.label}
-                  className={`p-2.5 rounded-lg border transition-colors ${
-                    darkMode 
-                      ? "bg-slate-850 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700" 
-                      : "bg-white border-slate-200 text-slate-600 hover:text-slate-900 shadow-sm"
-                  }`}
-                >
-                  {item.icon}
-                </motion.a>
-              ))}
-            </motion.div>
+            </div>
 
           </div>
 
-          {/* Right Column: Profile Image + Interactive Code Snippet */}
-          <motion.div 
-            className="md:w-5/12 flex flex-col items-center gap-4"
-            variants={itemVariants}
-          >
-            <div className="relative group">
-              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 shadow-lg transition-transform duration-300 group-hover:scale-[1.02]">
-                <img
-                  src="/profile.jpeg"
-                  alt="Sahbaj Khan"
-                  className="w-full h-full object-cover"
-                  loading="eager"
-                />
+          {/* Right Column: Layered Offset Elements (Photo Card + Code Editor) */}
+          <div className="w-full lg:w-5/12 flex flex-col items-center justify-center relative min-h-[380px] sm:min-h-[420px]">
+            
+            {/* Top Layer: Photo Card with Powder Blue Border Frame (Offset Up & Right) */}
+            <motion.div
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="relative z-20 self-center lg:self-end lg:mr-4 mb-[-50px] sm:mb-[-65px] lg:mb-[-80px]"
+            >
+              <div className="p-3 sm:p-3.5 bg-[#abc9cb] rounded-3xl shadow-2xl shadow-black/40 border border-white/40">
+                <div className="w-44 h-48 sm:w-52 sm:h-56 md:w-56 md:h-60 rounded-2xl overflow-hidden bg-slate-900">
+                  <img
+                    src="/profile.jpeg"
+                    alt="Sahbaj Khan"
+                    className="w-full h-full object-cover object-center"
+                    loading="eager"
+                  />
+                </div>
               </div>
+            </motion.div>
 
-              {/* Minimal floating badge */}
-              <div className={`absolute -bottom-3 -right-3 px-3 py-1.5 rounded-xl border text-xs font-semibold shadow-md ${
-                darkMode ? "bg-slate-800 border-slate-700 text-slate-200" : "bg-white border-slate-200 text-slate-800"
-              }`}>
-                <span>2+ Yrs Experience</span>
-              </div>
-            </div>
-
-            {/* Interactive Developer Code Card */}
-            <div className={`w-full max-w-sm rounded-xl border p-3.5 font-mono text-[11px] leading-relaxed shadow-sm transition-all ${
-              darkMode 
-                ? "bg-slate-900/90 border-slate-800 text-slate-300" 
-                : "bg-white border-slate-200 text-slate-700"
-            }`}>
-              <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 dark:border-slate-800 text-slate-400">
-                <div className="flex items-center gap-1.5">
-                  <Terminal className="w-3.5 h-3.5 text-blue-500" />
-                  <span className="font-semibold text-[10px]">engineer.ts</span>
+            {/* Bottom Layer: Dark Terminal Code Editor Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.25 }}
+              className="relative z-10 w-full max-w-sm sm:max-w-md rounded-2xl bg-[#0c1217] border border-slate-700/70 p-4 sm:p-5 shadow-2xl shadow-black/60 font-mono text-xs sm:text-[13px] leading-relaxed text-slate-200"
+            >
+              {/* Header Bar */}
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-slate-400">
+                <div className="flex items-center gap-1.5 text-slate-300 font-semibold text-xs">
+                  <Terminal className="w-3.5 h-3.5 text-slate-400" />
+                  <span>engineer.ts</span>
                 </div>
                 <button
                   onClick={handleCopyCode}
-                  className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] hover:text-white transition cursor-pointer"
+                  className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-white transition cursor-pointer"
                   title="Copy snippet"
                 >
-                  {copiedCode ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                  {copiedCode ? <Check className="w-3 h-3 text-[#f45b0b]" /> : <Copy className="w-3 h-3" />}
                   <span>{copiedCode ? "Copied" : "Copy"}</span>
                 </button>
               </div>
-              <div className="space-y-0.5">
-                <p><span className="text-purple-400">const</span> engineer = &#123;</p>
-                <p className="pl-3">name: <span className="text-emerald-400">&quot;Sahbaj Khan&quot;</span>,</p>
-                <p className="pl-3">role: <span className="text-emerald-400">&quot;Full Stack Dev&quot;</span>,</p>
-                <p className="pl-3">company: <span className="text-blue-400">&quot;Dollop Infotech&quot;</span>,</p>
-                <p className="pl-3">experience: <span className="text-amber-400">&quot;2+ Years&quot;</span></p>
-                <p>&#125;;</p>
+
+              {/* Code Snippet Content */}
+              <div className="space-y-1 text-slate-200">
+                <p>
+                  <span className="text-[#f45b0b] font-bold">const</span> engineer = &#123;
+                </p>
+                <p className="pl-4">
+                  name: <span className="text-[#f45b0b] font-medium">&quot;Sahbaj Khan&quot;</span>,
+                </p>
+                <p className="pl-4">
+                  role: <span className="text-[#f45b0b] font-medium">&quot;Full Stack Dev&quot;</span>,
+                </p>
+                <p className="pl-4">
+                  company: <span className="text-[#f45b0b] font-medium">&quot;Dollop Infotech&quot;</span>,
+                </p>
+                <p className="pl-4">
+                  experience: <span className="text-[#f45b0b] font-medium">&quot;2+ Years&quot;</span>
+                </p>
+                <p>&#125;</p>
               </div>
-            </div>
+            </motion.div>
 
-          </motion.div>
-
-        </motion.div>
-
-        {/* Tech Stack Bar */}
-        <motion.div 
-          className="mt-14 pt-8 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row items-center gap-4 text-xs"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-        >
-          <span className="font-semibold text-slate-500 uppercase tracking-wider text-[11px]">
-            Primary Tech:
-          </span>
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-            {coreTech.map((tech) => (
-              <span
-                key={tech}
-                className={`px-3 py-1 rounded-md font-medium border transition-colors ${
-                  darkMode 
-                    ? "bg-slate-850 border-slate-800 text-slate-300 hover:border-slate-700" 
-                    : "bg-white border-slate-200 text-slate-700 shadow-sm hover:border-slate-300"
-                }`}
-              >
-                {tech}
-              </span>
-            ))}
           </div>
-        </motion.div>
+
+        </div>
 
       </div>
     </section>

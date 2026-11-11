@@ -134,12 +134,12 @@ LinkedIn: https://www.linkedin.com/in/sahbaj-khan-24138a338/`,
       {/* Floating CLI Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-20 right-5 z-40 p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 shadow-lg hover:text-white hover:border-slate-500 transition-colors cursor-pointer hidden sm:flex items-center gap-2"
+        className="fixed bottom-20 right-5 z-40 p-2.5 rounded-xl bg-[#0e161c] border border-[rgba(171,201,203,0.3)] text-slate-300 shadow-xl hover:text-white hover:border-[#f45b0b] transition-all cursor-pointer hidden sm:flex items-center gap-2"
         aria-label="Open CLI Terminal"
         title="Open Terminal (Hotkey: `)"
       >
-        <Terminal className="w-4 h-4 text-blue-400" />
-        <span className="text-xs font-mono font-medium">Terminal</span>
+        <Terminal className="w-4 h-4 text-[#f45b0b]" />
+        <span className="text-xs font-mono font-bold text-[#abc9cb]">Terminal</span>
       </button>
 
       {/* Terminal Modal */}
@@ -150,7 +150,7 @@ LinkedIn: https://www.linkedin.com/in/sahbaj-khan-24138a338/`,
             onClick={() => setIsOpen(false)}
           >
             <motion.div
-              className="w-full max-w-2xl h-[420px] rounded-xl bg-[#0d1117] border border-slate-700 shadow-2xl flex flex-col overflow-hidden font-mono text-xs sm:text-sm text-slate-200"
+              className="w-full max-w-2xl h-[420px] rounded-2xl bg-[#070a0e] border border-[rgba(171,201,203,0.3)] shadow-2xl flex flex-col overflow-hidden font-mono text-xs sm:text-sm text-slate-200"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
@@ -158,12 +158,12 @@ LinkedIn: https://www.linkedin.com/in/sahbaj-khan-24138a338/`,
               onClick={(e) => e.stopPropagation()}
             >
               {/* Window Header */}
-              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-slate-800">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-[#0e161c] border-b border-[rgba(171,201,203,0.2)]">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-500/80 inline-block" />
-                  <span className="text-xs text-slate-400 ml-2">sahbaj@portfolio:~</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#f45b0b]/80 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+                  <span className="text-xs text-[#abc9cb] ml-2 font-bold">sahbaj@portfolio:~</span>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -180,11 +180,11 @@ LinkedIn: https://www.linkedin.com/in/sahbaj-khan-24138a338/`,
                     key={index}
                     className={
                       item.type === 'user'
-                        ? 'text-blue-400 font-semibold'
+                        ? 'text-[#f45b0b] font-bold'
                         : item.type === 'error'
                         ? 'text-red-400'
                         : item.type === 'system'
-                        ? 'text-slate-400'
+                        ? 'text-[#abc9cb]'
                         : 'text-slate-200 whitespace-pre-wrap'
                     }
                   >
@@ -197,15 +197,15 @@ LinkedIn: https://www.linkedin.com/in/sahbaj-khan-24138a338/`,
               {/* Input */}
               <form
                 onSubmit={handleCommand}
-                className="flex items-center gap-2 px-4 py-3 bg-slate-900/90 border-t border-slate-800"
+                className="flex items-center gap-2 px-4 py-3 bg-[#0e161c] border-t border-[rgba(171,201,203,0.2)]"
               >
-                <span className="text-blue-400 font-bold">&gt;</span>
+                <span className="text-[#f45b0b] font-bold">&gt;</span>
                 <input
                   type="text"
                   value={inputVal}
                   onChange={(e) => setInputVal(e.target.value)}
                   placeholder='Type a command ("help", "skills", "projects", "clear")...'
-                  className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder:text-slate-600 text-xs sm:text-sm"
+                  className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder:text-slate-500 text-xs sm:text-sm"
                   autoFocus
                 />
               </form>

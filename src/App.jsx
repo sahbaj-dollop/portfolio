@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import Snowfall from 'react-snowfall'
 import { Toaster } from 'react-hot-toast'
 import { useTheme } from './Context/ThemeContext'
+import { WeatherProvider } from './Context/WeatherContext'
+import WeatherCanvas from './Componants/WeatherCanvas'
 import Home from './Componants/Home'
 import Stats from './Componants/Stats'
 import TechMarquee from './Componants/TechMarquee'
@@ -17,9 +18,8 @@ import BackToTop from './Componants/BackToTop'
 import FloatingWhatsApp from './Componants/FloatingWhatsApp'
 import Loader from './Componants/Loader'
 import TerminalDrawer from './Componants/TerminalDrawer'
-// import FallingLeaves from 'react-snowfall'
 
-const App = () => {
+const AppContent = () => {
   const [isLoading, setIsLoading] = useState(true)
   const { darkMode } = useTheme()
 
@@ -31,29 +31,8 @@ const App = () => {
 
   return (
     <>
-      {/* Snowfall Effect Across All Portfolio Sections */}
-      {/* <FallingLeaves 
-       fullScreen={true}
-       shapes={["birch","maple","oak"]}
-      /> */}
-
-
-       <Snowfall
-        color={darkMode ? 'rgba(255, 255, 255, 0.85)' : '#2563eb'}
-        snowflakeCount={150}
-        speed={[3, 5]}
-        wind={[-0.4, 1.2]}
-        radius={[0.8, 2.8]}
-        style={{
-          position: 'fixed',
-          width: '100vw',
-          height: '100vh',
-          top: 0,
-          left: 0,
-          zIndex: 35,
-          pointerEvents: 'none',
-        }}
-      /> 
+      {/* Dynamic Weather Effect (Snow / Rain / Ambient based on Location & Weather API) */}
+      <WeatherCanvas />
 
       {/* Page Loader */}
       <Loader isLoading={isLoading} />
@@ -68,16 +47,16 @@ const App = () => {
             fontFamily: 'Montserrat, sans-serif',
             fontWeight: '600',
             fontSize: '13px',
-            background: '#0f172a',
-            color: '#f8fafc',
-            border: '1px solid #334155',
-            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)',
+            background: darkMode ? '#0e151b' : '#ffffff',
+            color: darkMode ? '#ffffff' : '#081014',
+            border: darkMode ? '1px solid rgba(171, 201, 203, 0.3)' : '1px solid #abc9cb',
+            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.4)',
           },
           success: {
-            iconTheme: { primary: '#10b981', secondary: '#0f172a' },
+            iconTheme: { primary: '#f45b0b', secondary: '#ffffff' },
           },
           error: {
-            iconTheme: { primary: '#ef4444', secondary: '#0f172a' },
+            iconTheme: { primary: '#ef4444', secondary: '#ffffff' },
           },
         }}
       />
@@ -97,6 +76,14 @@ const App = () => {
       <FloatingWhatsApp />
       <TerminalDrawer />
     </>
+  )
+}
+
+const App = () => {
+  return (
+    <WeatherProvider>
+      <AppContent />
+    </WeatherProvider>
   )
 }
 

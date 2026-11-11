@@ -173,7 +173,7 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
       >
         <motion.div
           className={`relative w-full max-w-3xl max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col border ${
-            darkMode ? "bg-slate-900 border-slate-700 text-white" : "bg-white border-slate-200 text-slate-900"
+            darkMode ? "bg-[#0b1116] border-[rgba(171,201,203,0.3)] text-white shadow-black/80" : "bg-white border-[#abc9cb] text-[#081014]"
           }`}
           initial={{ scale: 0.95, y: 15 }}
           animate={{ scale: 1, y: 0 }}
@@ -181,15 +181,15 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-800">
+          <div className="flex items-center justify-between p-5 border-b border-[rgba(171,201,203,0.2)]">
             <div>
-              <span className="text-xs font-semibold text-blue-500 uppercase tracking-wider">
+              <span className="text-xs font-bold text-[#f45b0b] uppercase tracking-wider">
                 System Architecture
               </span>
               <h3 className="font-bold text-lg sm:text-xl mt-0.5">
                 {projectTitle}
               </h3>
-              <p className={`text-xs ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+              <p className={`text-xs ${darkMode ? 'text-[#abc9cb]' : 'text-slate-500'}`}>
                 {projectData.subtitle}
               </p>
             </div>
@@ -215,17 +215,17 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
                     onClick={() => setActiveNode(idx)}
                     className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
                       isActive
-                        ? "bg-blue-600/15 border-blue-500 text-blue-400"
+                        ? "bg-[#f45b0b]/15 border-[#f45b0b] text-[#f45b0b]"
                         : darkMode
-                        ? "bg-slate-850 border-slate-800 hover:border-slate-700 text-slate-300"
-                        : "bg-slate-50 border-slate-200 hover:border-slate-300 text-slate-700"
+                        ? "bg-[#0e161c] border-[rgba(171,201,203,0.2)] hover:border-[#abc9cb] text-slate-300"
+                        : "bg-[#edf5f6] border-[#abc9cb] hover:border-[#f45b0b] text-slate-700"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <div className={`p-2 rounded-lg ${isActive ? 'bg-blue-600 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}>
+                      <div className={`p-2 rounded-lg ${isActive ? 'bg-[#f45b0b] text-white' : 'bg-slate-800/20 text-[#abc9cb]'}`}>
                         <Icon className="w-4 h-4" />
                       </div>
-                      <span className="text-[11px] font-mono text-slate-500">Step {idx + 1}</span>
+                      <span className="text-[11px] font-mono text-slate-400">Step {idx + 1}</span>
                     </div>
                     <h4 className="font-bold text-xs sm:text-sm mb-0.5">{node.title}</h4>
                     <p className="text-[11px] text-slate-400 truncate">{node.tech}</p>
@@ -235,25 +235,25 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
             </div>
 
             {/* Active Node Detail Card */}
-            <div className={`p-5 rounded-xl border ${
-              darkMode ? "bg-slate-850 border-slate-850 text-slate-200" : "bg-slate-50 border-slate-200 text-slate-800"
+            <div className={`p-5 rounded-2xl border ${
+              darkMode ? "bg-[#0e161c] border-[rgba(171,201,203,0.22)] text-slate-200" : "bg-[#edf5f6] border-[#abc9cb] text-slate-800"
             }`}>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-3 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-3 border-b border-[rgba(171,201,203,0.2)]">
                 <div>
-                  <h4 className="text-base font-bold text-blue-500 flex items-center gap-2">
+                  <h4 className="text-base font-bold text-[#f45b0b] flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4" />
                     <span>{projectData.nodes[activeNode].title}</span>
                   </h4>
-                  <p className={`text-xs mt-0.5 ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                  <p className={`text-xs mt-0.5 ${darkMode ? 'text-[#abc9cb]' : 'text-slate-600'}`}>
                     Technologies: {projectData.nodes[activeNode].tech}
                   </p>
                 </div>
-                <span className="text-xs px-2.5 py-1 rounded bg-blue-500/10 text-blue-500 font-medium self-start sm:self-auto">
+                <span className="text-xs px-2.5 py-1 rounded-lg bg-[#f45b0b]/15 text-[#f45b0b] font-bold self-start sm:self-auto border border-[#f45b0b]/30">
                   {projectData.nodes[activeNode].metrics}
                 </span>
               </div>
 
-              <p className={`text-xs sm:text-sm leading-relaxed ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
+              <p className={`text-xs sm:text-sm leading-relaxed ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
                 {projectData.nodes[activeNode].details}
               </p>
             </div>
@@ -261,11 +261,11 @@ const ArchitectureModal = ({ isOpen, onClose, projectTitle }) => {
           </div>
 
           {/* Footer */}
-          <div className="p-4 px-6 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs text-slate-400">
+          <div className="p-4 px-6 border-t border-[rgba(171,201,203,0.2)] flex justify-between items-center text-xs text-slate-400">
             <span>Select any step above to view implementation details</span>
             <button
               onClick={onClose}
-              className="px-4 py-1.5 rounded-lg bg-blue-600 text-white font-medium text-xs hover:bg-blue-500 transition"
+              className="px-4 py-1.5 rounded-xl bg-[#f45b0b] text-white font-bold text-xs hover:bg-[#e04f05] transition shadow-md shadow-[#f45b0b]/30 cursor-pointer"
             >
               Close
             </button>

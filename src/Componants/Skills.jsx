@@ -1,42 +1,105 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Code2, Server, Database, Wrench } from 'lucide-react'
-import { useTheme } from '../Context/ThemeContext'
+import { 
+  Code2, 
+  Server, 
+  Database, 
+  Wrench, 
+  ShieldCheck, 
+  Lock, 
+  Zap, 
+  Layers, 
+  Smartphone, 
+  Cpu, 
+  Activity, 
+  Radio
+} from 'lucide-react'
+import { 
+  FaReact, 
+  FaGitAlt, 
+  FaHtml5 
+} from 'react-icons/fa'
+import { 
+  SiNextdotjs, 
+  SiTypescript, 
+  SiTailwindcss, 
+  SiRedux, 
+  SiNodedotjs, 
+  SiExpress, 
+  SiMongodb, 
+  SiMysql, 
+  SiPostman, 
+  SiNetlify, 
+  SiNpm 
+} from 'react-icons/si'
+import { VscVscode } from 'react-icons/vsc'
 
 const Skills = () => {
-  const { darkMode } = useTheme()
-
-  const skillGroups = [
+  const skillCategories = [
     {
-      title: "Frontend Development",
+      id: "frontend",
+      titlePrefix: "Frontend",
+      titleSuffix: "Development",
       icon: Code2,
+      glowType: "orange-cyan",
       skills: [
-        "React.js", "Next.js", "TypeScript", "JavaScript (ES6+)",
-        "Tailwind CSS", "HTML5 & CSS3", "Redux Toolkit", "Zustand", "Responsive UI"
+        { name: "React.js", icon: FaReact, color: "#61DAFB" },
+        { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
+        { name: "TypeScript (ES6+)", icon: SiTypescript, color: "#3178C6" },
+        { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38BDF8" },
+        { name: "HTML & CSS3", icon: FaHtml5, color: "#E34F26" },
+        { name: "Redux Toolkit", icon: SiRedux, color: "#9333EA" },
+        { name: "Zustand", icon: Zap, color: "#F59E0B" },
+        { name: "Responsive UI", icon: Smartphone, color: "#abc9cb" },
       ]
     },
     {
-      title: "Backend Development",
+      id: "backend",
+      titlePrefix: "Backend",
+      titleSuffix: "Development",
       icon: Server,
+      glowType: "orange-top",
       skills: [
-        "Node.js", "Express.js", "RESTful APIs", "JWT Authentication",
-        "OAuth2", "WebSockets", "API Middleware", "CORS & Security"
+        { name: "Node.js", icon: SiNodedotjs, color: "#68A063" },
+        { name: "Express.js", icon: SiExpress, color: "#ffffff" },
+        { name: "RESTful APIs", icon: Code2, color: "#abc9cb" },
+        { name: "JWT Authentication", icon: ShieldCheck, color: "#F59E0B" },
+        { name: "OAuth2", icon: Lock, color: "#abc9cb" },
+        { name: "WebSockets", icon: Radio, color: "#38BDF8" },
+        { name: "API Middleware", icon: Layers, color: "#abc9cb" },
+        { name: "CORS & Security", icon: ShieldCheck, color: "#f45b0b", highlight: true },
       ]
     },
     {
-      title: "Databases & Storage",
+      id: "database",
+      titlePrefix: "Databases",
+      titleSuffix: "& Storage",
       icon: Database,
+      glowType: "cyan-side",
       skills: [
-        "MongoDB", "Mongoose ODM", "MongoDB Atlas", "MySQL",
-        "Schema Design", "Database Indexing", "Aggregations"
+        { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+        { name: "Mongoose ODM", icon: Database, color: "#880000" },
+        { name: "MongoDB Atlas", icon: Database, color: "#47A248" },
+        { name: "MySQL", icon: SiMysql, color: "#00758F" },
+        { name: "Schema Design", icon: Layers, color: "#abc9cb" },
+        { name: "Database Indexing", icon: Cpu, color: "#abc9cb" },
+        { name: "Aggregations", icon: Activity, color: "#abc9cb" },
       ]
     },
     {
-      title: "Tools & Deployment",
+      id: "tools",
+      titlePrefix: "Tools",
+      titleSuffix: "& Deployment",
       icon: Wrench,
+      glowType: "orange-right",
       skills: [
-        "Git & GitHub", "Postman", "Thunder Client", "VS Code",
-        "Cursor", "Vercel", "Netlify", "npm / yarn"
+        { name: "Git & GitHub", icon: FaGitAlt, color: "#F05032" },
+        { name: "Postman", icon: SiPostman, color: "#FF6C37" },
+        { name: "Thunder Client", icon: Zap, color: "#f45b0b", highlight: true },
+        { name: "VS Code", icon: VscVscode, color: "#007ACC" },
+        { name: "Cursor", icon: Code2, color: "#ffffff" },
+        { name: "netlify", icon: SiNetlify, color: "#00C7B7" },
+        { name: "npm / yarn", icon: SiNpm, color: "#CB3837" },
       ]
     }
   ]
@@ -44,64 +107,140 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className={`py-16 md:py-24 px-5 md:px-10 border-t transition-colors duration-300 ${
-        darkMode ? 'bg-[#090b11] border-slate-800 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
-      }`}
+      className="py-16 md:py-24 px-4 sm:px-6 md:px-10 bg-[#040608] text-white relative overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto">
+      {/* Background Soft Cyan / Orange Aura */}
+      <div 
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] pointer-events-none blur-3xl opacity-60"
+        style={{
+          background: 'radial-gradient(circle, rgba(171, 201, 203, 0.16) 0%, rgba(244, 91, 11, 0.08) 40%, transparent 70%)'
+        }}
+      />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         
-        {/* Header */}
-        <div className="mb-12 text-center md:text-left">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+        {/* Header matching image title */}
+        <div className="text-center mb-12 sm:mb-14">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
             Skills & Technologies
           </h2>
-          <p className={`text-sm sm:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-            Languages, libraries, and tools I use to build full-stack web applications.
+          <p className="text-xs sm:text-sm font-semibold text-[#abc9cb]">
+            Core technologies, libraries, and frameworks powering production web applications.
           </p>
         </div>
 
-        {/* Skill Groups Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {skillGroups.map((group, idx) => {
-            const Icon = group.icon
+        {/* 2x2 Tech Panels Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7">
+          {skillCategories.map((cat, idx) => {
+            const HeaderIcon = cat.icon
             return (
               <motion.div
-                key={group.title}
+                key={cat.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.1 }}
-                whileHover={{ y: -3 }}
-                className={`p-6 rounded-2xl border transition-all ${
-                  darkMode ? 'bg-slate-850 border-slate-800 hover:border-slate-700 shadow-sm' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'
-                }`}
+                className="rounded-[24px] sm:rounded-[28px] p-6 sm:p-7 relative overflow-hidden transition-all duration-300"
+                style={{
+                  border: '1.5px solid rgba(171, 201, 203, 0.42)',
+                  borderTop: '2px solid rgba(255, 255, 255, 0.78)',
+                  borderLeft: '1.5px solid rgba(255, 255, 255, 0.55)',
+                  background: 'linear-gradient(135deg, rgba(14, 25, 35, 0.9) 0%, rgba(7, 14, 21, 0.96) 100%)',
+                  backdropFilter: 'blur(28px)',
+                  WebkitBackdropFilter: 'blur(28px)',
+                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.75), inset 0 1px 1.5px rgba(255, 255, 255, 0.45), 0 0 25px rgba(171, 201, 203, 0.12)'
+                }}
               >
-                <div className="flex items-center gap-2.5 mb-5">
-                  <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-semibold text-base sm:text-lg">
-                    {group.title}
+                {/* Specific Ambient Flare based on panel in reference image */}
+                {cat.glowType === 'orange-top' && (
+                  <div 
+                    className="absolute top-0 right-0 w-64 h-64 pointer-events-none blur-2xl opacity-60"
+                    style={{
+                      background: 'radial-gradient(circle at 85% 15%, rgba(244, 91, 11, 0.5) 0%, transparent 70%)'
+                    }}
+                  />
+                )}
+                {cat.glowType === 'orange-cyan' && (
+                  <>
+                    <div 
+                      className="absolute top-0 right-0 w-48 h-48 pointer-events-none blur-2xl opacity-40"
+                      style={{
+                        background: 'radial-gradient(circle at 85% 15%, rgba(244, 91, 11, 0.4) 0%, transparent 70%)'
+                      }}
+                    />
+                    <div 
+                      className="absolute bottom-0 right-0 w-56 h-56 pointer-events-none blur-2xl opacity-45"
+                      style={{
+                        background: 'radial-gradient(circle at 85% 85%, rgba(171, 201, 203, 0.35) 0%, transparent 70%)'
+                      }}
+                    />
+                  </>
+                )}
+                {cat.glowType === 'cyan-side' && (
+                  <div 
+                    className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 pointer-events-none blur-2xl opacity-50"
+                    style={{
+                      background: 'radial-gradient(circle at 85% 50%, rgba(171, 201, 203, 0.45) 0%, transparent 70%)'
+                    }}
+                  />
+                )}
+                {cat.glowType === 'orange-right' && (
+                  <div 
+                    className="absolute top-0 right-0 w-60 h-60 pointer-events-none blur-2xl opacity-45"
+                    style={{
+                      background: 'radial-gradient(circle at 85% 20%, rgba(244, 91, 11, 0.45) 0%, transparent 70%)'
+                    }}
+                  />
+                )}
+
+                {/* Card Title Header */}
+                <div className="flex items-center gap-2.5 mb-6 relative z-10">
+                  <HeaderIcon className="w-5 h-5 text-[#f45b0b] shrink-0" strokeWidth={2.5} />
+                  <h3 className="text-lg sm:text-xl font-extrabold tracking-tight">
+                    <span className="text-white">{cat.titlePrefix} </span>
+                    <span className="text-[#f45b0b]">{cat.titleSuffix}</span>
                   </h3>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                  {group.skills.map((skill) => (
-                    <motion.span
-                      key={skill}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                      className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium border cursor-default select-none ${
-                        darkMode 
-                          ? 'bg-slate-900 border-slate-750 text-slate-200 hover:border-blue-500/50 hover:text-white' 
-                          : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-blue-500/50 hover:text-blue-600'
-                      }`}
-                    >
-                      {skill}
-                    </motion.span>
-                  ))}
+                {/* Badges Grid / Wrap */}
+                <div className="flex flex-wrap gap-2.5 relative z-10">
+                  {cat.skills.map((skill) => {
+                    const SkillIcon = skill.icon
+                    const isHighlighted = skill.highlight
+                    return (
+                      <motion.div
+                        key={skill.name}
+                        whileHover={{ scale: 1.04, y: -2 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl transition-all select-none cursor-default"
+                        style={{
+                          background: isHighlighted 
+                            ? 'linear-gradient(135deg, rgba(200, 235, 240, 0.45) 0%, rgba(150, 195, 205, 0.28) 100%)' 
+                            : 'linear-gradient(135deg, rgba(190, 225, 230, 0.38) 0%, rgba(140, 185, 195, 0.22) 100%)',
+                          border: isHighlighted
+                            ? '1.8px solid #f45b0b'
+                            : '1.2px solid rgba(225, 248, 255, 0.65)',
+                          backdropFilter: 'blur(14px)',
+                          WebkitBackdropFilter: 'blur(14px)',
+                          boxShadow: isHighlighted
+                            ? '0 0 14px rgba(244, 91, 11, 0.5), inset 0 1px 1.5px rgba(255, 255, 255, 0.65)'
+                            : '0 4px 14px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.55)'
+                        }}
+                      >
+                        {SkillIcon && (
+                          <SkillIcon 
+                            className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" 
+                            style={{ color: skill.color }} 
+                          />
+                        )}
+                        <span className="text-[11.5px] sm:text-xs font-bold text-white tracking-tight drop-shadow-sm">
+                          {skill.name}
+                        </span>
+                      </motion.div>
+                    )
+                  })}
                 </div>
+
               </motion.div>
             )
           })}
