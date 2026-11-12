@@ -97,7 +97,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className={`py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-t transition-colors duration-300 relative overflow-hidden ${
+      className={`py-16 md:py-24 border-t transition-colors duration-300 relative overflow-hidden ${
         darkMode ? 'bg-[#070a0e] border-[rgba(171,201,203,0.18)] text-white' : 'bg-[#eef5f6] border-[#abc9cb]/60 text-[#081014]'
       }`}
     >
@@ -115,7 +115,7 @@ const Contact = () => {
         }}
       />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="site-container relative z-10">
         
         {/* Section Header (Exact match of Skills & Technologies style) */}
         <div className="text-center mb-12 sm:mb-14">
@@ -139,7 +139,7 @@ const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.4 }}
-              className={`rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
+              className={`rounded-2xl p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
                 darkMode
                   ? 'bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-2xl text-white'
                   : 'bg-white border-[#abc9cb] shadow-sm text-[#081014]'
@@ -267,7 +267,7 @@ const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className={`rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
+              className={`rounded-2xl p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
                 darkMode
                   ? 'bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-2xl text-white'
                   : 'bg-white border-[#abc9cb] shadow-sm text-[#081014]'

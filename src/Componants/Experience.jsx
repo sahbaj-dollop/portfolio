@@ -65,7 +65,7 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="py-16 md:py-24 px-4 sm:px-6 md:px-10 bg-[#040608] text-white relative overflow-hidden"
+      className="py-16 md:py-24 bg-[#040608] text-white relative overflow-hidden"
     >
       {/* Background Soft Cyan / Orange Aura matching Skills section */}
       <div 
@@ -75,7 +75,7 @@ const Experience = () => {
         }}
       />
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="site-container relative z-10">
         
         {/* Header exact match of Skills & Technologies style */}
         <div className="text-center mb-12 sm:mb-14">
@@ -167,7 +167,7 @@ const Experience = () => {
             {/* Card 1: Full Stack Developer (Dollop Infotech) */}
             <button
               onClick={() => handleTabClick(0)}
-              className="text-left p-4 sm:p-5 rounded-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col justify-between group"
+              className="text-left p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col justify-between group"
               style={{
                 border: activeTab === 0 ? '1.8px solid #f45b0b' : '1px solid rgba(171, 201, 203, 0.25)',
                 background: activeTab === 0 
@@ -212,7 +212,7 @@ const Experience = () => {
             {/* Card 2: Full Stack Trainee (Placement Adda) */}
             <button
               onClick={() => handleTabClick(1)}
-              className="text-left p-4 sm:p-5 rounded-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col justify-between group"
+              className="text-left p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col justify-between group"
               style={{
                 border: activeTab === 1 ? '1.8px solid #f45b0b' : '1px solid rgba(171, 201, 203, 0.25)',
                 background: activeTab === 1 
@@ -266,7 +266,7 @@ const Experience = () => {
 
           {/* ── Main Bento Experience Card ── */}
           <div 
-            className="rounded-[24px] sm:rounded-[28px] p-5 sm:p-7 md:p-8 relative overflow-hidden z-10"
+            className="min-h-[550px] rounded-[24px] sm:rounded-[28px] p-6 sm:p-8 md:p-9 relative overflow-hidden z-10"
             style={{
               border: '1.5px solid rgba(171, 201, 203, 0.35)',
               borderTop: '2px solid rgba(255, 255, 255, 0.85)',
@@ -288,14 +288,14 @@ const Experience = () => {
               >
                 {/* ── Luminous Frosted Liquid Icy Glass Header Bar (exact like image) ── */}
                 <div 
-                  className="rounded-2xl p-4 sm:p-5 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4"
+                  className="rounded-2xl p-5 sm:p-6 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(175, 225, 235, 0.78) 0%, rgba(140, 195, 210, 0.65) 45%, rgba(171, 201, 203, 0.82) 100%)',
-                    border: '1.5px solid rgba(255, 255, 255, 0.95)',
-                    borderTop: '2px solid rgba(255, 255, 255, 1)',
+                    background: 'linear-gradient(135deg, rgba(104, 170, 184, 0.78) 0%, rgba(41, 118, 139, 0.9) 45%, rgba(61, 144, 150, 0.82) 100%)',
+                    border: '1.5px solid rgb(255, 255, 255)',
+                    borderTop: '2px solid rgba(255, 255, 255, 0.8)',
                     backdropFilter: 'blur(25px)',
                     WebkitBackdropFilter: 'blur(25px)',
-                    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.35), inset 0 2px 4px rgba(255, 255, 255, 0.95), 0 0 30px rgba(171, 201, 203, 0.35)'
+                    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.35), inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 0 30px rgba(171, 201, 203, 0.35)'
                   }}
                 >
                   {/* Left Role + Company + Location */}
@@ -324,16 +324,7 @@ const Experience = () => {
                   {/* Right Badges */}
                   <div className="flex flex-col sm:items-end gap-2 self-start md:self-auto">
                     <div className="flex items-center gap-2">
-                      {/* Neon glowing drops badge with gradient */}
-                      <span 
-                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black text-white bg-gradient-to-r ${current.badgeGradient}`}
-                        style={{
-                          boxShadow: '0 0 16px rgba(244, 91, 11, 0.55), 0 0 20px rgba(6, 182, 212, 0.4)'
-                        }}
-                      >
-                        <Flame className="w-3.5 h-3.5 text-white" />
-                        <span>{current.badgeText}</span>
-                      </span>
+                      
 
                       {/* Period pill */}
                       <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#0c1822]/90 text-white border border-[rgba(171,201,203,0.5)] shadow-sm">

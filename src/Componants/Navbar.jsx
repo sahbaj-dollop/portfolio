@@ -58,7 +58,7 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
     >
-      <nav className="px-4 sm:px-6 md:px-10 py-3.5 max-w-6xl mx-auto flex items-center justify-between gap-3">
+      <nav className="site-container py-3.5 flex items-center justify-between gap-3">
         
         {/* Brand Name */}
         <button
@@ -163,7 +163,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className={`lg:hidden px-5 py-4 border-b ${
+            className={`lg:hidden border-b ${
               darkMode 
                 ? "bg-[#070a0e] border-[rgba(171,201,203,0.2)] text-white" 
                 : "bg-[#eff5f6] border-[#abc9cb] text-[#081014]"
@@ -173,7 +173,7 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="flex flex-col space-y-2 pb-2">
+            <div className="site-container py-4 flex flex-col space-y-2">
               {navItems.map((item) => (
                 <button
                   key={item.name}

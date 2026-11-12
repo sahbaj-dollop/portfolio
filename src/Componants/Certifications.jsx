@@ -73,7 +73,7 @@ const Certifications = () => {
   return (
     <section 
       id="certifications" 
-      className={`py-16 md:py-24 px-4 sm:px-6 lg:px-8 border-t transition-colors duration-300 relative overflow-hidden ${
+      className={`py-16 md:py-24 border-t transition-colors duration-300 relative overflow-hidden ${
         darkMode ? 'bg-[#070a0e] border-[rgba(171,201,203,0.18)] text-white' : 'bg-[#eef5f6] border-[#abc9cb]/60 text-[#081014]'
       }`}
     >
@@ -91,7 +91,7 @@ const Certifications = () => {
         }}
       />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="site-container relative z-10">
         
         {/* Section Header (Exact match of Skills & Technologies style) */}
         <div className="text-center mb-12 sm:mb-14">
