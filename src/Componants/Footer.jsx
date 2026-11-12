@@ -23,14 +23,14 @@ const Footer = () => {
   return (
     <footer 
       id="footer" 
-      className={`w-full border-t transition-colors duration-300 py-6 sm:py-7 px-4 sm:px-8 lg:px-12 relative z-30 backdrop-blur-xl ${
+      className={`w-full border-t transition-colors duration-300 py-6 sm:py-7 relative z-30 backdrop-blur-xl ${
         darkMode
           ? 'bg-[#060a0f]/95 border-[rgba(171,201,203,0.22)] text-white shadow-[0_-10px_30px_rgba(0,0,0,0.5)]'
           : 'bg-white/95 border-[#abc9cb] text-[#081014] shadow-[0_-10px_25px_rgba(171,201,203,0.15)]'
       }`}
     >
       {/* Full Screen Inner Wrapper matching Image 3 design */}
-      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6">
+      <div className="site-container flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6">
         
         {/* 1. Left: Glowing Circular WhatsApp Button */}
         <div className="flex items-center shrink-0">

@@ -8,14 +8,14 @@ const About = () => {
 
   const highlights = [
     "2+ years of professional full-stack web development experience",
-    "Hands-on with React 19, Next.js (App Router), and TypeScript",
+    "Hands-on with React 19, Next.js, and TypeScript",
     "Backend development with Node.js, Express, & MongoDB",
   ]
 
   return (
     <section
       id="about"
-      className="py-16 md:py-24 px-4 sm:px-6 md:px-10 bg-[#040608] text-white relative overflow-hidden flex items-center justify-center min-h-[92vh]"
+      className="py-16 md:py-24 bg-[#040608] text-white relative overflow-hidden flex items-center justify-center min-h-[92vh]"
     >
       {/* Outer Cyan / Powder Blue Ambient Radiant Glow */}
       <div 
@@ -25,7 +25,7 @@ const About = () => {
         }}
       />
 
-      <div className="max-w-6xl w-full mx-auto relative z-10">
+      <div className="site-container relative z-10">
 
         {/* Section Header (Exact match of Skills & Technologies style) */}
         <div className="text-center mb-10 sm:mb-12">
@@ -49,7 +49,7 @@ const About = () => {
           
           {/* ── Inner Frame 2: Frosted Glass Panel with Corner Specular Flare ── */}
           <div 
-            className="rounded-[26px] sm:rounded-[32px] p-6 sm:p-10 md:p-12 relative overflow-hidden"
+            className="rounded-[26px] min-h-[550px] h-auto sm:rounded-[32px] p-7 sm:p-11 md:p-14 relative overflow-hidden"
             style={{
               border: '1.5px solid rgba(171, 201, 203, 0.55)',
               borderTop: '2px solid rgba(255, 255, 255, 0.9)',
@@ -69,7 +69,7 @@ const About = () => {
             <div className="absolute top-0 left-12 w-80 h-32 bg-[radial-gradient(ellipse_at_top,rgba(171,201,203,0.3)_0%,transparent_70%)] pointer-events-none blur-xl" />
 
             {/* Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-start relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-start relative z-10 h-full">
               
               {/* ─── Left Column: About Me (7 Columns) ────────────────────────── */}
               <div className="lg:col-span-7 space-y-4 pr-0 lg:pr-3">
@@ -90,10 +90,13 @@ const About = () => {
                 {/* Bio Paragraphs */}
                 <div className="space-y-3 text-xs sm:text-[13px] leading-relaxed text-slate-100 font-normal">
                   <p>
-                    I am a Full Stack Developer based in Indore, India. I graduated with a Bachelor of Computer Applications (BCA) from <strong className="text-white font-bold">Govt. Holkar Science College, Indore</strong>, where I developed a strong foundation in computer science and software development.
+                    I am a Full Stack Developer based in Indore, India, with a Bachelor of Computer Applications (BCA) degree from Govt. Holkar Science College, Indore. I have a strong foundation in computer science, programming, and software development, with a passion for building modern and scalable web applications.
                   </p>
                   <p>
-                    Over the last 2+ years, I have worked professionally building full-stack applications, architecting responsive user interfaces with React, Next.js, and building secure REST APIs using Node.js, Express, and MongoDB.
+                   Over the last 2+ years, I have gained professional experience developing full-stack applications using React.js, Next.js, JavaScript, TypeScript, Node.js, Express.js, and MongoDB. My expertise includes building responsive user interfaces, developing secure REST APIs, implementing authentication, managing databases, integrating third-party services, and creating dynamic web solutions.
+                  </p>
+                  <p>
+                    I have also worked with Razorpay payment integration, Tailwind CSS, Git, and deployment platforms like Vercel and Render. I focus on writing clean, reusable, and maintainable code while delivering efficient and user-friendly applications. I continuously explore new technologies and enjoy solving challenging development problems.
                   </p>
                 </div>
 
@@ -208,7 +211,7 @@ const About = () => {
                     <motion.div
                       whileHover={{ y: -3, scale: 1.01 }}
                       transition={{ duration: 0.2 }}
-                      className="w-full p-4 sm:p-5 rounded-2xl relative overflow-hidden transition-all"
+                      className="w-full p-5 sm:p-6 rounded-2xl relative overflow-hidden transition-all"
                       style={{
                         background: 'linear-gradient(135deg, rgba(140, 198, 208, 0.42) 0%, rgba(45, 95, 115, 0.55) 45%, rgba(10, 24, 34, 0.92) 100%)',
                         border: '1.5px solid rgba(195, 235, 245, 0.55)',
@@ -219,7 +222,7 @@ const About = () => {
                         boxShadow: '0 16px 40px rgba(0, 0, 0, 0.65), inset 0 1.5px 2px rgba(255, 255, 255, 0.75), 0 0 28px rgba(171, 201, 203, 0.25)'
                       }}
                     >
-                      <h4 className="font-extrabold text-sm sm:text-[15.5px] text-white tracking-tight mb-1 drop-shadow-sm">
+                      <h4 className="font-bold text-sm sm:text-[15.5px] text-white tracking-tight mb-1 drop-shadow-sm">
                         Bachelor of Computer Applications (BCA)
                       </h4>
                       <p className="text-xs sm:text-[12.5px] text-[#e0f3f5] font-semibold mb-3 drop-shadow-sm">
@@ -260,7 +263,7 @@ const About = () => {
                     <motion.div
                       whileHover={{ y: -3, scale: 1.01 }}
                       transition={{ duration: 0.2 }}
-                      className="w-full p-4 sm:p-5 rounded-2xl relative overflow-hidden transition-all"
+                      className="w-full p-5 sm:p-6 rounded-2xl relative overflow-hidden transition-all"
                       style={{
                         background: 'linear-gradient(135deg, rgba(140, 198, 208, 0.42) 0%, rgba(45, 95, 115, 0.55) 45%, rgba(10, 24, 34, 0.92) 100%)',
                         border: '1.5px solid rgba(195, 235, 245, 0.55)',
@@ -271,8 +274,8 @@ const About = () => {
                         boxShadow: '0 16px 40px rgba(0, 0, 0, 0.65), inset 0 1.5px 2px rgba(255, 255, 255, 0.75), 0 0 28px rgba(171, 201, 203, 0.25)'
                       }}
                     >
-                      <h4 className="font-extrabold text-sm sm:text-[15.5px] text-white tracking-tight mb-1 drop-shadow-sm">
-                        12th Science
+                      <h4 className="font-bold text-sm sm:text-[15.5px] text-white tracking-tight mb-1 drop-shadow-sm">
+                        12th Mathmatics
                       </h4>
                       <p className="text-xs sm:text-[12.5px] text-[#e0f3f5] font-semibold mb-3 drop-shadow-sm">
                         J.J.C. Higher Secondary School, Naigarhi Rewa

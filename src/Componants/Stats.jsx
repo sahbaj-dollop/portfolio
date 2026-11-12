@@ -38,10 +38,10 @@ const Stats = () => {
   ]
 
   return (
-    <div className={`py-12 px-5 md:px-10 border-y transition-colors duration-300 backdrop-blur-md relative z-20 ${
+    <div className={`py-12 border-y transition-colors duration-300 backdrop-blur-md relative z-20 ${
       darkMode ? 'bg-[#070b10]/65 border-[rgba(171,201,203,0.18)] text-white' : 'bg-[#e5eff1]/75 border-[#abc9cb]/60 text-[#081014]'
     }`}>
-      <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
+      <div className="site-container grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
         {statsData.map((stat, idx) => {
           const Icon = stat.icon
           return (

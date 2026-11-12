@@ -107,7 +107,7 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="py-16 md:py-24 px-4 sm:px-6 md:px-10 bg-[#040608] text-white relative overflow-hidden"
+      className="py-16 md:py-24 bg-[#040608] text-white relative overflow-hidden"
     >
       {/* Background Soft Cyan / Orange Aura */}
       <div 
@@ -117,7 +117,7 @@ const Skills = () => {
         }}
       />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="site-container relative z-10">
         
         {/* Header matching image title */}
         <div className="text-center mb-12 sm:mb-14">
@@ -140,7 +140,7 @@ const Skills = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.1 }}
-                className="rounded-[24px] sm:rounded-[28px] p-6 sm:p-7 relative overflow-hidden transition-all duration-300"
+                className="rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 relative overflow-hidden transition-all duration-300"
                 style={{
                   border: '1.5px solid rgba(171, 201, 203, 0.42)',
                   borderTop: '2px solid rgba(255, 255, 255, 0.78)',

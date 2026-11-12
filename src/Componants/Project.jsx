@@ -226,7 +226,7 @@ const Project = () => {
   return (
     <section
       id="projects"
-      className={`py-16 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-300 ${
+      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 ${
         darkMode ? 'bg-[#070a0e] text-white' : 'bg-[#eef5f6] text-[#081014]'
       }`}
     >
@@ -246,7 +246,7 @@ const Project = () => {
         }}
       />
 
-      <div className="max-w-6xl mx-auto relative z-10" ref={containerRef}>
+      <div className="site-container relative z-10" ref={containerRef}>
 
         {/* ── Section Header (Exact match of Skills & Technologies style) ── */}
         <div className="text-center mb-12 sm:mb-14">
@@ -372,7 +372,7 @@ const Project = () => {
                 {/* Subtle top edge specular reflection */}
                 <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent pointer-events-none" />
 
-                <div className="relative min-h-[520px] sm:min-h-[480px] lg:min-h-[440px] flex items-center">
+                <div className="relative min-h-[540px] sm:min-h-[500px] lg:min-h-[460px] flex items-center">
                   <AnimatePresence initial={false} custom={direction} mode="popLayout">
                     <motion.div
                       key={currentProject.id}
