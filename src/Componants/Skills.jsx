@@ -30,11 +30,14 @@ import {
   SiMysql, 
   SiPostman, 
   SiNetlify, 
+  SiVercel,
   SiNpm 
 } from 'react-icons/si'
 import { VscVscode } from 'react-icons/vsc'
+import { useTheme } from '../Context/ThemeContext'
 
 const Skills = () => {
+  const { darkMode } = useTheme()
   const skillCategories = [
     {
       id: "frontend",
@@ -45,9 +48,9 @@ const Skills = () => {
       skills: [
         { name: "React.js", icon: FaReact, color: "#61DAFB" },
         { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
-        { name: "TypeScript (ES6+)", icon: SiTypescript, color: "#3178C6" },
+        { name: "TypeScript & ES6+", icon: SiTypescript, color: "#3178C6" },
         { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38BDF8" },
-        { name: "HTML & CSS3", icon: FaHtml5, color: "#E34F26" },
+        { name: "HTML5 & CSS3", icon: FaHtml5, color: "#E34F26" },
         { name: "Redux Toolkit", icon: SiRedux, color: "#9333EA" },
         { name: "Zustand", icon: Zap, color: "#F59E0B" },
         { name: "Responsive UI", icon: Smartphone, color: "#abc9cb" },
@@ -94,24 +97,50 @@ const Skills = () => {
       glowType: "orange-right",
       skills: [
         { name: "Git & GitHub", icon: FaGitAlt, color: "#F05032" },
+        { name: "Vercel", icon: SiVercel, color: "#ffffff" },
+        { name: "Netlify", icon: SiNetlify, color: "#00C7B7" },
         { name: "Postman", icon: SiPostman, color: "#FF6C37" },
         { name: "Thunder Client", icon: Zap, color: "#f45b0b", highlight: true },
         { name: "VS Code", icon: VscVscode, color: "#007ACC" },
         { name: "Cursor", icon: Code2, color: "#ffffff" },
-        { name: "netlify", icon: SiNetlify, color: "#00C7B7" },
-        { name: "npm / yarn", icon: SiNpm, color: "#CB3837" },
+        { name: "npm / Yarn", icon: SiNpm, color: "#CB3837" },
       ]
     }
   ]
 
+  const badgeContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.035 },
+    },
+  }
+
+  const badgeItemVariants = {
+    hidden: { opacity: 0, y: 10, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.25 } },
+  }
+
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`)
+    e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`)
+  }
+
   return (
     <section
       id="skills"
-      className="py-16 md:py-24 bg-[#040608] text-white relative overflow-hidden"
+      className={`py-16 md:py-24 relative overflow-hidden transition-colors duration-300 ${
+        darkMode
+          ? 'bg-[#040608] text-white'
+          : 'bg-[#eef5f6] text-[#081014] border-t border-[#abc9cb]/50'
+      }`}
     >
       {/* Background Soft Cyan / Orange Aura */}
       <div 
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] pointer-events-none blur-3xl opacity-60"
+        className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] pointer-events-none blur-3xl ${
+          darkMode ? 'opacity-60' : 'opacity-30'
+        }`}
         style={{
           background: 'radial-gradient(circle, rgba(171, 201, 203, 0.16) 0%, rgba(244, 91, 11, 0.08) 40%, transparent 70%)'
         }}
@@ -119,15 +148,25 @@ const Skills = () => {
 
       <div className="site-container relative z-10">
         
-        {/* Header matching image title */}
-        <div className="text-center mb-12 sm:mb-14">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
-            Skills & Technologies
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.45 }}
+          className="text-center mb-12 sm:mb-14"
+        >
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-2 ${
+            darkMode ? 'text-white' : 'text-[#081014]'
+          }`}>
+            Skills &amp; Technologies
           </h2>
-          <p className="text-xs sm:text-sm font-semibold text-[#abc9cb]">
-            Core technologies, libraries, and frameworks powering production web applications.
+          <p className={`text-xs sm:text-sm font-semibold ${
+            darkMode ? 'text-[#abc9cb]' : 'text-[#2c6670]'
+          }`}>
+            A battle-tested modern stack for building fast frontends, secure APIs, and scalable cloud apps.
           </p>
-        </div>
+        </motion.div>
 
         {/* 2x2 Tech Panels Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7">
@@ -138,108 +177,158 @@ const Skills = () => {
                 key={cat.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: idx * 0.1 }}
-                className="rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 relative overflow-hidden transition-all duration-300"
-                style={{
-                  border: '1.5px solid rgba(171, 201, 203, 0.42)',
-                  borderTop: '2px solid rgba(255, 255, 255, 0.78)',
-                  borderLeft: '1.5px solid rgba(255, 255, 255, 0.55)',
-                  background: 'linear-gradient(135deg, rgba(14, 25, 35, 0.9) 0%, rgba(7, 14, 21, 0.96) 100%)',
-                  backdropFilter: 'blur(28px)',
-                  WebkitBackdropFilter: 'blur(28px)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.75), inset 0 1px 1.5px rgba(255, 255, 255, 0.45), 0 0 25px rgba(171, 201, 203, 0.12)'
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.38, delay: idx * 0.08 }}
+                whileHover={{ y: -4 }}
+                onMouseMove={handleCardMouseMove}
+                className="group/card rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 relative overflow-hidden transition-all duration-300"
+                style={darkMode ? {
+                  border: '1px solid rgba(171, 201, 203, 0.22)',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.16)',
+                  background: 'linear-gradient(135deg, rgba(14, 24, 34, 0.82) 0%, rgba(7, 13, 20, 0.92) 100%)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 14px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
+                } : {
+                  border: '1px solid rgba(171, 201, 203, 0.8)',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(242, 248, 249, 0.92) 100%)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 14px 32px rgba(171, 201, 203, 0.24)'
                 }}
               >
-                {/* Specific Ambient Flare based on panel in reference image */}
+                {/* Subtle Ambient Corner Glow */}
                 {cat.glowType === 'orange-top' && (
                   <div 
-                    className="absolute top-0 right-0 w-64 h-64 pointer-events-none blur-2xl opacity-60"
+                    className={`absolute top-0 right-0 w-56 h-56 pointer-events-none blur-2xl ${darkMode ? 'opacity-25' : 'opacity-15'}`}
                     style={{
-                      background: 'radial-gradient(circle at 85% 15%, rgba(244, 91, 11, 0.5) 0%, transparent 70%)'
+                      background: 'radial-gradient(circle at 85% 15%, rgba(244, 91, 11, 0.45) 0%, transparent 70%)'
                     }}
                   />
                 )}
                 {cat.glowType === 'orange-cyan' && (
                   <>
                     <div 
-                      className="absolute top-0 right-0 w-48 h-48 pointer-events-none blur-2xl opacity-40"
+                      className={`absolute top-0 right-0 w-44 h-44 pointer-events-none blur-2xl ${darkMode ? 'opacity-20' : 'opacity-12'}`}
                       style={{
-                        background: 'radial-gradient(circle at 85% 15%, rgba(244, 91, 11, 0.4) 0%, transparent 70%)'
+                        background: 'radial-gradient(circle at 85% 15%, rgba(244, 91, 11, 0.35) 0%, transparent 70%)'
                       }}
                     />
                     <div 
-                      className="absolute bottom-0 right-0 w-56 h-56 pointer-events-none blur-2xl opacity-45"
+                      className={`absolute bottom-0 right-0 w-52 h-52 pointer-events-none blur-2xl ${darkMode ? 'opacity-20' : 'opacity-12'}`}
                       style={{
-                        background: 'radial-gradient(circle at 85% 85%, rgba(171, 201, 203, 0.35) 0%, transparent 70%)'
+                        background: 'radial-gradient(circle at 85% 85%, rgba(171, 201, 203, 0.3) 0%, transparent 70%)'
                       }}
                     />
                   </>
                 )}
                 {cat.glowType === 'cyan-side' && (
                   <div 
-                    className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 pointer-events-none blur-2xl opacity-50"
+                    className={`absolute top-1/2 right-0 -translate-y-1/2 w-56 h-56 pointer-events-none blur-2xl ${darkMode ? 'opacity-22' : 'opacity-12'}`}
                     style={{
-                      background: 'radial-gradient(circle at 85% 50%, rgba(171, 201, 203, 0.45) 0%, transparent 70%)'
+                      background: 'radial-gradient(circle at 85% 50%, rgba(171, 201, 203, 0.35) 0%, transparent 70%)'
                     }}
                   />
                 )}
                 {cat.glowType === 'orange-right' && (
                   <div 
-                    className="absolute top-0 right-0 w-60 h-60 pointer-events-none blur-2xl opacity-45"
+                    className={`absolute top-0 right-0 w-56 h-56 pointer-events-none blur-2xl ${darkMode ? 'opacity-22' : 'opacity-15'}`}
                     style={{
-                      background: 'radial-gradient(circle at 85% 20%, rgba(244, 91, 11, 0.45) 0%, transparent 70%)'
+                      background: 'radial-gradient(circle at 85% 20%, rgba(244, 91, 11, 0.38) 0%, transparent 70%)'
                     }}
                   />
                 )}
 
+                {/* Interactive Cursor Spotlight */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: darkMode
+                      ? 'radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(244, 91, 11, 0.12), transparent 70%)'
+                      : 'radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(244, 91, 11, 0.08), transparent 70%)',
+                  }}
+                />
+
                 {/* Card Title Header */}
                 <div className="flex items-center gap-2.5 mb-6 relative z-10">
-                  <HeaderIcon className="w-5 h-5 text-[#f45b0b] shrink-0" strokeWidth={2.5} />
+                  <HeaderIcon className="w-5 h-5 text-[#f45b0b] shrink-0 transition-transform duration-300 group-hover/card:scale-110 group-hover/card:rotate-6" strokeWidth={2.5} />
                   <h3 className="text-lg sm:text-xl font-extrabold tracking-tight">
-                    <span className="text-white">{cat.titlePrefix} </span>
+                    <span className={darkMode ? 'text-white' : 'text-[#081014]'}>{cat.titlePrefix} </span>
                     <span className="text-[#f45b0b]">{cat.titleSuffix}</span>
                   </h3>
                 </div>
 
                 {/* Badges Grid / Wrap */}
-                <div className="flex flex-wrap gap-2.5 relative z-10">
+                <motion.div
+                  variants={badgeContainerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-20px" }}
+                  className="flex flex-wrap gap-2.5 relative z-10"
+                >
                   {cat.skills.map((skill) => {
                     const SkillIcon = skill.icon
                     const isHighlighted = skill.highlight
+                    const resolvedIconColor = darkMode
+                      ? skill.color
+                      : skill.color === '#ffffff'
+                      ? '#081014'
+                      : skill.color === '#abc9cb'
+                      ? '#2c6670'
+                      : skill.color === '#61DAFB'
+                      ? '#0284c7'
+                      : skill.color === '#38BDF8'
+                      ? '#0284c7'
+                      : skill.color
+
                     return (
                       <motion.div
                         key={skill.name}
-                        whileHover={{ scale: 1.04, y: -2 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl transition-all select-none cursor-default"
-                        style={{
+                        variants={badgeItemVariants}
+                        whileHover={{ scale: 1.07, y: -3 }}
+                        whileTap={{ scale: 0.96 }}
+                        className="group/pill inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl transition-all select-none cursor-default"
+                        style={darkMode ? {
                           background: isHighlighted 
-                            ? 'linear-gradient(135deg, rgba(200, 235, 240, 0.45) 0%, rgba(150, 195, 205, 0.28) 100%)' 
-                            : 'linear-gradient(135deg, rgba(190, 225, 230, 0.38) 0%, rgba(140, 185, 195, 0.22) 100%)',
+                            ? 'rgba(244, 91, 11, 0.12)' 
+                            : 'rgba(171, 201, 203, 0.08)',
                           border: isHighlighted
-                            ? '1.8px solid #f45b0b'
-                            : '1.2px solid rgba(225, 248, 255, 0.65)',
-                          backdropFilter: 'blur(14px)',
-                          WebkitBackdropFilter: 'blur(14px)',
+                            ? '1.5px solid #f45b0b'
+                            : '1px solid rgba(171, 201, 203, 0.24)',
+                          backdropFilter: 'blur(8px)',
+                          WebkitBackdropFilter: 'blur(8px)',
                           boxShadow: isHighlighted
-                            ? '0 0 14px rgba(244, 91, 11, 0.5), inset 0 1px 1.5px rgba(255, 255, 255, 0.65)'
-                            : '0 4px 14px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.55)'
+                            ? '0 0 12px rgba(244, 91, 11, 0.32)'
+                            : '0 2px 8px rgba(0, 0, 0, 0.25)'
+                        } : {
+                          background: isHighlighted
+                            ? 'rgba(244, 91, 11, 0.1)'
+                            : 'rgba(237, 245, 246, 0.92)',
+                          border: isHighlighted
+                            ? '1.5px solid #f45b0b'
+                            : '1px solid rgba(171, 201, 203, 0.85)',
+                          backdropFilter: 'blur(8px)',
+                          WebkitBackdropFilter: 'blur(8px)',
+                          boxShadow: isHighlighted
+                            ? '0 0 10px rgba(244, 91, 11, 0.22)'
+                            : '0 2px 6px rgba(171, 201, 203, 0.18)'
                         }}
                       >
                         {SkillIcon && (
                           <SkillIcon 
-                            className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" 
-                            style={{ color: skill.color }} 
+                            className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform duration-200 group-hover/pill:scale-110" 
+                            style={{ color: resolvedIconColor }} 
                           />
                         )}
-                        <span className="text-[11.5px] sm:text-xs font-bold text-white tracking-tight drop-shadow-sm">
+                        <span className={`text-[11.5px] sm:text-xs font-bold tracking-tight ${
+                          darkMode ? 'text-white drop-shadow-sm' : 'text-[#081014]'
+                        }`}>
                           {skill.name}
                         </span>
                       </motion.div>
                     )
                   })}
-                </div>
+                </motion.div>
 
               </motion.div>
             )

@@ -5,7 +5,7 @@ import { FaWhatsapp } from 'react-icons/fa'
 const FloatingWhatsApp = () => {
   const [isHovered, setIsHovered] = useState(false)
   const [isNearFooter, setIsNearFooter] = useState(false)
-  const whatsappUrl = "https://wa.me/916265666859?text=Hi%20Sahbaj,%20I%20reviewed%20your%20portfolio%20and%20would%20like%20to%20connect%20regarding%20a%20Full%20Stack%20opportunity!"
+  const whatsappUrl = "https://wa.me/916265666859?text=Hi%20Sahbaj,%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project%20or%20opportunity%20with%20you!"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +36,7 @@ const FloatingWhatsApp = () => {
             className="absolute bottom-full left-0 mb-3 px-3 py-1.5 rounded-xl bg-[#0e161c] border border-[rgba(171,201,203,0.3)] text-white text-xs font-semibold shadow-xl whitespace-nowrap backdrop-blur-md flex items-center gap-2 pointer-events-none"
           >
             <span className="w-2 h-2 rounded-full bg-[#f45b0b] inline-block animate-pulse" />
-            <span>Chat on WhatsApp</span>
+            <span>Let&apos;s chat on WhatsApp</span>
           </motion.div>
         )}
       </AnimatePresence>
