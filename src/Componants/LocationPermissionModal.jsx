@@ -28,7 +28,6 @@ const LocationPermissionModal = () => {
     selectOSMCity, 
     locationStatus, 
     locationError,
-    weatherData,
     presets,
     selectPreset
   } = useWeather()
@@ -116,18 +115,18 @@ const LocationPermissionModal = () => {
             <div className="flex items-center gap-2 mb-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#f45b0b]/15 text-[#f45b0b] border border-[#f45b0b]/30">
                 <Sparkles className="w-3.5 h-3.5 animate-spin-slow" />
-                <span>Atmospheric Experience</span>
+                <span>Interactive Atmosphere</span>
               </span>
-              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-[#abc9cb]">
+              <span className={`inline-flex items-center gap-1 text-[11px] font-medium ${darkMode ? 'text-[#abc9cb]' : 'text-slate-600'}`}>
                 <span>via OpenStreetMap</span>
               </span>
             </div>
 
             <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight mt-1">
-              Personalize Your Weather Experience
+              Sync Live Local Weather
             </h3>
 
-            {/* Crucial Banner Requested by User */}
+            {/* Atmospheric Notice Banner */}
             <div className={`mt-3 p-3.5 rounded-2xl border flex items-start gap-3 ${
               darkMode 
                 ? 'bg-[#0f171e] border-[rgba(171,201,203,0.3)] text-slate-200' 
@@ -138,10 +137,10 @@ const LocationPermissionModal = () => {
               </div>
               <div className="text-xs sm:text-sm">
                 <p className="font-bold text-[#f45b0b]">
-                  Please accept this for a better user experience
+                  Optional ambient sky effects matched to your local weather
                 </p>
                 <p className={`mt-0.5 text-xs leading-relaxed ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-                  We synchronize live weather from your real-time location using OpenStreetMap APIs to render immersive visual atmospheric effects right onto your screen.
+                  Allow one-time location sync via OpenStreetMap &amp; Open-Meteo to adapt gentle rain, snow, or ambient particles—or choose any city preset below.
                 </p>
               </div>
             </div>
@@ -310,7 +309,7 @@ const LocationPermissionModal = () => {
                 darkMode ? 'text-slate-400 hover:text-white hover:bg-slate-800/40' : 'text-slate-600 hover:text-black hover:bg-slate-100'
               }`}
             >
-              Maybe Later (Keep Default)
+              Skip for Now
             </button>
 
             <motion.button
@@ -332,7 +331,7 @@ const LocationPermissionModal = () => {
               ) : (
                 <>
                   <MapPin className="w-4 h-4" />
-                  <span>Accept & Enable Live Weather</span>
+                  <span>Enable Live Weather</span>
                 </>
               )}
             </motion.button>

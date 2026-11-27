@@ -52,11 +52,12 @@ const TerminalDrawer = () => {
           type: 'output',
           text: `Available commands:
   • whoami     : About Sahbaj Khan
-  • skills     : Technical skills & languages
-  • experience : Professional experience summary
-  • projects   : Key web applications
+  • skills     : Technical stack & tools
+  • experience : Commercial & training history
+  • projects   : Featured production web apps
+  • hire       : Services & project availability
   • resume     : Open resume PDF in new tab
-  • contact    : Email & social links
+  • contact    : Email, WhatsApp & social links
   • clear      : Clear console`,
         })
         break
@@ -64,19 +65,19 @@ const TerminalDrawer = () => {
       case 'whoami':
         newHistory.push({
           type: 'output',
-          text: `Sahbaj Khan — Full Stack Developer based in Indore, India.
-2+ years of experience building web apps with React, Next.js, and Node.js.
-Currently at Dollop Infotech.`,
+          text: `Sahbaj Khan — Full Stack Web Developer based in Indore, India.
+2+ years of commercial experience crafting React, Next.js & Node.js applications.
+Currently engineering production software at Dollop Infotech (Open to remote worldwide).`,
         })
         break
 
       case 'skills':
         newHistory.push({
           type: 'output',
-          text: `Frontend: React.js, Next.js, TypeScript, Tailwind CSS, Redux Toolkit
-Backend : Node.js, Express.js, REST APIs, JWT Auth
-Database: MongoDB, Mongoose, MySQL
-Tools   : Git, GitHub, Postman, VS Code, Vercel`,
+          text: `Frontend: React 19, Next.js, TypeScript, Tailwind CSS, Redux Toolkit, Zustand
+Backend : Node.js, Express.js, REST APIs, JWT Auth, OAuth2, WebSockets
+Database: MongoDB, Mongoose, MongoDB Atlas, MySQL
+Deploy  : Vercel, Netlify, Git & GitHub, Postman`,
         })
         break
 
@@ -84,19 +85,30 @@ Tools   : Git, GitHub, Postman, VS Code, Vercel`,
         newHistory.push({
           type: 'output',
           text: `1. Full Stack Developer @ Dollop Infotech (Oct 2024 - Present)
-   Building visual code editors and web apps with Next.js & Node.js.
+   Architecting visual code editors, full-stack platforms & secure REST APIs.
 2. Full Stack Trainee @ Placement Adda (Feb 2024 - Oct 2024)
-   Hands-on training in full stack MERN development.`,
+   Intensive MERN engineering, MongoDB/MySQL design & Redux state flows.`,
         })
         break
 
       case 'projects':
         newHistory.push({
           type: 'output',
-          text: `1. Kids Code Editor (Blockly IDE): Next.js, Monaco Editor, Blockly
-2. MERN E-Commerce Platform: React, Node.js, Express, MongoDB, Redux
-3. School Management System: React, REST APIs, Tailwind CSS
-4. Blog-Space CMS: React, Node.js, Express, MongoDB`,
+          text: `1. MERN E-Commerce Platform: React, Node.js, Express, MongoDB, Redux, JWT
+2. Kids Code Editor (Blockly IDE): Next.js, TypeScript, Monaco Editor, Blockly
+3. School Management System: React, Tailwind CSS, REST APIs
+4. Blog-Space Publishing Platform: React, Node.js, Express, MongoDB, Vercel
+5. Student Records Portal: Node.js, Express, MongoDB
+6. Weather Analytics Web App: JavaScript, OpenWeather API`,
+        })
+        break
+
+      case 'hire':
+        newHistory.push({
+          type: 'output',
+          text: `Status   : Available for Freelance Client Projects & Full-Time Roles
+Services : Full-Stack Web Apps, MVPs, Next.js Frontends, E-Commerce & APIs
+Contact  : sahbajkhan6593@gmail.com | WhatsApp: +91 6265666859`,
         })
         break
 

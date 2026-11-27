@@ -66,15 +66,17 @@ const AppContent = () => {
       />
 
       <Navbar />
-      <Home />
-      <Stats />
-      <TechMarquee />
-      <About />
-      <Skills />
-      <Experience />
-      <Project />
-      <Certifications />
-      <Contact />
+      <main id="main-content">
+        <Home />
+        <Stats />
+        <TechMarquee />
+        <About />
+        <Skills />
+        <Experience />
+        <Project />
+        <Certifications />
+        <Contact />
+      </main>
       <Footer />
       <BackToTop />
       <FloatingWhatsApp />

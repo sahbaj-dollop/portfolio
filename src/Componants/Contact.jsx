@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import toast from 'react-hot-toast'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
-import { Mail, Phone, MapPin, Send, Copy, Check, Globe } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, Copy, Check } from 'lucide-react'
 import { useTheme } from '../Context/ThemeContext'
 import { playClickSound } from '../utils/soundEffects'
 
@@ -57,6 +57,21 @@ const Contact = () => {
     },
   ]
 
+  const inquiryTopics = [
+    'Web App / MVP',
+    'Full-Stack Role',
+    'E-Commerce / SaaS',
+    'API & Backend',
+  ]
+
+  const handleTopicSelect = (topic) => {
+    playClickSound(true)
+    setFormData((prev) => ({
+      ...prev,
+      subject: `Inquiry: ${topic}`,
+    }))
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     playClickSound(true)
@@ -77,7 +92,7 @@ const Contact = () => {
         EMAILJS_PUBLIC_KEY
       )
 
-      toast.success('Message sent! I will reply soon.', { id: toastId })
+      toast.success("Message sent! Thanks for reaching out—I'll reply shortly.", { id: toastId })
       setFormData({ name: '', email: '', subject: '', message: '' })
     } catch (error) {
       console.error('EmailJS error:', error)
@@ -117,18 +132,28 @@ const Contact = () => {
 
       <div className="site-container relative z-10">
         
-        {/* Section Header (Exact match of Skills & Technologies style) */}
-        <div className="text-center mb-12 sm:mb-14">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
-            Get In Touch
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.45 }}
+          className="text-center mb-12 sm:mb-14"
+        >
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-2 ${
+            darkMode ? 'text-white' : 'text-[#081014]'
+          }`}>
+            Let&apos;s Build Something Great
           </h2>
-          <p className="text-xs sm:text-sm font-semibold text-[#abc9cb]">
-            Have a project in mind, an opportunity, or just want to say hi? Send me a message.
+          <p className={`text-xs sm:text-sm font-semibold max-w-2xl mx-auto ${
+            darkMode ? 'text-[#abc9cb]' : 'text-[#2c6670]'
+          }`}>
+            Looking for a Full Stack Developer for your web product, MVP, or engineering team? Reach out and let&apos;s turn your idea into production software.
           </p>
-        </div>
+        </motion.div>
 
         {/* Big Glass Container Frame matching reference */}
-        <div >
+        <div>
 
           {/* Two Distinct Frosted Glass Cards with Cyan Glowing Rim */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
@@ -141,20 +166,26 @@ const Contact = () => {
               transition={{ duration: 0.4 }}
               className={`rounded-2xl p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
                 darkMode
-                  ? 'bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-2xl text-white'
+                  ? 'bg-gradient-to-b from-[#101a24]/85 to-[#091018]/92 backdrop-blur-md text-white'
                   : 'bg-white border-[#abc9cb] shadow-sm text-[#081014]'
               }`}
               style={{
-                border: darkMode ? '1.5px solid rgba(56, 189, 248, 0.45)' : '1px solid rgba(171, 201, 203, 0.8)',
+                border: darkMode ? '1px solid rgba(171, 201, 203, 0.24)' : '1px solid rgba(171, 201, 203, 0.8)',
                 boxShadow: darkMode 
-                  ? '0 0 25px rgba(56, 189, 248, 0.16), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25)' 
+                  ? '0 14px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)' 
                   : '0 10px 30px rgba(171, 201, 203, 0.25)'
               }}
             >
               <div>
-                <h3 className="text-lg sm:text-xl font-bold mb-1.5 text-white">Contact Details</h3>
-                <p className="text-xs sm:text-sm text-slate-300 mb-6">
-                  Feel free to contact me directly via email or WhatsApp.
+                <h3 className={`text-lg sm:text-xl font-bold mb-1.5 ${
+                  darkMode ? 'text-white' : 'text-[#081014]'
+                }`}>
+                  Direct Channels
+                </h3>
+                <p className={`text-xs sm:text-sm mb-6 ${
+                  darkMode ? 'text-slate-300' : 'text-slate-600'
+                }`}>
+                  Prefer a direct conversation? Reach out via email, phone, or WhatsApp—I typically respond within a few hours.
                 </p>
 
                 {/* Contact Tiles with Orange Accent Borders */}
@@ -162,8 +193,8 @@ const Contact = () => {
                   
                   {/* Email Tile */}
                   <div 
-                    className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 transition-colors ${
-                      darkMode ? 'bg-[#090f16]/90 border-[#f45b0b]/40 hover:border-[#f45b0b]' : 'bg-slate-50 border-[#abc9cb]'
+                    className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 transition-all duration-200 hover:translate-x-1 ${
+                      darkMode ? 'bg-[#090f16]/90 border-[#f45b0b]/40 hover:border-[#f45b0b]' : 'bg-slate-50 border-[#abc9cb] hover:border-[#f45b0b]'
                     }`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
@@ -171,10 +202,12 @@ const Contact = () => {
                         <Mail className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[11px] text-slate-400 font-medium">Email</p>
+                        <p className={`text-[11px] font-medium ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Email</p>
                         <a 
                           href="mailto:sahbajkhan6593@gmail.com" 
-                          className="text-xs sm:text-sm font-bold text-white hover:text-[#f45b0b] transition truncate block"
+                          className={`text-xs sm:text-sm font-bold hover:text-[#f45b0b] transition truncate block ${
+                            darkMode ? 'text-white' : 'text-[#081014]'
+                          }`}
                         >
                           sahbajkhan6593@gmail.com
                         </a>
@@ -182,8 +215,11 @@ const Contact = () => {
                     </div>
                     <button
                       onClick={() => copyToClipboard('sahbajkhan6593@gmail.com', 'email')}
-                      className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+                      className={`p-2 rounded-lg transition cursor-pointer shrink-0 ${
+                        darkMode ? 'text-slate-400 hover:text-white hover:bg-white/10' : 'text-slate-500 hover:text-[#081014] hover:bg-slate-200/70'
+                      }`}
                       title="Copy Email"
+                      aria-label="Copy Email Address"
                     >
                       {copiedEmail ? <Check className="w-4 h-4 text-[#f45b0b]" /> : <Copy className="w-4 h-4" />}
                     </button>
@@ -191,8 +227,8 @@ const Contact = () => {
 
                   {/* Phone / WhatsApp Tile */}
                   <div 
-                    className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 transition-colors ${
-                      darkMode ? 'bg-[#090f16]/90 border-[#f45b0b]/40 hover:border-[#f45b0b]' : 'bg-slate-50 border-[#abc9cb]'
+                    className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 transition-all duration-200 hover:translate-x-1 ${
+                      darkMode ? 'bg-[#090f16]/90 border-[#f45b0b]/40 hover:border-[#f45b0b]' : 'bg-slate-50 border-[#abc9cb] hover:border-[#f45b0b]'
                     }`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
@@ -200,10 +236,12 @@ const Contact = () => {
                         <Phone className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[11px] text-slate-400 font-medium">Phone / WhatsApp</p>
+                        <p className={`text-[11px] font-medium ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Phone / WhatsApp</p>
                         <a 
                           href="tel:+916265666859" 
-                          className="text-xs sm:text-sm font-bold text-white hover:text-[#f45b0b] transition truncate block"
+                          className={`text-xs sm:text-sm font-bold hover:text-[#f45b0b] transition truncate block ${
+                            darkMode ? 'text-white' : 'text-[#081014]'
+                          }`}
                         >
                           +91 6265666859
                         </a>
@@ -211,8 +249,11 @@ const Contact = () => {
                     </div>
                     <button
                       onClick={() => copyToClipboard('+916265666859', 'phone')}
-                      className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+                      className={`p-2 rounded-lg transition cursor-pointer shrink-0 ${
+                        darkMode ? 'text-slate-400 hover:text-white hover:bg-white/10' : 'text-slate-500 hover:text-[#081014] hover:bg-slate-200/70'
+                      }`}
                       title="Copy Phone"
+                      aria-label="Copy Phone Number"
                     >
                       {copiedPhone ? <Check className="w-4 h-4 text-[#f45b0b]" /> : <Copy className="w-4 h-4" />}
                     </button>
@@ -228,9 +269,11 @@ const Contact = () => {
                       <MapPin className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[11px] text-slate-400 font-medium">Location</p>
-                      <p className="text-xs sm:text-sm font-bold text-white truncate">
-                        Indore, Madhya Pradesh, India
+                      <p className={`text-[11px] font-medium ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Location</p>
+                      <p className={`text-xs sm:text-sm font-bold truncate ${
+                        darkMode ? 'text-white' : 'text-[#081014]'
+                      }`}>
+                        Indore, India &bull; Remote Worldwide
                       </p>
                     </div>
                   </div>
@@ -269,56 +312,94 @@ const Contact = () => {
               transition={{ duration: 0.4, delay: 0.1 }}
               className={`rounded-2xl p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
                 darkMode
-                  ? 'bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-2xl text-white'
+                  ? 'bg-gradient-to-b from-[#101a24]/85 to-[#091018]/92 backdrop-blur-md text-white'
                   : 'bg-white border-[#abc9cb] shadow-sm text-[#081014]'
               }`}
               style={{
-                border: darkMode ? '1.5px solid rgba(56, 189, 248, 0.45)' : '1px solid rgba(171, 201, 203, 0.8)',
+                border: darkMode ? '1px solid rgba(171, 201, 203, 0.24)' : '1px solid rgba(171, 201, 203, 0.8)',
                 boxShadow: darkMode 
-                  ? '0 0 25px rgba(56, 189, 248, 0.16), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25)' 
+                  ? '0 14px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)' 
                   : '0 10px 30px rgba(171, 201, 203, 0.25)'
               }}
             >
               <div>
-                <h3 className="text-lg sm:text-xl font-bold mb-5 text-white">Send a Message</h3>
+                <h3 className={`text-lg sm:text-xl font-bold mb-1.5 ${
+                  darkMode ? 'text-white' : 'text-[#081014]'
+                }`}>
+                  Start Your Inquiry
+                </h3>
+                <p className={`text-xs mb-4 ${
+                  darkMode ? 'text-slate-300' : 'text-slate-600'
+                }`}>
+                  Select a quick topic or describe what you&apos;re building:
+                </p>
+
+                {/* Quick Topic Selector Chips */}
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {inquiryTopics.map((topic) => {
+                    const isSelected = formData.subject === `Inquiry: ${topic}`
+                    return (
+                      <button
+                        key={topic}
+                        type="button"
+                        onClick={() => handleTopicSelect(topic)}
+                        className={`px-3 py-1.5 rounded-full text-[11px] font-semibold border transition cursor-pointer ${
+                          isSelected
+                            ? 'bg-[#f45b0b] border-[#f45b0b] text-white shadow-sm shadow-[#f45b0b]/40'
+                            : darkMode
+                            ? 'bg-white/[0.05] border-white/15 text-slate-300 hover:border-[#f45b0b]/60 hover:text-white'
+                            : 'bg-slate-50 border-[#abc9cb] text-slate-700 hover:border-[#f45b0b]'
+                        }`}
+                      >
+                        {topic}
+                      </button>
+                    )
+                  })}
+                </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
                   
                   {/* Two Column Name & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-slate-300">
+                      <label htmlFor="contact-name" className={`block text-xs font-semibold mb-1.5 ${
+                        darkMode ? 'text-slate-300' : 'text-slate-700'
+                      }`}>
                         Your Name <span className="text-[#f45b0b]">*</span>
                       </label>
                       <input
+                        id="contact-name"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        placeholder="Name"
+                        placeholder="Your full name"
                         className={`w-full px-4 py-2.5 rounded-xl border outline-none transition-all ${
                           darkMode 
                             ? 'bg-[#090f16]/85 border-white/10 text-white placeholder-slate-500 focus:border-[#f45b0b] focus:ring-1 focus:ring-[#f45b0b]/30' 
-                            : 'bg-slate-50 border-[#abc9cb] text-[#081014] focus:border-[#f45b0b]'
+                            : 'bg-slate-50 border-[#abc9cb] text-[#081014] placeholder-slate-400 focus:border-[#f45b0b]'
                         }`}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold mb-1.5 text-slate-300">
+                      <label htmlFor="contact-email" className={`block text-xs font-semibold mb-1.5 ${
+                        darkMode ? 'text-slate-300' : 'text-slate-700'
+                      }`}>
                         Your Email <span className="text-[#f45b0b]">*</span>
                       </label>
                       <input
+                        id="contact-email"
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        placeholder="Email address"
+                        placeholder="you@company.com"
                         className={`w-full px-4 py-2.5 rounded-xl border outline-none transition-all ${
                           darkMode 
                             ? 'bg-[#090f16]/85 border-white/10 text-white placeholder-slate-500 focus:border-[#f45b0b] focus:ring-1 focus:ring-[#f45b0b]/30' 
-                            : 'bg-slate-50 border-[#abc9cb] text-[#081014] focus:border-[#f45b0b]'
+                            : 'bg-slate-50 border-[#abc9cb] text-[#081014] placeholder-slate-400 focus:border-[#f45b0b]'
                         }`}
                       />
                     </div>
@@ -326,38 +407,44 @@ const Contact = () => {
 
                   {/* Subject */}
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 text-slate-300">
+                    <label htmlFor="contact-subject" className={`block text-xs font-semibold mb-1.5 ${
+                      darkMode ? 'text-slate-300' : 'text-slate-700'
+                    }`}>
                       Subject
                     </label>
                     <input
+                      id="contact-subject"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      placeholder="Subject"
+                      placeholder="Project inquiry, freelance scope, or job role"
                       className={`w-full px-4 py-2.5 rounded-xl border outline-none transition-all ${
                         darkMode 
                           ? 'bg-[#090f16]/85 border-white/10 text-white placeholder-slate-500 focus:border-[#f45b0b] focus:ring-1 focus:ring-[#f45b0b]/30' 
-                          : 'bg-slate-50 border-[#abc9cb] text-[#081014] focus:border-[#f45b0b]'
+                          : 'bg-slate-50 border-[#abc9cb] text-[#081014] placeholder-slate-400 focus:border-[#f45b0b]'
                       }`}
                     />
                   </div>
 
                   {/* Message */}
                   <div>
-                    <label className="block text-xs font-semibold mb-1.5 text-slate-300">
+                    <label htmlFor="contact-message" className={`block text-xs font-semibold mb-1.5 ${
+                      darkMode ? 'text-slate-300' : 'text-slate-700'
+                    }`}>
                       Message <span className="text-[#f45b0b]">*</span>
                     </label>
                     <textarea
+                      id="contact-message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       required
                       rows={3}
-                      placeholder="How can I help you?"
+                      placeholder="Tell me briefly about your project goals, timeline, or how we can work together..."
                       className={`w-full px-4 py-3 rounded-xl border outline-none transition-all resize-none ${
                         darkMode 
                           ? 'bg-[#090f16]/85 border-white/10 text-white placeholder-slate-500 focus:border-[#f45b0b] focus:ring-1 focus:ring-[#f45b0b]/30' 
-                          : 'bg-slate-50 border-[#abc9cb] text-[#081014] focus:border-[#f45b0b]'
+                          : 'bg-slate-50 border-[#abc9cb] text-[#081014] placeholder-slate-400 focus:border-[#f45b0b]'
                       }`}
                     />
                   </div>
@@ -365,14 +452,14 @@ const Contact = () => {
                   {/* Submit Button */}
                   <div className="pt-2">
                     <motion.button
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ scale: 1.02, y: -1 }}
                       whileTap={{ scale: 0.98 }}
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 px-6 rounded-full bg-[#f45b0b] hover:bg-[#e04f05] text-white font-bold text-xs sm:text-sm shadow-[0_4px_22px_rgba(244,91,11,0.5)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                      className="btn-sheen w-full py-3.5 px-6 rounded-full bg-[#f45b0b] hover:bg-[#e04f05] text-white font-bold text-xs sm:text-sm shadow-[0_4px_22px_rgba(244,91,11,0.5)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 group"
                     >
-                      <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-                      <Send className="w-4 h-4" />
+                      <span>{isSubmitting ? 'Sending Message...' : 'Send Message'}</span>
+                      <Send className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </motion.button>
                   </div>
 

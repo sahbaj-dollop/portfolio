@@ -21,9 +21,9 @@ A modern, responsive portfolio website built with React, Vite, and Tailwind CSS.
 - **Build Tool:** Vite 7
 - **Styling:** Tailwind CSS 4
 - **Animations:** Framer Motion
-- **Icons:** React Icons
-- **Form Handling:** Web3Forms API
-- **Deployment:** Vercel/Netlify
+- **Icons:** Lucide React & React Icons
+- **Form Handling:** EmailJS (`@emailjs/browser`)
+- **Deployment:** Vercel / Netlify
 
 ## 📦 Installation
 
@@ -132,10 +132,11 @@ The primary color is blue. To change it, search and replace `blue-600`, `blue-50
 
 ## 📧 Contact
 
+- **Portfolio:** [sahbajkhan.vercel.app](https://sahbajkhan.vercel.app/)
 - **Email:** sahbajkhan6593@gmail.com
 - **LinkedIn:** [Sahbaj Khan](https://www.linkedin.com/in/sahbaj-khan-24138a338/)
-- **GitHub:** [@shahbazkhan075](https://github.com/shahbazkhan075)
-- **Phone:** +91 6265666859
+- **GitHub:** [@sahbaj-dollop](https://github.com/sahbaj-dollop)
+- **Phone / WhatsApp:** +91 6265666859
 
 ## 📄 License
 

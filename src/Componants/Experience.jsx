@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Briefcase, 
   MapPin, 
-  Sparkles,
-  Flame
+  Sparkles
 } from 'lucide-react'
+import { useTheme } from '../Context/ThemeContext'
 import { playClickSound } from '../utils/soundEffects'
 
 const Experience = () => {
+  const { darkMode } = useTheme()
   const [activeTab, setActiveTab] = useState(0)
 
   const experiences = [
@@ -21,15 +22,15 @@ const Experience = () => {
       location: "Indore, M.P.",
       status: "+ Current",
       isCurrent: true,
-      roleTag: "Full-time Commercial Role",
-      badgeText: "Neon glowing drops",
+      roleTag: "Full-Time Commercial Role",
+      badgeText: "Production Full-Stack",
       badgeGradient: "from-[#f45b0b] to-[#00d2ff]",
       points: [
-        "Building responsive, accessible web applications utilizing React, Next.js, and modern Tailwind CSS.",
-        "Engineered an interactive visual Blockly editor integrated with Monaco Editor for real-time syntax generation.",
-        "Developed secure RESTful backend APIs in Node.js and Express with JWT authentication, role management, and input validation.",
-        "Designed normalized MongoDB database schemas, compound indexes, and aggregation queries for client platforms.",
-        "Collaborated on code reviews, Git branching strategies, and deployment pipelines using GitHub."
+        "Architecting responsive, SEO-friendly web applications using React, Next.js, TypeScript, and Tailwind CSS.",
+        "Engineered an interactive visual Blockly IDE paired with Monaco Editor and Web Workers for real-time JavaScript generation.",
+        "Built secure RESTful APIs in Node.js and Express with JWT authentication, role-based access control, and strict payload validation.",
+        "Designed normalized MongoDB schemas, compound indexes, and aggregation pipelines for multi-user client platforms.",
+        "Collaborated on peer code reviews, structured Git workflows, and continuous cloud deployments via GitHub."
       ],
       tech: ["React.js", "Next.js", "TypeScript", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Git"]
     },
@@ -42,14 +43,14 @@ const Experience = () => {
       location: "Indore, M.P.",
       status: "Completed",
       isCurrent: false,
-      roleTag: "Full Stack Trainee Program",
+      roleTag: "Intensive MERN Engineering",
       badgeText: "Core Full-Stack Training",
       badgeGradient: "from-[#00d2ff] to-[#f45b0b]",
       points: [
-        "Underwent comprehensive hands-on development training covering the full MERN stack ecosystem.",
-        "Built full-stack CRUD applications, mastering relational and non-relational database design with MongoDB and MySQL.",
-        "Implemented global client-side state management using Redux Toolkit and React Context API.",
-        "Engineered, tested, and documented RESTful API endpoints using Postman and Thunder Client."
+        "Completed intensive, hands-on engineering across the complete MERN stack and modern web architecture.",
+        "Built end-to-end CRUD platforms while mastering relational and NoSQL database design with MongoDB and MySQL.",
+        "Implemented scalable client-side state management using Redux Toolkit and React Context API.",
+        "Designed, tested, and documented RESTful API workflows with Postman and Thunder Client."
       ],
       tech: ["React.js", "Node.js", "Express.js", "MongoDB", "JavaScript (ES6+)", "Redux Toolkit", "Postman", "Git"]
     }
@@ -65,11 +66,17 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="py-16 md:py-24 bg-[#040608] text-white relative overflow-hidden"
+      className={`py-16 md:py-24 relative overflow-hidden transition-colors duration-300 ${
+        darkMode
+          ? 'bg-[#040608] text-white'
+          : 'bg-[#eef5f6] text-[#081014] border-t border-[#abc9cb]/50'
+      }`}
     >
       {/* Background Soft Cyan / Orange Aura matching Skills section */}
       <div 
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] pointer-events-none blur-3xl opacity-60"
+        className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] pointer-events-none blur-3xl ${
+          darkMode ? 'opacity-60' : 'opacity-25'
+        }`}
         style={{
           background: 'radial-gradient(circle, rgba(171, 201, 203, 0.16) 0%, rgba(244, 91, 11, 0.08) 40%, transparent 70%)'
         }}
@@ -77,15 +84,25 @@ const Experience = () => {
 
       <div className="site-container relative z-10">
         
-        {/* Header exact match of Skills & Technologies style */}
-        <div className="text-center mb-12 sm:mb-14">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.45 }}
+          className="text-center mb-12 sm:mb-14"
+        >
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-2 ${
+            darkMode ? 'text-white' : 'text-[#081014]'
+          }`}>
             Work Experience
           </h2>
-          <p className="text-xs sm:text-sm font-semibold text-[#abc9cb]">
-            My professional journey and hands-on experience in full-stack web development.
+          <p className={`text-xs sm:text-sm font-semibold ${
+            darkMode ? 'text-[#abc9cb]' : 'text-[#2c6670]'
+          }`}>
+            Proven track record shipping commercial web platforms, interactive developer tools, and full-stack solutions.
           </p>
-        </div>
+        </motion.div>
 
         {/* ── Main Connected Panel Container ── */}
         <div className="relative px-0 sm:px-4 md:px-8">
@@ -101,8 +118,8 @@ const Experience = () => {
           <div 
             className="hidden md:block absolute left-[-7px] sm:left-[1px] top-[40px] w-4 h-4 rounded-full bg-[#f45b0b] z-20 pointer-events-none"
             style={{
-              boxShadow: '0 0 16px #f45b0b, 0 0 28px #f45b0b',
-              border: '2.5px solid #060b10'
+              boxShadow: '0 0 14px rgba(244, 91, 11, 0.65)',
+              border: darkMode ? '2.5px solid #060b10' : '2.5px solid #eef5f6'
             }}
           />
 
@@ -116,8 +133,8 @@ const Experience = () => {
           <div 
             className="hidden md:block absolute left-[-7px] sm:left-[1px] top-[246px] w-4 h-4 rounded-full bg-[#f45b0b] z-20 pointer-events-none"
             style={{
-              boxShadow: '0 0 16px #f45b0b, 0 0 28px #f45b0b',
-              border: '2.5px solid #060b10'
+              boxShadow: '0 0 14px rgba(244, 91, 11, 0.65)',
+              border: darkMode ? '2.5px solid #060b10' : '2.5px solid #eef5f6'
             }}
           />
 
@@ -130,34 +147,34 @@ const Experience = () => {
           {/* Center Connection between Card 1 and Card 2 */}
           <div 
             className="hidden sm:block absolute top-[52px] left-[48%] -translate-x-1/2 w-[4%] border-t-2 border-dashed pointer-events-none z-0"
-            style={{ borderColor: 'rgba(171, 201, 203, 0.45)' }}
+            style={{ borderColor: darkMode ? 'rgba(171, 201, 203, 0.45)' : 'rgba(110, 148, 150, 0.55)' }}
           />
 
           {/* Right Horizontal Dashed Line from Card 2 to Cyan Node */}
           <div 
             className="hidden md:block absolute right-0 sm:right-2 top-[47px] w-6 sm:w-8 h-[2px] border-t-2 border-dashed pointer-events-none z-10"
-            style={{ borderColor: 'rgba(56, 189, 248, 0.6)' }}
+            style={{ borderColor: darkMode ? 'rgba(56, 189, 248, 0.6)' : 'rgba(44, 102, 112, 0.55)' }}
           />
 
           {/* Right Cyan Glowing Node */}
           <div 
             className="hidden md:block absolute right-[-7px] sm:right-[1px] top-[40px] w-4 h-4 rounded-full bg-[#38bdf8] z-20 pointer-events-none"
             style={{
-              boxShadow: '0 0 16px #38bdf8, 0 0 28px #38bdf8',
-              border: '2.5px solid #060b10'
+              boxShadow: '0 0 14px rgba(56, 189, 248, 0.65)',
+              border: darkMode ? '2.5px solid #060b10' : '2.5px solid #eef5f6'
             }}
           />
 
           {/* Right Vertical Dashed Line Down */}
           <div 
             className="hidden md:block absolute right-0 sm:right-2 top-[44px] bottom-[200px] w-[2px] border-r-2 border-dashed pointer-events-none z-10"
-            style={{ borderColor: 'rgba(56, 189, 248, 0.6)' }}
+            style={{ borderColor: darkMode ? 'rgba(56, 189, 248, 0.6)' : 'rgba(44, 102, 112, 0.55)' }}
           />
 
           {/* Right Horizontal Dashed Line into Main Card */}
           <div 
             className="hidden md:block absolute right-0 sm:right-2 top-[253px] w-6 sm:w-8 h-[2px] border-t-2 border-dashed pointer-events-none z-10"
-            style={{ borderColor: 'rgba(56, 189, 248, 0.6)' }}
+            style={{ borderColor: darkMode ? 'rgba(56, 189, 248, 0.6)' : 'rgba(44, 102, 112, 0.55)' }}
           />
 
 
@@ -165,18 +182,27 @@ const Experience = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 relative z-10">
             
             {/* Card 1: Full Stack Developer (Dollop Infotech) */}
-            <button
+            <motion.button
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.99 }}
               onClick={() => handleTabClick(0)}
               className="text-left p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col justify-between group"
-              style={{
+              style={darkMode ? {
                 border: activeTab === 0 ? '1.8px solid #f45b0b' : '1px solid rgba(171, 201, 203, 0.25)',
                 background: activeTab === 0 
-                  ? 'linear-gradient(135deg, rgba(20, 30, 42, 0.95) 0%, rgba(10, 16, 23, 0.98) 100%)'
-                  : 'linear-gradient(135deg, rgba(14, 22, 30, 0.75) 0%, rgba(8, 13, 19, 0.85) 100%)',
+                  ? 'linear-gradient(135deg, rgba(20, 30, 42, 0.92) 0%, rgba(10, 16, 23, 0.96) 100%)'
+                  : 'linear-gradient(135deg, rgba(14, 22, 30, 0.72) 0%, rgba(8, 13, 19, 0.82) 100%)',
                 boxShadow: activeTab === 0 
-                  ? '0 0 25px rgba(244, 91, 11, 0.3), inset 0 0 15px rgba(244, 91, 11, 0.08)' 
-                  : '0 8px 25px rgba(0, 0, 0, 0.35)',
-                backdropFilter: 'blur(20px)'
+                  ? '0 0 22px rgba(244, 91, 11, 0.25), inset 0 0 12px rgba(244, 91, 11, 0.06)' 
+                  : '0 8px 20px rgba(0, 0, 0, 0.3)',
+                backdropFilter: 'blur(12px)'
+              } : {
+                border: activeTab === 0 ? '1.8px solid #f45b0b' : '1px solid rgba(171, 201, 203, 0.8)',
+                background: activeTab === 0 ? '#ffffff' : 'rgba(255, 255, 255, 0.78)',
+                boxShadow: activeTab === 0 
+                  ? '0 10px 26px rgba(244, 91, 11, 0.14)' 
+                  : '0 6px 18px rgba(171, 201, 203, 0.2)',
+                backdropFilter: 'blur(12px)'
               }}
             >
               {/* Top Row: 1 in Orange Circle + Date + Current badge */}
@@ -185,7 +211,7 @@ const Experience = () => {
                   <span className="w-5 h-5 rounded-full bg-[#f45b0b] text-white font-mono font-black text-[11px] flex items-center justify-center shadow-[0_0_8px_#f45b0b]">
                     1
                   </span>
-                  <span className="text-xs font-mono font-medium text-slate-300">
+                  <span className={`text-xs font-mono font-medium ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                     Oct 2024 – Present
                   </span>
                 </div>
@@ -198,7 +224,9 @@ const Experience = () => {
               {/* Title & Company */}
               <div>
                 <h3 className={`text-base sm:text-lg font-bold tracking-tight transition-colors ${
-                  activeTab === 0 ? 'text-white' : 'text-slate-300 group-hover:text-white'
+                  activeTab === 0
+                    ? (darkMode ? 'text-white' : 'text-[#081014]')
+                    : (darkMode ? 'text-slate-300 group-hover:text-white' : 'text-slate-700 group-hover:text-[#081014]')
                 }`}>
                   Full Stack Developer
                 </h3>
@@ -207,21 +235,37 @@ const Experience = () => {
                   <span>Dollop Infotech</span>
                 </p>
               </div>
-            </button>
+              {activeTab === 0 && (
+                <motion.div
+                  layoutId="expTabHighlight"
+                  transition={{ type: "spring", stiffness: 360, damping: 28 }}
+                  className="absolute bottom-0 inset-x-6 h-[2.5px] rounded-full bg-gradient-to-r from-[#f45b0b] via-[#ff8c42] to-[#f45b0b]"
+                />
+              )}
+            </motion.button>
 
             {/* Card 2: Full Stack Trainee (Placement Adda) */}
-            <button
+            <motion.button
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.99 }}
               onClick={() => handleTabClick(1)}
               className="text-left p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col justify-between group"
-              style={{
+              style={darkMode ? {
                 border: activeTab === 1 ? '1.8px solid #f45b0b' : '1px solid rgba(171, 201, 203, 0.25)',
                 background: activeTab === 1 
-                  ? 'linear-gradient(135deg, rgba(20, 30, 42, 0.95) 0%, rgba(10, 16, 23, 0.98) 100%)'
-                  : 'linear-gradient(135deg, rgba(14, 22, 30, 0.75) 0%, rgba(8, 13, 19, 0.85) 100%)',
+                  ? 'linear-gradient(135deg, rgba(20, 30, 42, 0.92) 0%, rgba(10, 16, 23, 0.96) 100%)'
+                  : 'linear-gradient(135deg, rgba(14, 22, 30, 0.72) 0%, rgba(8, 13, 19, 0.82) 100%)',
                 boxShadow: activeTab === 1 
-                  ? '0 0 25px rgba(244, 91, 11, 0.3), inset 0 0 15px rgba(244, 91, 11, 0.08)' 
-                  : '0 8px 25px rgba(0, 0, 0, 0.35)',
-                backdropFilter: 'blur(20px)'
+                  ? '0 0 22px rgba(244, 91, 11, 0.25), inset 0 0 12px rgba(244, 91, 11, 0.06)' 
+                  : '0 8px 20px rgba(0, 0, 0, 0.3)',
+                backdropFilter: 'blur(12px)'
+              } : {
+                border: activeTab === 1 ? '1.8px solid #f45b0b' : '1px solid rgba(171, 201, 203, 0.8)',
+                background: activeTab === 1 ? '#ffffff' : 'rgba(255, 255, 255, 0.78)',
+                boxShadow: activeTab === 1 
+                  ? '0 10px 26px rgba(244, 91, 11, 0.14)' 
+                  : '0 6px 18px rgba(171, 201, 203, 0.2)',
+                backdropFilter: 'blur(12px)'
               }}
             >
               {/* Top Row: 2 in Circle + Date */}
@@ -234,12 +278,12 @@ const Experience = () => {
                   }`}>
                     2
                   </span>
-                  <span className="text-xs font-mono font-medium text-slate-300">
+                  <span className={`text-xs font-mono font-medium ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                     Feb 2024 – Oct 2024
                   </span>
                 </div>
 
-                <span className="text-[10px] font-mono text-[#abc9cb]/70">
+                <span className={`text-[10px] font-mono ${darkMode ? 'text-[#abc9cb]/70' : 'text-slate-500'}`}>
                   Completed
                 </span>
               </div>
@@ -247,7 +291,9 @@ const Experience = () => {
               {/* Title & Company */}
               <div>
                 <h3 className={`text-base sm:text-lg font-bold tracking-tight transition-colors ${
-                  activeTab === 1 ? 'text-white' : 'text-slate-300 group-hover:text-white'
+                  activeTab === 1
+                    ? (darkMode ? 'text-white' : 'text-[#081014]')
+                    : (darkMode ? 'text-slate-300 group-hover:text-white' : 'text-slate-700 group-hover:text-[#081014]')
                 }`}>
                   Full Stack Trainee
                 </h3>
@@ -256,25 +302,33 @@ const Experience = () => {
                   <span>Placement Adda</span>
                 </p>
               </div>
-            </button>
+              {activeTab === 1 && (
+                <motion.div
+                  layoutId="expTabHighlight"
+                  transition={{ type: "spring", stiffness: 360, damping: 28 }}
+                  className="absolute bottom-0 inset-x-6 h-[2.5px] rounded-full bg-gradient-to-r from-[#f45b0b] via-[#ff8c42] to-[#f45b0b]"
+                />
+              )}
+            </motion.button>
 
           </div>
-
-
-          
-
 
           {/* ── Main Bento Experience Card ── */}
           <div 
             className="min-h-[550px] rounded-[24px] sm:rounded-[28px] p-6 sm:p-8 md:p-9 relative overflow-hidden z-10"
-            style={{
-              border: '1.5px solid rgba(171, 201, 203, 0.35)',
-              borderTop: '2px solid rgba(255, 255, 255, 0.85)',
-              borderLeft: '1.5px solid rgba(255, 255, 255, 0.65)',
-              background: 'linear-gradient(180deg, rgba(12, 19, 27, 0.96) 0%, rgba(7, 12, 18, 0.98) 100%)',
-              backdropFilter: 'blur(30px)',
-              WebkitBackdropFilter: 'blur(30px)',
-              boxShadow: '0 25px 65px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.5), 0 0 35px rgba(171, 201, 203, 0.12)'
+            style={darkMode ? {
+              border: '1px solid rgba(171, 201, 203, 0.22)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.16)',
+              background: 'linear-gradient(180deg, rgba(12, 19, 27, 0.9) 0%, rgba(7, 12, 18, 0.96) 100%)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              boxShadow: '0 18px 45px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
+            } : {
+              border: '1px solid rgba(171, 201, 203, 0.8)',
+              background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(243, 249, 250, 0.94) 100%)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              boxShadow: '0 16px 40px rgba(171, 201, 203, 0.25)'
             }}
           >
             <AnimatePresence mode="wait">
@@ -286,16 +340,22 @@ const Experience = () => {
                 transition={{ duration: 0.2 }}
                 className="space-y-5"
               >
-                {/* ── Luminous Frosted Liquid Icy Glass Header Bar (exact like image) ── */}
+                {/* ── Subtle Glass Header Bar ── */}
                 <div 
                   className="rounded-2xl p-5 sm:p-6 relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(104, 170, 184, 0.78) 0%, rgba(41, 118, 139, 0.9) 45%, rgba(61, 144, 150, 0.82) 100%)',
-                    border: '1.5px solid rgb(255, 255, 255)',
-                    borderTop: '2px solid rgba(255, 255, 255, 0.8)',
-                    backdropFilter: 'blur(25px)',
-                    WebkitBackdropFilter: 'blur(25px)',
-                    boxShadow: '0 12px 35px rgba(0, 0, 0, 0.35), inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 0 30px rgba(171, 201, 203, 0.35)'
+                  style={darkMode ? {
+                    background: 'linear-gradient(135deg, rgba(22, 48, 60, 0.65) 0%, rgba(12, 26, 36, 0.85) 100%)',
+                    border: '1px solid rgba(171, 201, 203, 0.28)',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.18)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12)'
+                  } : {
+                    background: 'linear-gradient(135deg, rgba(226, 241, 243, 0.95) 0%, rgba(240, 248, 249, 0.95) 100%)',
+                    border: '1px solid rgba(171, 201, 203, 0.85)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    boxShadow: '0 6px 18px rgba(171, 201, 203, 0.2)'
                   }}
                 >
                   {/* Left Role + Company + Location */}
@@ -304,7 +364,9 @@ const Experience = () => {
                       <span className="w-8 h-8 rounded-lg bg-[#f45b0b] text-white shadow-md shadow-[#f45b0b]/40 flex items-center justify-center shrink-0">
                         <Briefcase className="w-4 h-4 text-white" />
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                      <h3 className={`text-xl sm:text-2xl font-black tracking-tight ${
+                        darkMode ? 'text-white' : 'text-[#081014]'
+                      }`}>
                         {current.role}
                       </h3>
                     </div>
@@ -314,9 +376,11 @@ const Experience = () => {
                         @ {current.company}
                       </span>
                       <span className="text-slate-500">•</span>
-                      <span className="flex items-center gap-1 text-slate-800 font-bold">
+                      <span className={`flex items-center gap-1 font-semibold ${
+                        darkMode ? 'text-slate-300' : 'text-slate-700'
+                      }`}>
                         <MapPin className="w-3.5 h-3.5 text-[#f45b0b]" />
-                        <span>📍 {current.location}</span>
+                        <span>{current.location}</span>
                       </span>
                     </div>
                   </div>
@@ -324,10 +388,12 @@ const Experience = () => {
                   {/* Right Badges */}
                   <div className="flex flex-col sm:items-end gap-2 self-start md:self-auto">
                     <div className="flex items-center gap-2">
-                      
-
                       {/* Period pill */}
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#0c1822]/90 text-white border border-[rgba(171,201,203,0.5)] shadow-sm">
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-bold border shadow-sm ${
+                        darkMode
+                          ? 'bg-[#0c1822]/90 text-white border-[rgba(171,201,203,0.5)]'
+                          : 'bg-white text-[#081014] border-[#abc9cb]'
+                      }`}>
                         {current.period}
                       </span>
                     </div>
@@ -340,40 +406,58 @@ const Experience = () => {
                   </div>
                 </div>
 
-                {/* ── Bullet Points with Orange > (exact copy of image) ── */}
+                {/* ── Bullet Points with Orange > ── */}
                 <div className="space-y-3 pt-2">
                   {current.points.map((point, pIdx) => (
-                    <div
-                      key={pIdx}
-                      className="text-xs sm:text-[13.5px] leading-relaxed flex items-start gap-3 text-slate-200 font-medium"
+                    <motion.div
+                      key={`${current.id}-${pIdx}`}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.25, delay: pIdx * 0.05 }}
+                      className={`text-xs sm:text-[13.5px] leading-relaxed flex items-start gap-3 font-medium ${
+                        darkMode ? 'text-slate-200' : 'text-slate-700'
+                      }`}
                     >
                       <span className="text-[#f45b0b] font-black text-base leading-none select-none shrink-0 mt-0.5">
                         &gt;
                       </span>
                       <span>{point}</span>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
 
                 {/* ── CORE TECHNOLOGIES UTILIZED ── */}
-                <div className="pt-4 border-t border-[rgba(171,201,203,0.18)]">
-                  <h4 className="text-[11px] font-black uppercase tracking-wider text-[#abc9cb] mb-3">
+                <div className={`pt-4 border-t ${
+                  darkMode ? 'border-[rgba(171,201,203,0.18)]' : 'border-[#abc9cb]/60'
+                }`}>
+                  <h4 className={`text-[11px] font-black uppercase tracking-wider mb-3 ${
+                    darkMode ? 'text-[#abc9cb]' : 'text-[#2c6670]'
+                  }`}>
                     CORE TECHNOLOGIES UTILIZED
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {current.tech.map((t, tIdx) => (
-                      <span
-                        key={tIdx}
+                      <motion.span
+                        key={`${current.id}-${tIdx}`}
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.2, delay: tIdx * 0.03 }}
+                        whileHover={{ y: -2, scale: 1.05 }}
                         className="px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all select-none cursor-default"
-                        style={{
+                        style={darkMode ? {
                           background: 'linear-gradient(135deg, rgba(16, 25, 34, 0.95) 0%, rgba(9, 15, 22, 0.95) 100%)',
                           border: '1.2px solid rgba(171, 201, 203, 0.35)',
                           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.35)',
                           color: '#ffffff'
+                        } : {
+                          background: '#edf5f6',
+                          border: '1px solid #abc9cb',
+                          boxShadow: '0 2px 6px rgba(171, 201, 203, 0.16)',
+                          color: '#081014'
                         }}
                       >
                         {t}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
                 </div>

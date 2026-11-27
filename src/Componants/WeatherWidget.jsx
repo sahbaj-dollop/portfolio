@@ -132,12 +132,16 @@ const WeatherWidget = () => {
                 : 'bg-[#edf5f6] border-[#abc9cb]/60'
             }`}>
               <div>
-                <p className="text-xs text-[#abc9cb] font-medium flex items-center gap-1.5">
+                <p className={`text-xs font-medium flex items-center gap-1.5 ${
+                  darkMode ? 'text-[#abc9cb]' : 'text-slate-600'
+                }`}>
                   <span className="w-2 h-2 rounded-full bg-[#f45b0b]" />
                   <span>{weatherData.city}, {weatherData.country}</span>
                 </p>
                 <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-2xl font-bold tracking-tight text-[#ffffff] dark:text-[#ffffff]">
+                  <span className={`text-2xl font-bold tracking-tight ${
+                    darkMode ? 'text-white' : 'text-[#081014]'
+                  }`}>
                     {weatherData.temp !== null ? `${weatherData.temp}°C` : '--'}
                   </span>
                   <span className="text-xs font-semibold text-[#f45b0b]">

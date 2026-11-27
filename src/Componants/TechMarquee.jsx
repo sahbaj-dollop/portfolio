@@ -71,16 +71,16 @@ const TechMarquee = () => {
               key={`${tech.name}-${idx}`}
               className={`relative flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-2xl border transition-all duration-300 shrink-0 select-none overflow-hidden group hover:scale-105 cursor-pointer ${
                 darkMode 
-                  ? 'bg-gradient-to-b from-white/[0.08] via-white/[0.03] to-white/[0.01] border-[rgba(171,201,203,0.25)] text-white hover:border-[#f45b0b] hover:text-[#f45b0b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_4px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_0_18px_rgba(244,91,11,0.35)] backdrop-blur-lg' 
-                  : 'bg-white/65 border-[#abc9cb] text-[#081014] hover:border-[#f45b0b] hover:text-[#f45b0b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.8),0_4px_12px_rgba(0,0,0,0.06)] backdrop-blur-lg'
+                  ? 'bg-white/[0.04] border-[rgba(171,201,203,0.2)] text-white hover:border-[#f45b0b] hover:text-[#f45b0b] shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:shadow-[0_0_14px_rgba(244,91,11,0.28)] backdrop-blur-md' 
+                  : 'bg-white/75 border-[#abc9cb] text-[#081014] hover:border-[#f45b0b] hover:text-[#f45b0b] shadow-sm backdrop-blur-md'
               }`}
             >
-              {/* Glass Pill Top Specular Highlight */}
-              <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/[0.12] to-transparent pointer-events-none rounded-t-2xl" />
+              {/* Subtle Top Highlight */}
+              <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none rounded-t-2xl" />
 
               <Icon 
                 className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" 
-                style={{ color: tech.color }} 
+                style={{ color: darkMode ? tech.color : (tech.color === '#ffffff' ? '#081014' : tech.color === '#abc9cb' ? '#1e5e68' : tech.color) }} 
               />
               <span className="relative z-10 text-xs sm:text-sm font-semibold tracking-wide">
                 {tech.name}

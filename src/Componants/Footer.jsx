@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa'
-import { Mail, ArrowUp, Terminal } from 'lucide-react'
+import { Mail, ArrowUp } from 'lucide-react'
 import { useTheme } from '../Context/ThemeContext'
 
 const Footer = () => {
@@ -14,11 +14,7 @@ const Footer = () => {
     })
   }
 
-  const handleOpenTerminal = () => {
-    window.dispatchEvent(new CustomEvent('toggle-terminal'))
-  }
-
-  const whatsappUrl = "https://wa.me/916265666859?text=Hi%20Sahbaj,%20I%20reviewed%20your%20portfolio%20and%20would%20like%20to%20connect%20regarding%20a%20Full%20Stack%20opportunity!"
+  const whatsappUrl = "https://wa.me/916265666859?text=Hi%20Sahbaj,%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project%20or%20opportunity%20with%20you!"
 
   return (
     <footer 
@@ -46,45 +42,41 @@ const Footer = () => {
             {/* Outer Glowing Halo / Ring */}
             <span className="absolute inset-0 rounded-full bg-[#25D366]/25 blur-md group-hover:bg-[#25D366]/45 transition-all animate-pulse" />
             
-            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#11241f] border border-[#25D366]/70 text-[#25D366] flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(37,211,102,0.4)]">
-              <FaWhatsapp className="w-6 h-6 text-[#25D366]" />
+            <div className={`relative w-11 h-11 sm:w-12 sm:h-12 rounded-full border text-[#25D366] flex items-center justify-center transition-all duration-300 ${
+              darkMode
+                ? 'bg-[#11241f] border-[#25D366]/70 shadow-[0_0_15px_rgba(37,211,102,0.4)]'
+                : 'bg-[#ecfdf3] border-[#25D366]/60 shadow-sm'
+            }`}>
+              <FaWhatsapp className={`w-6 h-6 ${darkMode ? 'text-[#25D366]' : 'text-[#16a34a]'}`} />
             </div>
           </motion.a>
         </div>
 
         {/* 2. Middle: Copyright & Status Pill */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1 md:px-6">
-          <p className="text-xs sm:text-sm md:text-[15px] font-bold text-white tracking-tight dark:text-white">
-            &copy; 2026 Sahbaj Khan. Designed &amp; built with React &amp; Tailwind CSS.
+          <p className={`text-xs sm:text-sm md:text-[15px] font-bold tracking-tight ${
+            darkMode ? 'text-white' : 'text-[#081014]'
+          }`}>
+            &copy; 2026 Sahbaj Khan. All rights reserved.
           </p>
 
-          <div className="mt-1.5 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0d1820] border border-[rgba(171,201,203,0.22)] shadow-sm">
+          <div className={`mt-1.5 inline-flex items-center gap-2 px-3 py-1 rounded-full border shadow-sm ${
+            darkMode ? 'bg-[#0d1820] border-[rgba(171,201,203,0.22)]' : 'bg-[#edf5f6] border-[#abc9cb]'
+          }`}>
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f45b0b] opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f45b0b]" />
             </span>
-            <span className="text-[11px] sm:text-xs text-slate-300 font-medium">
-              Open to full-time engineering roles...
+            <span className={`text-[11px] sm:text-xs font-medium ${
+              darkMode ? 'text-slate-300' : 'text-slate-700'
+            }`}>
+              Available for client projects &amp; full-time engineering roles
             </span>
           </div>
         </div>
 
-        {/* 3. Right: Terminal Pill, Social Circles & Back to Top */}
-        <div className="flex flex-col items-center md:items-end gap-2.5 shrink-0">
-          
-          {/* Top: Terminal Drawer Button */}
-          <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={handleOpenTerminal}
-            className="px-3 py-1 rounded-xl bg-[#0e1c24] border border-[#abc9cb]/60 hover:border-[#f45b0b] text-[#abc9cb] hover:text-white font-mono text-xs font-bold flex items-center gap-1.5 shadow-[0_0_12px_rgba(171,201,203,0.22)] transition cursor-pointer"
-            title="Open CLI Terminal (Hotkey: `)"
-          >
-            <Terminal className="w-3.5 h-3.5 text-[#f45b0b]" />
-            <span>Terminal</span>
-          </motion.button>
-
-          {/* Bottom: Social Icons Row + Back to Top */}
+        {/* 3. Right: Social Circles & Back to Top */}
+        <div className="flex items-center shrink-0">
           <div className="flex items-center gap-2">
             {/* GitHub */}
             <motion.a
@@ -94,7 +86,11 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub Profile"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111e27] border border-[rgba(171,201,203,0.3)] hover:border-[#abc9cb] text-slate-300 hover:text-white flex items-center justify-center transition shadow-sm cursor-pointer"
+              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition shadow-sm cursor-pointer ${
+                darkMode
+                  ? 'bg-[#111e27] border-[rgba(171,201,203,0.3)] hover:border-[#abc9cb] text-slate-300 hover:text-white'
+                  : 'bg-[#edf5f6] border-[#abc9cb] hover:border-[#f45b0b] text-slate-700 hover:text-[#f45b0b]'
+              }`}
             >
               <FaGithub className="w-4 h-4" />
             </motion.a>
@@ -107,7 +103,11 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111e27] border border-[rgba(171,201,203,0.3)] hover:border-[#abc9cb] text-slate-300 hover:text-white flex items-center justify-center transition shadow-sm cursor-pointer"
+              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition shadow-sm cursor-pointer ${
+                darkMode
+                  ? 'bg-[#111e27] border-[rgba(171,201,203,0.3)] hover:border-[#abc9cb] text-slate-300 hover:text-white'
+                  : 'bg-[#edf5f6] border-[#abc9cb] hover:border-[#f45b0b] text-slate-700 hover:text-[#f45b0b]'
+              }`}
             >
               <FaLinkedinIn className="w-3.5 h-3.5" />
             </motion.a>
@@ -118,7 +118,11 @@ const Footer = () => {
               whileTap={{ scale: 0.92 }}
               href="mailto:sahbajkhan6593@gmail.com"
               aria-label="Send Email"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111e27] border border-[rgba(171,201,203,0.3)] hover:border-[#abc9cb] text-slate-300 hover:text-white flex items-center justify-center transition shadow-sm cursor-pointer"
+              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition shadow-sm cursor-pointer ${
+                darkMode
+                  ? 'bg-[#111e27] border-[rgba(171,201,203,0.3)] hover:border-[#abc9cb] text-slate-300 hover:text-white'
+                  : 'bg-[#edf5f6] border-[#abc9cb] hover:border-[#f45b0b] text-slate-700 hover:text-[#f45b0b]'
+              }`}
             >
               <Mail className="w-4 h-4" />
             </motion.a>

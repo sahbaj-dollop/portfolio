@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Sun, Moon, FileText } from "lucide-react";
 import { useTheme } from "../Context/ThemeContext";
 import WeatherWidget from "./WeatherWidget";
@@ -9,6 +9,13 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 180,
+    damping: 28,
+    restDelta: 0.001,
+  });
 
   const navItems = useMemo(() => [
     { name: "Home",       href: "#home"       },
@@ -70,8 +77,8 @@ const Navbar = () => {
             <span className="text-[#f45b0b]">Khan</span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#f45b0b] inline-block" />
           </span>
-          <span className="block text-[10px] font-medium text-[#abc9cb]">
-            Full Stack Developer
+          <span className={`block text-[10px] font-medium ${!scrolled || darkMode ? 'text-[#abc9cb]' : 'text-slate-600'}`}>
+            Full Stack Web Developer
           </span>
         </button>
 
@@ -83,17 +90,26 @@ const Navbar = () => {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+                className={`relative px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   isActive
-                    ? darkMode
-                      ? "text-[#f45b0b] font-semibold bg-[#f45b0b]/10 border border-[#f45b0b]/30"
-                      : "text-[#f45b0b] font-semibold bg-white border border-[#abc9cb]"
+                    ? "text-[#f45b0b] font-semibold"
                     : darkMode 
-                    ? "text-slate-300 hover:text-white hover:bg-slate-800/60" 
+                    ? "text-slate-300 hover:text-white hover:bg-slate-800/50" 
                     : "text-slate-700 hover:text-[#081014] hover:bg-white/60"
                 }`}
               >
-                {item.name}
+                {isActive && (
+                  <motion.span
+                    layoutId="navActivePill"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    className={`absolute inset-0 rounded-lg border z-0 ${
+                      darkMode
+                        ? "bg-[#f45b0b]/12 border-[#f45b0b]/35"
+                        : "bg-white border-[#abc9cb] shadow-sm"
+                    }`}
+                  />
+                )}
+                <span className="relative z-10">{item.name}</span>
               </button>
             );
           })}
@@ -199,6 +215,12 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Scroll Progress Indicator */}
+      <motion.div
+        style={{ scaleX }}
+        className="h-[2.5px] w-full origin-left bg-gradient-to-r from-[#f45b0b] via-[#ff8c42] to-[#abc9cb] pointer-events-none"
+      />
     </header>
   );
 };

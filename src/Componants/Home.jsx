@@ -6,8 +6,25 @@ import toast from "react-hot-toast";
 const Home = () => {
   const [copiedCode, setCopiedCode] = useState(false);
 
-  const scrollToContact = () => {
-    const el = document.querySelector("#contact");
+  const heroContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.09, delayChildren: 0.05 },
+    },
+  };
+
+  const heroItemVariants = {
+    hidden: { opacity: 0, y: 18 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
+    },
+  };
+
+  const scrollToSection = (selector) => {
+    const el = document.querySelector(selector);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -15,9 +32,10 @@ const Home = () => {
 
   const codeSnippet = `const engineer = {
   name: "Sahbaj Khan",
-  role: "Full Stack Dev",
+  role: "Full Stack Developer",
   company: "Dollop Infotech",
-  experience: "2+ Years"
+  stack: "Next.js • MERN • TypeScript",
+  available: true
 };`;
 
   const handleCopyCode = () => {
@@ -71,70 +89,108 @@ const Home = () => {
       {/* Content Container (Padded inside z-10 so navbar floats cleanly above text) */}
       <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 sm:px-10 md:px-14 lg:px-16 pt-28 sm:pt-32 pb-16 sm:pb-20 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-8">
         
-        {/* Left Column: Restored Original Content */}
-        <div className="w-full lg:w-[56%] text-left">
-          
+        {/* Left Column: High-Impact Hero Content */}
+        <motion.div
+          variants={heroContainerVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-full lg:w-[56%] text-left"
+        >
+          {/* Availability Status Pill */}
+          <motion.div
+            variants={heroItemVariants}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-[#abc9cb]/30 text-[11px] sm:text-xs font-semibold text-[#abc9cb] mb-4 backdrop-blur-sm"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+            </span>
+            <span>Available for Freelance Projects &amp; Full-Time Roles</span>
+          </motion.div>
+
           {/* Main Headline */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[56px] font-extrabold tracking-tight leading-[1.08] text-white mb-2">
-            <span className="block">Hi, I&apos;m</span>
-            <span className="block">Full Stack Developer</span>
-            <span className="block text-[#f45b0b] mt-1">Sahbaj Khan</span>
-          </h1>
+          <motion.h1
+            variants={heroItemVariants}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[56px] font-extrabold tracking-tight leading-[1.08] text-white mb-2"
+          >
+            <span className="block">Hi, I&apos;m <span className="text-[#f45b0b]">Sahbaj Khan</span></span>
+            <span className="block mt-1">Full Stack Web Developer</span>
+            <span className="block text-xl sm:text-2xl md:text-[26px] font-bold text-[#abc9cb] mt-2">
+              Building Fast, Scalable Products That Convert
+            </span>
+          </motion.h1>
 
           {/* Subtitle / Bio Paragraph */}
-          <p className="text-xs sm:text-sm md:text-[15px] leading-relaxed text-slate-300 max-w-xl mt-5 mb-5 font-normal">
-            I have 2+ years of hands-on experience building modern full-stack web applications. Currently engineering visual code editors, e-commerce applications, and scalable REST APIs at <strong className="text-white font-semibold">Dollop Infotech</strong>.
-          </p>
+          <motion.p
+            variants={heroItemVariants}
+            className="text-xs sm:text-sm md:text-[15px] leading-relaxed text-slate-300 max-w-xl mt-5 mb-5 font-normal"
+          >
+            With <strong className="text-white font-semibold">2+ years of commercial experience</strong>—currently engineering production software at <strong className="text-white font-semibold">Dollop Infotech</strong>—I craft high-performing web apps, interactive platforms, e-commerce stores, and secure REST APIs using <strong className="text-white font-semibold">React, Next.js, TypeScript &amp; Node.js</strong>.
+          </motion.p>
 
           {/* Location Line */}
-          <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-300 mb-8 font-medium">
-            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-[#f45b0b]/20 text-[#f45b0b]">
+          <motion.div
+            variants={heroItemVariants}
+            className="flex items-center gap-2 text-xs sm:text-sm text-slate-300 mb-8 font-medium"
+          >
+            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#f45b0b]/20 text-[#f45b0b]">
               <MapPin className="w-3.5 h-3.5 text-[#f45b0b]" />
             </span>
-            <span>Based in Indore, MP, India • Open to remote worldwide</span>
-          </div>
+            <span>Based in Indore, India &bull; Collaborating with clients &amp; teams worldwide</span>
+          </motion.div>
 
           {/* Buttons Row */}
-          <div className="flex flex-wrap items-center gap-4">
+          <motion.div
+            variants={heroItemVariants}
+            className="flex flex-wrap items-center gap-3.5 sm:gap-4"
+          >
             <motion.button
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              onClick={scrollToContact}
-              className="px-6 py-3 bg-[#f45b0b] hover:bg-[#e04f05] text-white font-bold text-xs sm:text-sm rounded-xl flex items-center gap-2 transition cursor-pointer shadow-lg shadow-[#f45b0b]/40"
+              onClick={() => scrollToSection("#contact")}
+              className="btn-sheen px-6 py-3 bg-[#f45b0b] hover:bg-[#e04f05] text-white font-bold text-xs sm:text-sm rounded-xl flex items-center gap-2 transition cursor-pointer shadow-lg shadow-[#f45b0b]/40 group"
             >
-              <span>Get in Touch</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Start a Project</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
             </motion.button>
 
-            <motion.a
-              whileHover={{ scale: 1.03 }}
+            <motion.button
+              whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
+              onClick={() => scrollToSection("#projects")}
+              className="px-6 py-3 bg-[#182028] hover:bg-[#202b36] text-white font-semibold text-xs sm:text-sm rounded-xl border border-white/20 hover:border-[#abc9cb]/60 transition flex items-center justify-center cursor-pointer shadow-md"
+            >
+              <span>View Featured Work</span>
+            </motion.button>
+
+            <a
               href="/sahbajkhan.pdf"
               download
-              className="px-6 py-3 bg-[#182028] hover:bg-[#202b36] text-white font-semibold text-xs sm:text-sm rounded-xl border border-white/20 hover:border-white/40 transition flex items-center justify-center cursor-pointer shadow-md"
+              className="text-xs sm:text-sm font-semibold text-[#abc9cb] hover:text-white underline underline-offset-4 transition px-1 py-2"
             >
-              <span>Download Resume</span>
-            </motion.a>
-          </div>
+              Download Resume
+            </a>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
         {/* Right Column: Layered Offset Elements (Photo Card + Code Editor) */}
         <div className="w-full lg:w-[44%] flex flex-col items-center justify-center relative min-h-[420px] sm:min-h-[460px]">
           
           {/* Top Layer: Photo Card with Powder Blue Border Frame (Offset Up & Right) */}
           <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: -15, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            whileHover={{ y: -5, rotate: 0.8 }}
             transition={{ duration: 0.5, delay: 0.15 }}
             className="relative z-20 self-center lg:self-end lg:mr-4 mb-[-60px] sm:mb-[-75px] lg:mb-[-85px]"
           >
-            <div className="p-3 sm:p-3.5 bg-[#abc9cb] rounded-3xl shadow-2xl shadow-black/40 border border-white/40">
+            <div className="p-3 sm:p-3.5 bg-[#abc9cb] rounded-3xl shadow-2xl shadow-black/40 border border-white/40 group">
               <div className="w-48 h-52 sm:w-56 sm:h-60 md:w-60 md:h-64 rounded-2xl overflow-hidden bg-slate-900">
                 <img
                   src="/profile.jpeg"
-                  alt="Sahbaj Khan"
-                  className="w-full h-full object-cover object-center"
+                  alt="Sahbaj Khan — Full Stack Developer specializing in React, Next.js, and Node.js"
+                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   loading="eager"
                 />
               </div>
@@ -145,8 +201,9 @@ const Home = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -3 }}
             transition={{ duration: 0.5, delay: 0.25 }}
-            className="relative z-10 w-full max-w-sm sm:max-w-md lg:self-start lg:ml-2 rounded-2xl bg-[#0c1217] border border-slate-700/70 p-4 sm:p-5 shadow-2xl shadow-black/60 font-mono text-xs sm:text-[13px] leading-relaxed text-slate-200"
+            className="relative z-10 w-full max-w-sm sm:max-w-md lg:self-start lg:ml-2 rounded-2xl bg-[#0c1217] border border-slate-700/70 hover:border-[#abc9cb]/50 p-4 sm:p-5 shadow-2xl shadow-black/60 font-mono text-xs sm:text-[13px] leading-relaxed text-slate-200 transition-colors"
           >
             {/* Header Bar */}
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-slate-400">
@@ -173,13 +230,16 @@ const Home = () => {
                 name: <span className="text-[#f45b0b] font-medium">&quot;Sahbaj Khan&quot;</span>,
               </p>
               <p className="pl-4">
-                role: <span className="text-[#f45b0b] font-medium">&quot;Full Stack Dev&quot;</span>,
+                role: <span className="text-[#f45b0b] font-medium">&quot;Full Stack Developer&quot;</span>,
               </p>
               <p className="pl-4">
                 company: <span className="text-[#f45b0b] font-medium">&quot;Dollop Infotech&quot;</span>,
               </p>
               <p className="pl-4">
-                experience: <span className="text-[#f45b0b] font-medium">&quot;2+ Years&quot;</span>
+                stack: <span className="text-[#f45b0b] font-medium">&quot;Next.js • MERN • TypeScript&quot;</span>,
+              </p>
+              <p className="pl-4">
+                available: <span className="text-emerald-400 font-semibold">true</span>
               </p>
               <p>&#125;;</p>
             </div>

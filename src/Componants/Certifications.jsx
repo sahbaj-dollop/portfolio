@@ -22,7 +22,7 @@ const Certifications = () => {
       issuer: "Dollop Infotech, Indore",
       subIssuer: "Commercial Role",
       date: "Oct 2024 – Present",
-      description: "Hands-on commercial engineering in React, Next.js, Node.js, Express, MongoDB, and production deployment.",
+      description: "Commercial engineering across React, Next.js, TypeScript, Node.js, Express, MongoDB, and production cloud delivery.",
       icon: Award,
       badge: "Commercial Role",
       skills: ["React", "Node.js", "MongoDB"],
@@ -34,7 +34,7 @@ const Certifications = () => {
       issuer: "Placement Adda, Indore",
       subIssuer: "Certified Training",
       date: "Feb 2024 – Oct 2024",
-      description: "Comprehensive training in full stack architecture, state management with Redux Toolkit, and database integration.",
+      description: "Intensive training in full-stack MERN architecture, Redux Toolkit state management, and REST API engineering.",
       icon: ShieldCheck,
       badge: "Certification",
       skills: ["Redux", "REST APIs", "MERN"],
@@ -46,7 +46,7 @@ const Certifications = () => {
       issuer: "Govt. Holkar Science College, Indore",
       subIssuer: "Affiliated to DAVV Indore",
       date: "2022 – 2025",
-      description: "Graduated with 7.40 CGPA. Core focus on Data Structures, Algorithms, OOP, and Relational Database Systems.",
+      description: "Graduated with 7.40 CGPA. Core foundation in Data Structures, Algorithms, OOP, and Database Management Systems.",
       icon: GraduationCap,
       badge: "Degree",
       skills: ["7.40 CGPA", "DSA", "DBMS"],
@@ -58,7 +58,7 @@ const Certifications = () => {
       issuer: "Mathuradevi Institute of Tech. & Mgmt. (MITM)",
       subIssuer: "Affiliated to RGPV, Bhopal • AICTE Approved",
       date: "2024 – 2026 • 1st Semester",
-      description: "Pursuing MCA with focus on Advanced Software Engineering, Cloud Architectures, Distributed Systems, and Full-Stack Engineering.",
+      description: "Pursuing MCA focused on Advanced Software Engineering, Cloud Architectures, Distributed Systems, and Full-Stack Development.",
       icon: BookOpen,
       badge: "MCA (1st Sem)",
       skills: ["RGPV Affiliated", "AICTE", "Advanced SE"],
@@ -79,13 +79,17 @@ const Certifications = () => {
     >
       {/* Background ambient lighting */}
       <div 
-        className="absolute top-1/2 left-[-8%] -translate-y-1/2 w-[580px] h-[580px] rounded-full pointer-events-none blur-[150px] opacity-35"
+        className={`absolute top-1/2 left-[-8%] -translate-y-1/2 w-[580px] h-[580px] rounded-full pointer-events-none blur-[150px] ${
+          darkMode ? 'opacity-35' : 'opacity-18'
+        }`}
         style={{
           background: 'radial-gradient(circle, rgba(14,165,233,0.4) 0%, transparent 70%)'
         }}
       />
       <div 
-        className="absolute top-1/2 right-[-8%] -translate-y-1/2 w-[580px] h-[580px] rounded-full pointer-events-none blur-[150px] opacity-40"
+        className={`absolute top-1/2 right-[-8%] -translate-y-1/2 w-[580px] h-[580px] rounded-full pointer-events-none blur-[150px] ${
+          darkMode ? 'opacity-40' : 'opacity-18'
+        }`}
         style={{
           background: 'radial-gradient(circle, rgba(244,91,11,0.45) 0%, transparent 70%)'
         }}
@@ -93,17 +97,27 @@ const Certifications = () => {
 
       <div className="site-container relative z-10">
         
-        {/* Section Header (Exact match of Skills & Technologies style) */}
-        <div className="text-center mb-12 sm:mb-14">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
-            Certifications & Education
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.45 }}
+          className="text-center mb-12 sm:mb-14"
+        >
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-2 ${
+            darkMode ? 'text-white' : 'text-[#081014]'
+          }`}>
+            Certifications &amp; Education
           </h2>
-          <p className="text-xs sm:text-sm font-semibold text-[#abc9cb]">
-            My academic foundation and verified technical training.
+          <p className={`text-xs sm:text-sm font-semibold ${
+            darkMode ? 'text-[#abc9cb]' : 'text-[#2c6670]'
+          }`}>
+            Academic degrees, specialized training, and verified full-stack engineering credentials.
           </p>
-        </div>
+        </motion.div>
 
-        {/* ── Top Connecting Circuit Timeline (exact match of reference image) ── */}
+        {/* ── Top Connecting Circuit Timeline ── */}
         <div className="relative mb-6 hidden lg:block">
           {/* Horizontal dashed circuit line connecting all 4 nodes */}
           <div 
@@ -116,14 +130,18 @@ const Certifications = () => {
               const isHighlighted = hoveredCardId === item.id || (hoveredCardId === null && activeCardId === item.id)
               return (
                 <div key={item.id} className="flex flex-col items-center">
-                  <div 
-                    className={`w-4 h-4 rounded-full border-2 border-[#070a0e] z-10 transition-all duration-300 ${
-                      isHighlighted ? 'bg-[#f45b0b] scale-110' : 'bg-cyan-400'
+                  <motion.div 
+                    animate={isHighlighted ? { scale: [1, 1.22, 1] } : { scale: 1 }}
+                    transition={isHighlighted ? { duration: 1.8, repeat: Infinity, ease: "easeInOut" } : { duration: 0.2 }}
+                    className={`w-4 h-4 rounded-full border-2 z-10 transition-colors duration-300 ${
+                      darkMode ? 'border-[#070a0e]' : 'border-[#eef5f6]'
+                    } ${
+                      isHighlighted ? 'bg-[#f45b0b]' : 'bg-cyan-400'
                     }`}
                     style={{ 
                       boxShadow: isHighlighted 
-                        ? '0 0 16px #f45b0b, 0 0 28px #f45b0b' 
-                        : '0 0 14px #38bdf8, 0 0 24px #38bdf8' 
+                        ? '0 0 14px rgba(244, 91, 11, 0.7)' 
+                        : '0 0 12px rgba(56, 189, 248, 0.6)' 
                     }}
                   />
                   <div className={`w-[2px] h-6 border-l-2 border-dashed transition-colors duration-300 ${
@@ -154,28 +172,28 @@ const Certifications = () => {
                 onMouseLeave={() => setHoveredCardId(null)}
                 className={`p-6 sm:p-7 rounded-2xl flex flex-col justify-between transition-all duration-300 relative overflow-hidden cursor-pointer select-none ${
                   darkMode
-                    ? 'bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-2xl text-white'
+                    ? 'bg-gradient-to-b from-[#101a24]/85 to-[#091018]/92 backdrop-blur-md text-white'
                     : 'bg-white border-[#abc9cb] shadow-sm text-[#081014]'
                 }`}
                 style={{
                   border: isHighlighted
-                    ? '2px solid #f45b0b'
+                    ? '1.8px solid #f45b0b'
                     : darkMode
-                    ? '1.5px solid rgba(56, 189, 248, 0.45)'
+                    ? '1px solid rgba(171, 201, 203, 0.24)'
                     : '1px solid rgba(171, 201, 203, 0.8)',
                   boxShadow: isHighlighted
-                    ? '0 0 30px rgba(244, 91, 11, 0.48), inset 0 1px 1px 0 rgba(255, 255, 255, 0.28)'
+                    ? '0 0 22px rgba(244, 91, 11, 0.32), inset 0 1px 0 0 rgba(255, 255, 255, 0.12)'
                     : darkMode
-                    ? '0 0 22px rgba(56, 189, 248, 0.16), inset 0 1px 1px 0 rgba(255, 255, 255, 0.22)'
+                    ? '0 10px 26px rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.08)'
                     : '0 10px 25px rgba(171, 201, 203, 0.25)'
                 }}
               >
-                {/* ── Prominent Large Watermark Number (Reduced thickness / clean weight) ── */}
+                {/* ── Prominent Large Watermark Number ── */}
                 <div 
                   className={`absolute top-1 right-3 text-7xl sm:text-8xl font-normal font-mono leading-none pointer-events-none select-none transition-all duration-300 ${
                     isHighlighted 
-                      ? 'text-[#f45b0b] opacity-35 scale-105' 
-                      : 'text-cyan-400 opacity-20'
+                      ? (darkMode ? 'text-[#f45b0b] opacity-35 scale-105' : 'text-[#f45b0b] opacity-20 scale-105')
+                      : (darkMode ? 'text-cyan-400 opacity-20' : 'text-[#6e9496] opacity-20')
                   }`}
                   style={{
                     letterSpacing: '-0.05em'
@@ -207,22 +225,28 @@ const Certifications = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-extrabold text-base sm:text-lg mb-2 text-white leading-snug pr-8">
+                  <h3 className={`font-extrabold text-base sm:text-lg mb-2 leading-snug pr-8 ${
+                    darkMode ? 'text-white' : 'text-[#081014]'
+                  }`}>
                     {item.title}
                   </h3>
 
                   {/* Issuer & Sub-issuer */}
                   <p className={`text-xs sm:text-sm font-bold mb-0.5 transition-colors duration-300 ${
-                    isHighlighted ? 'text-[#f45b0b]' : 'text-slate-300'
+                    isHighlighted ? 'text-[#f45b0b]' : darkMode ? 'text-slate-300' : 'text-slate-700'
                   }`}>
                     {item.issuer}
                   </p>
                   {item.subIssuer && (
-                    <p className="text-[11px] text-[#abc9cb] font-medium mb-1">
+                    <p className={`text-[11px] font-medium mb-1 ${
+                      darkMode ? 'text-[#abc9cb]' : 'text-slate-600'
+                    }`}>
                       {item.subIssuer}
                     </p>
                   )}
-                  <p className="text-[11px] font-mono text-slate-400 mb-4">
+                  <p className={`text-[11px] font-mono mb-4 ${
+                    darkMode ? 'text-slate-400' : 'text-slate-500'
+                  }`}>
                     {item.date}
                   </p>
 
@@ -242,7 +266,9 @@ const Certifications = () => {
                         key={skill}
                         className={`px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium border transition-colors ${
                           isHighlighted
-                            ? 'bg-[#f45b0b]/10 border-[#f45b0b]/30 text-white'
+                            ? darkMode
+                              ? 'bg-[#f45b0b]/10 border-[#f45b0b]/30 text-white'
+                              : 'bg-[#f45b0b]/10 border-[#f45b0b]/40 text-[#081014]'
                             : darkMode
                             ? 'bg-white/[0.06] border-white/15 text-slate-200'
                             : 'bg-slate-100 border-slate-300 text-slate-800'

@@ -116,13 +116,13 @@ const ARCHITECTURE_DATA = {
     ]
   },
   "Blog-Space Publishing Platform": {
-    subtitle: "Markdown Publishing & Database Pipeline",
+    subtitle: "Markdown Publishing & Cloud Persistence Pipeline",
     nodes: [
       {
         id: "client",
         title: "Markdown Editor UI",
         tech: "React.js, Tailwind CSS",
-        details: "Provides real-time markdown preview, post creation, tag searches, and responsive reading views.",
+        details: "Delivers real-time Markdown preview, rich post authoring, tag-based discovery, and responsive SEO-friendly reading views.",
         metrics: "Live Preview",
         icon: Layers
       },
